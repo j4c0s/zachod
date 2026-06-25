@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Testy SF6 na Zachodzie – Zakończone</title>
+    <title>Testy SF6 na Zachodzie – Wyniki i Wnioski</title>
     <style>
         /* Zaawansowany i nowoczesny system zmiennych dla Light/Dark Mode */
         :root {
@@ -84,13 +84,14 @@
 
         .container {
             width: 100%;
-            max-width: 680px;
+            max-width: 720px;
             background-color: var(--bg-card);
             border-radius: 24px;
             padding: 32px 24px;
             box-shadow: var(--shadow-lg);
             border: 1px solid var(--border);
             transition: background-color 0.3s ease, border-color 0.3s ease;
+            margin: 20px 0;
         }
 
         /* Nagłówek i tło daty */
@@ -121,13 +122,22 @@
         }
 
         h2 {
-            font-size: 1.25rem;
+            font-size: 1.35rem;
             font-weight: 700;
             margin: 32px 0 16px 0;
             letter-spacing: -0.02em;
             display: flex;
             align-items: center;
             gap: 8px;
+            border-bottom: 2px solid var(--bg-page);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 24px 0 12px 0;
+            color: var(--accent-primary);
         }
 
         p {
@@ -144,16 +154,6 @@
             padding: 20px;
             margin: 20px 0;
             border: 1px solid transparent;
-        }
-
-        .callout-danger {
-            background-color: var(--bg-danger);
-            border-color: var(--border-danger);
-            color: var(--text-main);
-        }
-
-        .callout-danger strong {
-            color: var(--accent-danger);
         }
 
         .callout-warn {
@@ -182,7 +182,7 @@
         }
 
         li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             line-height: 1.5;
         }
 
@@ -190,26 +190,46 @@
             color: var(--text-main);
         }
 
-        /* Przycisk */
+        /* Przyciski */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
         .btn-action {
             background-color: var(--accent-primary);
             color: #ffffff;
             border: none;
-            padding: 14px 20px;
+            padding: 14px 24px;
             font-size: 1rem;
             font-weight: 700;
             border-radius: 12px;
-            width: 100%;
             cursor: pointer;
             box-shadow: 0 4px 12px var(--accent-primary-glow);
-            transition: background-color 0.2s ease, transform 0.1s ease;
+            transition: all 0.2s ease;
             text-align: center;
             text-decoration: none;
             display: inline-block;
         }
 
+        .btn-secondary {
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
         .btn-action:hover {
             background-color: var(--accent-primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border);
+            color: var(--text-main);
         }
 
         .btn-action:active {
@@ -233,6 +253,37 @@
             margin: 32px 0;
             box-shadow: var(--shadow);
         }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-item {
+            background-color: var(--bg-page);
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-primary);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 4px;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -241,42 +292,72 @@
     
     <!-- Nagłówek -->
     <div class="header-section">
-        <span class="date-badge">Testy zakończone (20-21.06.2026)</span>
+        <span class="date-badge">Raport z testów (20-21.06.2026)</span>
         <h1>Testy SF6 na Zachodzie</h1>
     </div>
     
     <!-- Podziękowania -->
     <div class="callout callout-info">
         <strong>Dziękujemy za udział!</strong><br>
-        Chcielibyśmy serdecznie podziękować wszystkim testującym za niesamowitą mobilizację i wytrwałość – nawet w momentach, gdy technologia stawiała opór. Wasze zaangażowanie pozwoliło nam zebrać cenne dane.
+        Chcielibyśmy serdecznie podziękować wszystkim testującym za niesamowitą mobilizację i wytrwałość – nawet w momentach, gdy technologia stawiała opór. Wasze zaangażowanie pozwoliło nam zebrać dane od 19 respondentów opiekujących się łącznie 50 repeaterami.
     </div>
+
+    <!-- ANKIETA I WYNIKI -->
+    <div class="survey-container">
+        <h2 style="justify-content: center; margin-top: 0; border: none;">Podsumowanie i Ankieta</h2>
+        <p>Ankieta jest nadal otwarta dla osób, które nie zdążyły się dopisać. Możesz również na bieżąco śledzić szczegółowe statystyki odpowiedzi.</p>
+
+        <div class="btn-group">
+            <a href="https://forms.gle/iC8YP65YbjEieHU59" target="_blank" rel="noopener noreferrer" class="btn-action">Otwórz ankietę</a>
+            <a href="https://docs.google.com/forms/d/1fnv25-bjSF36qv5PGcsf1uM4EnbNLGSi3Aci1H8MsLk/viewanalytics" target="_blank" rel="noopener noreferrer" class="btn-action btn-secondary">Zobacz wyniki (Analytics)</a>
+        </div>
+    </div>
+
+    <h2>Wnioski z ankiet</h2>
+
+    <h3>Liczby i zaangażowanie</h3>
+    <div class="stat-grid">
+        <div class="stat-item">
+            <span class="stat-value">19</span>
+            <span class="stat-label">Ankietowanych</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-value">50</span>
+            <span class="stat-label">Repeaterów</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-value">~10h</span>
+            <span class="stat-label">Czas testu</span>
+        </div>
+    </div>
+    <p>Testy objęły głównie <strong>Dolny Śląsk</strong> (Wrocław, Świdnica, Jelenia Góra, rejon DTR, Książ Śląski) oraz Wielkopolskę i Lubuskie (Leszno, Poznań, Zielona Góra, Sulechów, Lubań). Odnotowaliśmy również pojedyncze raporty ze Szczecina i Częstochowy.</p>
+
+    <h3>📉 Główne wnioski techniczne</h3>
+    <ul>
+        <li><strong>Szybkość vs Zasięg:</strong> Użytkownicy, którzy utrzymali linki, ocenili prędkość na 8-10/10. Jednak zysk prędkości drastycznie obniżył czułość (spadek SNR o ok. 4-6 dB). Jak zauważył tester z Lubania: <em>„im na SF8 było niżej, tym na SF6 było jeszcze gorzej”</em>.</li>
+        <li><strong>Utrata połączeń:</strong> Test SF6 "wyciął" dalekie relacje między miastami. Straciliśmy kontakt z Wałbrzychem (Wielka Sowa), Trzebnicą oraz węzłem DTR_CIEMNA_GORA. Regiony odległe (Szczecin, Częstochowa) raportowały całkowitą izolację.</li>
+        <li><strong>Anomalie propagacyjne:</strong> We Wrocławiu siatka sąsiadów skurczyła się z 21 do zaledwie 4. Odnotowano jednak pojedyncze „skoki” dzięki propagacji (np. Leszno widzące Bielsko-Białą czy Sulechów widzący Stóg Izerski).</li>
+    </ul>
 
     <div class="callout callout-warn">
-        <strong>Ważna informacja do ankiety:</strong><br>
-        Zauważyliśmy, że pierwszego wieczora (sobota) wystąpiły specyficzne, podwyższone warunki propagacyjne, które mogły zaburzyć realne odczucia zasięgu. Prosimy, aby przy wypełnianiu ankiety kierować się bardziej <strong>testami niedzielnymi</strong>, które odbywały się przy bardziej typowych warunkach pogodowych.
+        <strong>Uwaga techniczna:</strong> Pierwszego wieczora (sobota) wystąpiły podwyższone warunki propagacyjne, które mogły dawać złudne poczucie stabilności połączeń SF6.
     </div>
 
-    <p>Celem weekendowych testów była weryfikacja <strong>prędkości działania</strong> oraz <strong>zasięgu</strong> sieci przy zmianie parametrów z SF8/CR8 na <strong>SF6/CR8</strong>. Wyniki tych testów pomogą nam podjąć decyzje dotyczące przyszłej optymalizacji sieci.</p>
-    
-    <!-- ANKIETA -->
-    <div class="survey-container">
-        <h2 style="justify-content: center; margin-top: 0;">Podsumowanie i Ankieta</h2>
-        <p>Twoja opinia jest dla nas kluczowa! Po zakończeniu testów prosimy o wypełnienie krótkiej, anonimowej ankiety.</p>
-        <a href="https://forms.gle/iC8YP65YbjEieHU59" target="_blank" rel="noopener noreferrer" class="btn-action" style="width: auto; padding: 16px 48px; font-size: 1.1rem;">Otwórz ankietę testową</a>
-    </div>
-
-    <!-- PRZEDMIOT BADAŃ -->
-    <h2>Przedmiot przeprowadzonych badań</h2>
-    <p>Podczas testów uczestnicy zwracali uwagę na następujące aspekty:</p>
+    <h3>🛠️ Rekomendacje i propozycje zmian</h3>
     <ul>
-        <li><strong>Szybkość połączeń:</strong> Jak sprawnie nawiązywane były połączenia z poszczególnymi repeaterami w nowej konfiguracji.</li>
-        <li><strong>Wydajność wiadomości:</strong> Czy i o ile wzrosła subiektywna szybkość przesyłania wiadomości tekstowych.</li>
-        <li><strong>Analiza ścieżek i zasięgu:</strong> Które węzły przestały być bezpośrednio widoczne po przejściu na SF6.</li>
-        <li><strong>Dokumentacja list sąsiadów:</strong> Zmiany w topologii sieci widoczne na listach "Neighbours" przed i po zmianie.</li>
+        <li><strong>Infrastruktura:</strong> Sieć na Zachodzie jest obecnie zbyt rzadka na SF6. Większość testerów sugeruje <strong>SF7</strong> jako optymalny kompromis.</li>
+        <li><strong>Higiena sieci:</strong> Zamiast drastycznego cięcia zasięgu, należy poprawić optymalizację:
+            <ul>
+                <li>Podział na logiczne <strong>Regiony/Filtry</strong>.</li>
+                <li>Ograniczenie liczby hopów (maks. 6–8).</li>
+                <li>Filtrowanie botów, floodu oraz spamu z zagranicy (np. Niemcy).</li>
+            </ul>
+        </li>
+        <li><strong>Organizacja:</strong> Przyszłe testy powinny trwać dłużej (5-7 dni) i być ogłaszane z większym wyprzedzeniem (Discord, Forum).</li>
     </ul>
 
     <div class="footer-note">
-        📡 Koordynacja i wnioski na kanale #zachod
+        📡 Pełna dyskusja na kanale #zachod
     </div>
 </div>
 
