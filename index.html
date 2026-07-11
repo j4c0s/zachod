@@ -344,6 +344,16 @@
         Witaj na oficjalnej stronie zaleceń i instrukcji dla zachodniego regionu Polski (ze szczególnym uwzględnieniem Dolnego Śląska, Lubuskiego i Wielkopolski) w sieci <strong>LoRa MeshCore</strong>. Wspólnie budujemy stabilną, zintegrowaną i odporną na awarie infrastrukturę łączności mesh.
     </p>
 
+    <!-- Opis województw zachodnich -->
+    <div style="background-color: var(--bg-page); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 24px;">
+        <h3 style="margin-top: 0;">🌐 Nasz Region Zachodni:</h3>
+        <ul style="margin: 0; padding-left: 20px;">
+            <li><strong>Dolnośląskie (<code>pl-ds</code>):</strong> Region z silnym i dynamicznym węzłem wrocławskim oraz rozległym pokryciem w rejonach górskich i podgórskich (Sudety, Przedgórze Sudeckie).</li>
+            <li><strong>Lubuskie (<code>pl-lb</code>):</strong> Szybko rozwijający się region łączący zachodnie rubieże z Wielkopolską i Dolnym Śląskiem. Kluczowe punkty to aglomeracja zielonogórska, Gorzów Wielkopolski, Sulechów, Świebodzin oraz Lubań jako brama do Dolnego Śląska.</li>
+            <li><strong>Wielkopolska (<code>wlkp</code>):</strong> Ogromny obszar z Poznaniem jako sercem sieci. Łączność opiera się tutaj na dalekosiężnych trasach wzdłuż głównych szlaków komunikacyjnych oraz lokalnych inicjatywach miejskich.</li>
+        </ul>
+    </div>
+
     <!-- Grupa przycisków i nawigacja -->
     <div class="btn-group">
         <a href="https://discord.com/channels/1260614306978857073/1477994334543417364" target="_blank" rel="noopener noreferrer" class="btn-action">
@@ -437,7 +447,7 @@
             <li>
                 <strong>Ustawienie nazwy i lokalizacji:</strong>
                 <ul>
-                    <li><strong>Nazewnictwo:</strong> Jeśli repeater nie ma włączonego GPS, jego nazwa powinna wskazywać na miejscowość/lokalizację (np. <code>RPT_Wroclaw_Krzyki</code>, <code>RPT_Luban_Poludnie</code>). Dla w pełni solarnych (off-grid) stacji dodajemy gwiazdkę na końcu: <code>RPT_Sulechow_Polnoc*</code>.</li>
+                    <li><strong>Nazewnictwo:</strong> Jeśli repeater nie ma włączonego GPS, jego nazwa powinna wskazywać na miejscowość/lokalizację (np. <code>RPT_Wroclaw_Krzyki</code>, <code>RPT_Luban_Poludnie</code>, <code>RPT_Sulechow_Polnoc</code>).</li>
                     <li><strong>Hasło gościa:</strong> Jeśli chcesz udostępnić statystyki lokalnym użytkownikom, zostaw hasło gościa puste lub wpisz <code>hello</code>.</li>
                 </ul>
             </li>
@@ -447,25 +457,41 @@
             </li>
             <li>
                 <strong>Wprowadzenie optymalizacji sieciowych (CLI):</strong>
-                Połącz się z urządzeniem przez interfejs CLI, przejdź do konsoli i wpisz kolejno poniższe komendy (upewniając się za każdym razem, że urządzenie odpowiada <code>OK</code>):
+                Połącz się z urządzeniem przez interfejs CLI, przejdź do konsoli i wpisz kolejno poniższe komendy:
                 <pre><code>set flood.max 6
 set multi.acks 1
 set path.hash.mode 2</code></pre>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: -8px; margin-bottom: 12px;">
-                    <em>Co to zmienia?</em> <code>flood.max 6</code> chroni przed niekończącym się krążeniem pakietów, <code>multi.acks 1</code> włącza podwójne potwierdzenia, a <code>path.hash.mode 2</code> aktywuje zoptymalizowany pod kątem kolizji 3-bajtowy prefix identyfikatorów.
-                </p>
+
+                <div style="background-color: var(--bg-page); border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-top: 10px; font-size: 0.9rem; line-height: 1.5;">
+                    💡 <strong>Optymalizacja parametru <code>flood.max</code>:</strong>
+                    Wartość <code>flood.max</code> (domyślnie sugerowana jako <code>6</code>) można dostosować pod siebie i specyfikę swojej lokalizacji. Dobrą praktyką jest poobserwowanie w logach lub na mapie, z jaką ilością hopów (przeskoków) docierają do nas pakiety od sąsiadów. Jeśli widzimy, że większość tras mieści się np. w 4 hopach, możemy eksperymentować, aby nie obciąć sobie zasięgu zbyt drastycznie, a jednocześnie nie pozwalać na zbędne krążenie pakietów w gęstym eterze.
+                </div>
+
+                <div style="background-color: var(--bg-page); border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-top: 10px; font-size: 0.9rem; line-height: 1.5;">
+                    ⚙️ <strong>Kolejny krok: <code>flood.max.unscoped</code></strong>
+                    W miarę popularyzacji regionów (scopes) kolejnym kluczowym parametrem konfiguracyjnym będzie <code>set flood.max.unscoped</code>. Ogranicza on liczbę przeskoków dla wszystkich pakietów przesyłanych ogólnie (bez przypisanego żadnego scope). Docelowo ta wartość będzie ustawiana <strong>niżej</strong> niż <code>flood.max</code> (np. na 2-3 hopy). Pozwoli to na drastyczne obniżenie szumów od nieskonfigurowanych urządzeń bez wpływu na dobrze zorganizowaną komunikację regionalną.
+                </div>
             </li>
             <li>
                 <strong>Ustawienie zakresów regionalnych (Regional Scope):</strong>
-                Aby ograniczyć niepożądany szum z odległych części kraju, skonfiguruj obsługiwane regiony (scope). W nowej wersji oprogramowania możesz to wyklikać w menu <strong>„Zarządzaj regionami”</strong> lub wykonać ręcznie w CLI:
+                W nowej wersji oprogramowania możesz to wyklikać w menu <strong>„Zarządzaj regionami”</strong> lub wykonać ręcznie w CLI:
                 <pre><code>region put pl
 region put pl-ds
+region put pl-lb
+region put wlkp
 region put zachod
 region allowf pl
 region allowf pl-ds
+region allowf pl-lb
+region allowf wlkp
 region allowf zachod
 region save
 reboot</code></pre>
+
+                <div class="callout callout-info" style="margin: 12px 0; padding: 14px;">
+                    🤝 <strong>Solidarność sąsiedzka (Pomoc w rozwoju regionów):</strong><br>
+                    Repeatery leżące w jednym województwie (np. w Dolnośląskim – <code>pl-ds</code>), ale znajdujące się blisko granicy lub na wzniesieniach pozwalających na doskonałą propagację w stronę sąsiadów (np. Lubuskiego – <code>pl-lb</code> lub Wielkopolski – <code>wlkp</code>), <strong>powinny bezwzględnie dodać te sąsiednie scopes do swojej listy</strong>. Przekazując pakiety sąsiadów (np. z <code>pl-lb</code> do <code>pl-lb</code>), pomagasz im budować stabilną sieć i przyspieszasz rozwój całego zachodniego meshcore!
+                </div>
             </li>
             <li>
                 <strong>Końcowa weryfikacja (Krok Kontrolny):</strong>
@@ -531,6 +557,16 @@ reboot</code></pre>
                 <td>Województwo Dolnośląskie</td>
             </tr>
             <tr>
+                <td><strong>#lubuskie</strong></td>
+                <td><code>pl-lb</code></td>
+                <td>Województwo Lubuskie</td>
+            </tr>
+            <tr>
+                <td><strong>#wlkp</strong></td>
+                <td><code>wlkp</code></td>
+                <td>Województwo Wielkopolskie</td>
+            </tr>
+            <tr>
                 <td><strong>#ds-test</strong></td>
                 <td><code>pl-ds</code></td>
                 <td>Testy techniczne i konfiguracyjne (Dolny Śląsk)</td>
@@ -538,12 +574,7 @@ reboot</code></pre>
             <tr>
                 <td><strong>#wroclaw</strong></td>
                 <td><code>wro</code> lub <code>wroclaw</code></td>
-                <td>Wrocław i najbliższe powiaty ościenne</td>
-            </tr>
-            <tr>
-                <td><strong>#wlkp</strong></td>
-                <td><code>wlkp</code></td>
-                <td>Województwo Wielkopolskie</td>
+                <td><strong>Region Miejski:</strong> Wrocław i najbliższe ościenne gminy (komunikacja wyłącznie lokalna wewnątrz aglomeracji miejskiej, chroniąca eter regionalny)</td>
             </tr>
         </tbody>
     </table>
