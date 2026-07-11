@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Testy SF6 na Zachodzie – Wyniki i Wnioski</title>
+    <title>MeshCore na Zachodzie – Zalecane Ustawienia i Instrukcja</title>
     <style>
         /* Zaawansowany i nowoczesny system zmiennych dla Light/Dark Mode */
         :root {
@@ -34,6 +34,7 @@
             
             --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
             --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -84,7 +85,7 @@
 
         .container {
             width: 100%;
-            max-width: 720px;
+            max-width: 800px;
             background-color: var(--bg-card);
             border-radius: 24px;
             padding: 32px 24px;
@@ -134,10 +135,13 @@
         }
 
         h3 {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 700;
             margin: 24px 0 12px 0;
             color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         p {
@@ -175,7 +179,7 @@
         }
 
         /* Elementy list */
-        ul {
+        ul, ol {
             padding-left: 20px;
             margin: 0 0 16px 0;
             color: var(--text-muted);
@@ -190,6 +194,34 @@
             color: var(--text-main);
         }
 
+        /* Kod i konsole */
+        code {
+            font-family: var(--font-mono);
+            background-color: var(--bg-page);
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: var(--accent-primary);
+            border: 1px solid var(--border);
+        }
+
+        pre {
+            background-color: var(--bg-page);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            border: none;
+            color: var(--text-main);
+            font-size: 0.85rem;
+        }
+
         /* Przyciski */
         .btn-group {
             display: flex;
@@ -197,14 +229,15 @@
             flex-wrap: wrap;
             justify-content: center;
             margin-top: 20px;
+            margin-bottom: 20px;
         }
 
         .btn-action {
             background-color: var(--accent-primary);
             color: #ffffff;
             border: none;
-            padding: 14px 24px;
-            font-size: 1rem;
+            padding: 12px 20px;
+            font-size: 0.95rem;
             font-weight: 700;
             border-radius: 12px;
             cursor: pointer;
@@ -236,53 +269,63 @@
             transform: scale(0.98);
         }
 
+        /* Tabele */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: var(--bg-page);
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        tr:hover {
+            background-color: var(--bg-page);
+        }
+
+        /* Zakładki/Karty urządzeń */
+        .device-card {
+            background-color: var(--bg-page);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .device-card:hover {
+            box-shadow: var(--shadow);
+            border-color: var(--accent-primary);
+        }
+
+        .device-badge {
+            display: inline-block;
+            background-color: var(--accent-primary-glow);
+            color: var(--accent-primary);
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
         .footer-note {
             text-align: center;
             margin-top: 40px;
             font-size: 0.9rem;
             font-weight: 600;
             color: var(--accent-primary);
-        }
-
-        .survey-container {
-            background: linear-gradient(145deg, var(--bg-page), var(--bg-card));
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 32px;
-            text-align: center;
-            margin: 32px 0;
-            box-shadow: var(--shadow);
-        }
-
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .stat-item {
-            background-color: var(--bg-page);
-            padding: 16px;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid var(--border);
-        }
-
-        .stat-value {
-            display: block;
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--accent-primary);
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 4px;
-            display: block;
         }
     </style>
 </head>
@@ -292,72 +335,187 @@
     
     <!-- Nagłówek -->
     <div class="header-section">
-        <span class="date-badge">Raport z testów (20-21.06.2026)</span>
-        <h1>Testy SF6 na Zachodzie</h1>
-    </div>
-    
-    <!-- Podziękowania -->
-    <div class="callout callout-info">
-        <strong>Dziękujemy za udział!</strong><br>
-        Chcielibyśmy serdecznie podziękować wszystkim testującym za niesamowitą mobilizację i wytrwałość – nawet w momentach, gdy technologia stawiała opór. Wasze zaangażowanie pozwoliło nam zebrać dane od 19 respondentów opiekujących się łącznie 50 repeaterami.
+        <span class="date-badge">MeshCore Zachód</span>
+        <h1>Zalecane Ustawienia Regionu</h1>
     </div>
 
-    <!-- ANKIETA I WYNIKI -->
-    <div class="survey-container">
-        <h2 style="justify-content: center; margin-top: 0; border: none;">Podsumowanie i Ankieta</h2>
-        <p>Ankieta jest nadal otwarta dla osób, które nie zdążyły się dopisać. Możesz również na bieżąco śledzić szczegółowe statystyki odpowiedzi.</p>
+    <!-- Wprowadzenie -->
+    <p>
+        Witaj na oficjalnej stronie zaleceń i instrukcji dla zachodniego regionu Polski (ze szczególnym uwzględnieniem Dolnego Śląska, Lubuskiego i Wielkopolski) w sieci <strong>LoRa MeshCore</strong>. Wspólnie budujemy stabilną, zintegrowaną i odporną na awarie infrastrukturę łączności mesh.
+    </p>
 
-        <div class="btn-group">
-            <a href="https://forms.gle/iC8YP65YbjEieHU59" target="_blank" rel="noopener noreferrer" class="btn-action">Otwórz ankietę</a>
-            <a href="https://docs.google.com/forms/d/1fnv25-bjSF36qv5PGcsf1uM4EnbNLGSi3Aci1H8MsLk/viewanalytics" target="_blank" rel="noopener noreferrer" class="btn-action btn-secondary">Zobacz wyniki (Analytics)</a>
-        </div>
+    <!-- Grupa przycisków i nawigacja -->
+    <div class="btn-group">
+        <a href="https://discord.com/channels/1260614306978857073/1477994334543417364" target="_blank" rel="noopener noreferrer" class="btn-action">
+            💬 Kanał #zachod (Discord)
+        </a>
+        <a href="sf6-testy.html" class="btn-action btn-secondary">
+            📊 Raport z testów SF6
+        </a>
+        <a href="https://lorameshcore.pl/" target="_blank" rel="noopener noreferrer" class="btn-action btn-secondary">
+            📖 Oficjalne Wiki MeshCore
+        </a>
     </div>
 
-    <h2>Wnioski z ankiet</h2>
+    <!-- Ogólne parametry radiowe -->
+    <h2>📡 Rekomendowany Preset dla Polski</h2>
+    <p>
+        Wszystkie urządzenia w naszej sieci powinny korzystać z ujednoliconego presetu krajowego <strong>EU/UK Narrow</strong> wypracowanego podczas ogólnopolskich testów. Zapewnia on optymalny zasięg i doskonałą czułość sygnału.
+    </p>
 
-    <h3>Liczby i zaangażowanie</h3>
-    <div class="stat-grid">
-        <div class="stat-item">
-            <span class="stat-value">19</span>
-            <span class="stat-label">Ankietowanych</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-value">50</span>
-            <span class="stat-label">Repeaterów</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-value">~10h</span>
-            <span class="stat-label">Czas testu</span>
-        </div>
-    </div>
-    <p>Testy objęły głównie <strong>Dolny Śląsk</strong> (Wrocław, Świdnica, Jelenia Góra, rejon DTR, Książ Śląski) oraz Wielkopolskę i Lubuskie (Leszno, Poznań, Zielona Góra, Sulechów, Lubań). Odnotowaliśmy również pojedyncze raporty ze Szczecina i Częstochowy.</p>
-
-    <h3>📉 Główne wnioski techniczne</h3>
-    <ul>
-        <li><strong>Szybkość vs Zasięg:</strong> Użytkownicy, którzy utrzymali linki, ocenili prędkość na 8-10/10. Jednak zysk prędkości drastycznie obniżył czułość (spadek SNR o ok. 4-6 dB). Jak zauważył tester z Lubania: <em>„im na SF8 było niżej, tym na SF6 było jeszcze gorzej”</em>.</li>
-        <li><strong>Utrata połączeń:</strong> Test SF6 "wyciął" dalekie relacje między miastami. Straciliśmy kontakt z Wałbrzychem (Wielka Sowa), Trzebnicą oraz węzłem DTR_CIEMNA_GORA. Regiony odległe (Szczecin, Częstochowa) raportowały całkowitą izolację.</li>
-        <li><strong>Anomalie propagacyjne:</strong> We Wrocławiu siatka sąsiadów skurczyła się z 21 do zaledwie 4. Odnotowano jednak pojedyncze „skoki” dzięki propagacji (np. Leszno widzące Bielsko-Białą czy Sulechów widzący Stóg Izerski).</li>
-    </ul>
-
-    <div class="callout callout-warn">
-        <strong>Uwaga techniczna:</strong> Pierwszego wieczora (sobota) wystąpiły podwyższone warunki propagacyjne, które mogły dawać złudne poczucie stabilności połączeń SF6.
+    <div style="background-color: var(--bg-page); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 24px;">
+        <ul style="margin: 0; padding-left: 20px;">
+            <li><strong>Częstotliwość (Frequency):</strong> <code>869.618 MHz</code></li>
+            <li><strong>Szerokość kanału (Bandwidth):</strong> <code>62.5 kHz</code></li>
+            <li><strong>Współczynnik rozpraszania (Spreading Factor - SF):</strong> <code>8</code></li>
+            <li><strong>Szybkość kodowania (Coding Rate - CR):</strong> <code>8</code> (kompatybilne z <code>5</code>, zalecane domyślne to <code>8</code>)</li>
+        </ul>
     </div>
 
-    <h3>🛠️ Rekomendacje i propozycje zmian</h3>
-    <ul>
-        <li><strong>Infrastruktura:</strong> Sieć na Zachodzie jest obecnie zbyt rzadka na SF6. Większość testerów sugeruje <strong>SF7</strong> jako optymalny kompromis.</li>
-        <li><strong>Higiena sieci:</strong> Zamiast drastycznego cięcia zasięgu, należy poprawić optymalizację:
-            <ul>
-                <li>Podział na logiczne <strong>Regiony/Filtry</strong>.</li>
-                <li>Ograniczenie liczby hopów (maks. 6–8).</li>
-                <li>Filtrowanie botów, floodu oraz spamu z zagranicy (np. Niemcy).</li>
-            </ul>
-        </li>
-        <li><strong>Organizacja:</strong> Przyszłe testy powinny trwać dłużej (5-7 dni) i być ogłaszane z większym wyprzedzeniem (Discord, Forum).</li>
-    </ul>
+    <!-- SPECYFIKACJA DLA URZĄDZEŃ -->
+    <h2>🛠️ Instrukcje konfiguracji urządzeń</h2>
+    <p>
+        Poniżej znajduje się spójna instrukcja konfiguracji z podziałem na role poszczególnych urządzeń w regionie zachodnim.
+    </p>
 
+    <!-- 1. COMPANION -->
+    <div class="device-card">
+        <span class="device-badge">Companion</span>
+        <h3>📱 Aplikacja kliencka (Android)</h3>
+        <p>
+            Companion to Twoje osobiste urządzenie klienckie połączone przez Bluetooth z telefonem. Poprawne działanie w naszej sieci regionalnej zapewnia oprogramowanie w wersji minimum <strong>1.14+</strong>.
+        </p>
+        <ol>
+            <li><strong>Połączenie i Preset:</strong> Połącz się z płytką w aplikacji, wejdź w ustawienia (kółko zębate), kliknij trzy kropki w prawym górnym rogu, wybierz <em>Suggested Radio Settings</em> i zatwierdź preset <strong>EU/UK (Narrow)</strong>.</li>
+            <li><strong>Identyfikacja użytkownika:</strong> W polu <strong>Name</strong> wpisz swój unikalny nick/znak. Unikaj podawania dokładnego adresu domowego ze względów bezpieczeństwa.</li>
+            <li><strong>Podwójne potwierdzenia:</strong> Wejdź w <em>Message Settings</em> -> <strong>Direct Message Acks</strong> i ustaw wartość na <code>2</code>. Zapobiegnie to zagubieniu wiadomości.</li>
+            <li><strong>Włączenie prefixu 3-bajtowego:</strong> Nasza sieć na zachodzie i Dolnym Śląsku pracuje w prefixie 3-bajtowym. Aby go aktywować:
+                <ul>
+                    <li>Kliknij kółko zębate (ustawienia).</li>
+                    <li>Wybierz <strong>Opcje Eksperymentalne</strong>.</li>
+                    <li>Z listy wybierz <strong>prefix 3-byte</strong>.</li>
+                    <li>Zatwierdź zmiany "fajką" (Accept) w prawym górnym rogu.</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+    <!-- 2. REPEATER -->
+    <div class="device-card">
+        <span class="device-badge">Repeater</span>
+        <h3>📡 Przemiennik (Repeater)</h3>
+        <p>
+            Repeatery stanowią szkielet sieci i odpowiadają za przekazywanie pakietów. W roli repeatera moduł Bluetooth jest wyłączony, a całe zarządzanie odbywa się przez stronę konfiguracyjną lub wiersz poleceń (CLI).
+        </p>
+
+        <h4>A. Nazewnictwo, uprawnienia i rozgłoszenia</h4>
+        <ul>
+            <li><strong>Nazewnictwo (Name):</strong> Jeśli repeater nie ma włączonej / dokładnej lokalizacji GPS, postaraj się, aby jego nazwa ułatwiała identyfikację miejscowości (np. <code>RPT_Wroclaw_Krzyki</code>, <code>RPT_Luban_Poludnie</code>). Jeśli stacja jest w pełni solarna (off-grid) i stabilna, dodaj <code>*</code> na końcu nazwy (np. <code>RPT_Sulechow_Polnoc*</code>).</li>
+            <li><strong>Konto gościa (Guest Password):</strong> Jeśli chcesz dać gościom wgląd w statystyki sygnału i parametry pracy repeatera, hasło gościa pozostaw <strong>puste</strong> lub wpisz standardowe <code>hello</code>.</li>
+            <li><strong>Czasy rozgłoszeń (Adverty):</strong> Dla optymalizacji ruchu, zaleca się ustawianie czasu rozgłoszeń flood (Advert Flood) na minimum <strong>23 godziny</strong> (<code>23h</code> lub rzadziej). Zapobiega to zapychaniu pasma.</li>
+        </ul>
+
+        <h4>B. Podstawowa konfiguracja CLI (Optymalizacja sieci)</h4>
+        <p>
+            Zaloguj się do repeatera jako administrator, przejdź do zakładki <strong>CLI</strong> i wprowadź poniższe komendy (upewnij się, że po każdej komendzie konsola zwróci komunikat <code>OK</code>):
+        </p>
+        <pre><code>set flood.max 6
+set multi.acks 1
+set path.hash.mode 2</code></pre>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: -8px;">
+            <em>Wyjaśnienie:</em> <code>flood.max 6</code> ogranicza limit do 6 hopów (zapobiega krążeniu tzw. pokemonów), <code>multi.acks 1</code> włącza podwójne potwierdzenia na kanałach, a <code>path.hash.mode 2</code> aktywuje wydajniejszy, 3-bajtowy prefix identyfikatora.
+        </p>
+
+        <h4>C. Konfiguracja Regionów (Regional Scope)</h4>
+        <p>
+            Aby repeater nie przekazywał niechcianego ruchu z odległych województw, musimy skonfigurować regiony. Możesz to zrobić łatwo w nowej wersji aplikacji przechodząc do pozycji menu <strong>„Zarządzaj regionami”</strong> lub ręcznie przy użyciu wiersza poleceń <strong>CLI</strong> według poniższej instrukcji:
+        </p>
+
+        <ol style="margin-bottom: 0;">
+            <li>Wpisz <code>region</code>, aby sprawdzić obecne regiony (standardowo będzie to <code>*^ F</code>).</li>
+            <li>Dodaj region ogólny oraz regionalny za pomocą komendy <code>region put</code>, czekając każdorazowo na <code>OK</code>:
+                <pre><code>region put pl
+region put pl-ds
+region put zachod</code></pre>
+            </li>
+            <li>Zezwól na ruch typu Flood dla nowo dodanych regionów komendą <code>region allowf</code>:
+                <pre><code>region allowf pl
+region allowf pl-ds
+region allowf zachod</code></pre>
+            </li>
+            <li>Zapisz zmiany w pamięci urządzenia:
+                <pre><code>region save</code></pre>
+            </li>
+            <li>Wykonaj ponowne uruchomienie urządzenia komendą <code>reboot</code> i zweryfikuj listę wpisując ponownie <code>region</code>.</li>
+        </ol>
+    </div>
+
+    <!-- 3. ROOM SERVER -->
+    <div class="device-card">
+        <span class="device-badge">Room Server</span>
+        <h3>🖥️ Serwer Pokoju (Room Server)</h3>
+        <p>
+            Room Server odpowiada za obsługę dedykowanych pokoi rozmów i czatów lokalnych.
+        </p>
+        <ul>
+            <li><strong>Bluetooth:</strong> Rola Room Servera automatycznie wyłącza komunikację Bluetooth.</li>
+            <li><strong>Hasło gościa (Guest Password):</strong> Jeżeli pokój ogólny ma być w pełni publiczny i dostępny dla każdego, zaleca się pozostawienie hasła gościa <strong>pustego</strong> lub wpisanie standardowego hasła <code>hello</code>.</li>
+            <li><strong>Czasy rozgłoszeń (Adverty):</strong> Podobnie jak w repeaterach, ustaw minimalny czas rozgłaszania reklam flood na co najmniej <strong>23 godziny</strong>.</li>
+            <li><strong>Funkcja repeatera:</strong> Room Server domyślnie nie działa jako przemiennik (repeater). Jeśli zajdzie taka potrzeba, funkcję przekazywania pakietów można aktywować bezpośrednio w linii poleceń.</li>
+        </ul>
+    </div>
+
+    <!-- PROPOZYCJE SCOPE / KANAŁÓW -->
+    <h2>🗺️ Przyszłościowe Kanały i Zasięg (Scope)</h2>
+    <p>
+        Poniższa tabela przedstawia planowane w przyszłości kanały w sieci MeshCore na Zachodzie wraz z przypisanymi do nich zasięgami regionalnymi (Scope). Funkcja ta zacznie w pełni działać, gdy większość repeaterów w regionie będzie miała prawidłowo skonfigurowane regiony zgodnie z powyższą instrukcją.
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nazwa Kanału</th>
+                <th>Przypisany Scope (Region)</th>
+                <th>Obszar działania / Cel</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>#polska</strong></td>
+                <td><code>pl</code></td>
+                <td>Kanał ogólnokrajowy</td>
+            </tr>
+            <tr>
+                <td><strong>#zachod</strong></td>
+                <td><code>zachod</code></td>
+                <td>Cały zachodni region Polski</td>
+            </tr>
+            <tr>
+                <td><strong>#dolnoslaskie</strong></td>
+                <td><code>pl-ds</code></td>
+                <td>Województwo Dolnośląskie</td>
+            </tr>
+            <tr>
+                <td><strong>#ds-test</strong></td>
+                <td><code>pl-ds</code></td>
+                <td>Testy techniczne Dolny Śląsk</td>
+            </tr>
+            <tr>
+                <td><strong>#wroclaw</strong></td>
+                <td><code>wro</code> lub <code>wroclaw</code></td>
+                <td>Wrocław i najbliższe okolice</td>
+            </tr>
+            <tr>
+                <td><strong>#wlkp</strong></td>
+                <td><code>wlkp</code></td>
+                <td>Województwo Wielkopolskie</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Stopka -->
     <div class="footer-note">
-        📡 Pełna dyskusja na kanale #zachod
+        📡 Zapraszamy do budowania wspólnej sieci na kanale #zachod!
     </div>
 </div>
 
