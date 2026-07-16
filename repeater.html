@@ -231,40 +231,90 @@
         <a href="index.html" class="nav-back">← Powrót do strony głównej</a>
 
         <h1>Instrukcja dla Repeaterów</h1>
-        <div class="subtitle">Parametry techniczne, zalecane limity przeskoku (flood) oraz profile opóźnień (txdelay) dla stacji bazowych na Zachodzie.</div>
+        <div class="subtitle">Parametry techniczne, zalecane limity przeskoku (flood), opcje optymalizacyjne oraz profile opóźnień (txdelay) dla stacji bazowych na Zachodzie.</div>
 
         <h2>1. Kroki kontrolne przed montażem</h2>
-        <p>Przed umieszczeniem przemiennika wysoko na dachu lub maszcie, upewnij się, że stacja działa bez zarzutu:</p>
+        <p>Przed umieszczeniem przemiennika wysoko na dachu lub maszcie, upewnij się, że stacja działa bez zarzutu pod kątem podstawowej diagnostyki:</p>
         <ul>
-            <li><strong>Zasilanie i pobór prądu:</strong> Sprawdź obciążenie akumulatorów lub zasilacza buforowego.</li>
-            <li><strong>Status GPS Fix:</strong> Jeśli moduł ma GPS, upewnij się, że widzi satelity na otwartym terenie.</li>
-            <li><strong>Poziom szumów (Noise Floor):</strong> Zmierz wskaźnik RSSI tła. Ciągły poziom szumów powyżej -110 dBm oznacza lokalne zakłócenia utrudniające odbiór.</li>
+            <li><strong>Zasilanie i pobór prądu:</strong> Sprawdź stabilność obciążenia akumulatorów, przetwornic lub zasilacza buforowego.</li>
+            <li><strong>Poziom szumów (Noise Floor):</strong> Zmierz wskaźnik RSSI tła w CLI. Ciągły poziom szumów powyżej -110 dBm oznacza lokalne zakłócenia utrudniające odbiór. Jeśli w pobliżu znajdują się maszty telefonii komórkowej BTS, pomocne może okazać się zastosowanie dedykowanego <strong>filtra szczelinowego (cavity filter)</strong> na pasmo 868 MHz.</li>
         </ul>
 
         <h2>2. Nazewnictwo Repeaterów</h2>
         <div class="alert-callout alert-callout-warn">
-            <strong>Dobra praktyka:</strong> Ze względu na brak sztywnego krajowego standardu, zalecamy w nazwie przemiennika jasno wskazać miejscowość/dzielnicę oraz typ montażu, np. <code>RPT_Wroclaw_Krzyki</code> lub <code>RPT_Luban_Maszt</code>. Ułatwia to błyskawiczną identyfikację tras sygnału.
+            <strong>Dobra praktyka:</strong> Ze względu na brak sztywnego krajowego standardu, najważniejsza jest jasna lokalizacja pozwalająca określić położenie geograficzne węzła. W nazwie nie musi znajdować się typ montażu ani oznaczenie "RPT". Wystarczy prosta i czytelna nazwa, np. <code>Wroclaw_Krzyki</code> lub <code>Luban_Srednia</code>, co pozwala innym użytkownikom łatwo zidentyfikować pozycję na mapie i w logach.
         </div>
 
         <h2>3. Rozgłoszenia (Adverty)</h2>
         <p>
-            Aby zapobiec wysycaniu pasma częstymi, powtarzającymi się ramkami statusu, konfigurujemy rzadkie interwały reklam lokalnych oraz globalnych:
+            Aby zapobiec wysycaniu pasma zbyt częstymi, powtarzającymi się pakietami statusowymi, konfigurujemy rzadkie interwały dla obu typów advertów (nie nazywamy ich "reklamami"):
         </p>
-        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Status lokalny tylko do bezpośrednich sąsiadów co 4 godziny (240 minut)
+        <ul>
+            <li><strong>Advert Lokalny (Zero-hop):</strong> Status wysyłany wyłącznie do bezpośrednich sąsiadów. Standardowo ustawiamy go na <strong>240 minut (czyli równe 4 godziny)</strong>.</li>
+            <li><strong>Advert Globalny (Flood):</strong> Status rozsyłany kaskadowo (flood) po całej sieci. Dla odciążenia pasma konfigurujemy go na <strong>23 godziny</strong> (oraz 0 hopów bezpośrednich).</li>
+        </ul>
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Status lokalny (zero-hop) wysyłany co 240 minut (4 godziny)
 set advert.interval 240
 
-# Status globalny przekazywany floodem po sieci co 24 godziny
-set flood.advert.interval 24</code></pre>
+# Status globalny (flood) przekazywany po sieci co 23 godziny
+set flood.advert.interval 23</code></pre>
 
-        <h2>4. Profile Opóźnień Nadawania (txdelay)</h2>
+        <h2>4. Limity Przeskoku (Hopy)</h2>
         <p>
-            Zróżnicowanie czasów opóźnienia chroni sieć przed kolizjami radiowymi na tym samym obszarze. Im wyżej położony węzeł, tym dłużej powinien odczekać przed retransmisją, pozwalając na nadanie stacjom położonym niżej:
+            W celu zredukowania ogólnego szumu radiowego w eterze, wprowadzamy rygorystyczne limity na ruch bez zdefiniowanego zakresu regionalnego (unscoped), zachowując jednocześnie pełen szeroki zasięg dla pakietów ze scope regionalnym:
+        </p>
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Maksymalny limit hopów dla pakietów ze scope regionalnym (np. #zachod)
+set flood.max 64
+
+# Ograniczenie przesyłu dla ruchu ogólnego bez scope (unscoped)
+set flood.max.unscoped 8</code></pre>
+
+        <div class="alert-callout alert-callout-info">
+            <strong>💡 Dostosowanie parametru unscoped:</strong>
+            Wartość <code>flood.max.unscoped 8</code> jest domyślnym limitem. Możesz dostosować ten limit do swoich lokalnych potrzeb obserwując nadchodzące pakiety. Im niższa wartość unscoped, tym mniejsze niepotrzebne obciążenie dla Twojej lokalnej sieci. Zaleca się ustawienie parametru w bezpiecznym i optymalnym przedziale od <strong>6 do 8</strong>.
+        </div>
+
+        <h2>5. Optymalizacja parametrów CLI oraz synchronizacja czasu</h2>
+        <p>Poniższy zestaw komend optymalizuje routing, diagnostykę i stabilność pracy odbiornika, a także rozwiązuje problem z nieprawidłowym czasem systemowym:</p>
+
+        <ul>
+            <li><strong>set path.hash.mode 2:</strong> Włącza zaawansowany i bardziej unikalny tryb generowania skrótów ścieżek (path-hash), co znacząco zmniejsza ryzyko kolizji identyfikatorów tras.</li>
+            <li><strong>set multi.acks 1:</strong> Aktywuje wielokrotne potwierdzenia odbioru pakietów, stabilizując przesył w trudnych warunkach propagacyjnych.</li>
+            <li><strong>set agc.reset.interval 500:</strong> Zapobiega "zatykaniu" się czułego układu odbiorczego SX1262 przez silne pobliskie sygnały radiowe, wymuszając okresowe resetowanie automatycznej regulacji wzmocnienia (AGC).</li>
+            <li><strong>set guest.password "":</strong> Pozostawia puste hasło gościa, co pozwala Twoim sąsiadom na bezpieczne odczytanie podstawowych parametrów stacji bez możliwości wprowadzania zmian.</li>
+            <li><strong>set owner.info "..." :</strong> Ustawia czytelne dane kontaktowe właściciela stacji (np. Twój znak krótkofalarski, nick lub adres e-mail), ułatwiając współpracę w regionie.</li>
+            <li><strong>Synchronizacja czasu:</strong> Prawidłowy czas jest kluczowy dla dopasowania logów i pakietów telemetrycznych. Użyj komendy <code>clock sync</code> w terminalu. Jeżeli czas urządzenia wybiegł w przyszłość i nie da się go cofnąć, wykonaj pełen reset zegara komendą <code>clkreboot</code>, a dopiero po nim wydaj komendę <code>clock sync</code>.</li>
+        </ul>
+
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Optymalizacja routingu i mechanizmów sieciowych
+set path.hash.mode 2
+set multi.acks 1
+set agc.reset.interval 500
+set guest.password ""
+
+# Identyfikacja właściciela węzła (podaj np. Nick / Znak / Kontakt)
+set owner.info "Tworzyciel_Zachod"
+
+# Synchronizacja zegara systemowego (w przypadku problemów użyj najpierw clkreboot)
+clock sync
+
+# Zapis zmian w pamięci trwałej i restart
+write
+reboot</code></pre>
+
+        <h2>6. Profile Opóźnień Nadawania (txdelay)</h2>
+        <p>
+            Dopasowanie czasów opóźnienia nadawania (txdelay) jest krytycznym elementem ochrony sieci przed wzajemnym zagłuszaniem stacji (kolizje radiowe). Profil opóźnienia dobieramy bezpośrednio na podstawie <strong>szacowanej liczby widzianych sąsiadów radiowych</strong> oraz wysokości zawieszenia anteny.
+        </p>
+        <p>
+            Im wyżej położona antena i im więcej stacji ma w swoim bezpośrednim zasięgu, tym dłużej powinna odczekać (wyższe opóźnienie), pozwalając na swobodne nadanie mniejszym stacjom lokalnym znajdującym się na dole.
         </p>
 
         <table>
             <thead>
                 <tr>
                     <th>Profil wysokości</th>
+                    <th>Szacowana liczba sąsiadów</th>
                     <th>Zastosowanie</th>
                     <th>Parametry CLI</th>
                 </tr>
@@ -272,52 +322,24 @@ set flood.advert.interval 24</code></pre>
             <tbody>
                 <tr>
                     <td><strong>WYSOKI / MASZT</strong></td>
-                    <td>Wysokie wieże, maszty kratownicowe, dachy wieżowców (daleki zasięg)</td>
+                    <td><strong>Powyżej 15 sąsiadów</strong></td>
+                    <td>Wysokie wieże, maszty kratownicowe, dachy wieżowców (bardzo daleki zasięg)</td>
                     <td><code>set txdelay 1.5<br>set direct.txdelay 1.0<br>set rxdelay 3</code></td>
                 </tr>
                 <tr>
                     <td><strong>DACH / ROOFTOP</strong></td>
-                    <td>Klasyczny montaż anteny na dachu domu jednorodzinnego lub niskiego bloku</td>
+                    <td><strong>Od 5 do 15 sąsiadów</strong></td>
+                    <td>Antena na dachu domu jednorodzinnego lub średniej wysokości bloku</td>
                     <td><code>set txdelay 0.8<br>set direct.txdelay 0.4<br>set rxdelay 3</code></td>
                 </tr>
                 <tr>
                     <td><strong>DOM / NISKI</strong></td>
-                    <td>Węzeł domowy, antena na parapecie lub wewnątrz pomieszczeń</td>
+                    <td><strong>Poniżej 5 sąsiadów</strong></td>
+                    <td>Węzeł domowy, antena na parapecie lub nisko w terenie zabudowanym</td>
                     <td><code>set txdelay 0.3<br>set direct.txdelay 0.1<br>set rxdelay 3</code></td>
                 </tr>
             </tbody>
         </table>
-
-        <h2>5. Limity Przeskoku (Hopy)</h2>
-        <p>
-            W celu zredukowania ogólnego szumu w eterze, ograniczamy ruch nieukierunkowany (unscoped) przy jednoczesnym zezwoleniu na szerokie przeskoki dla dobrze zaadresowanych pakietów regionalnych:
-        </p>
-        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Maksymalny limit hopów dla pakietów ze scope regionalnym (np. zachod, pl-ds)
-set flood.max 64
-
-# Ograniczenie przesyłu dla ruchu ogólnego bez scope (unscoped)
-set flood.max.unscoped 8</code></pre>
-
-        <div class="alert-callout alert-callout-info">
-            <strong>💡 Wskazówka dotycząca unscoped:</strong>
-            Wartość <code>flood.max.unscoped 8</code> jest wyjściowym standardem. Obserwuj chat w swojej okolicy i dostosuj ten parametr w przedziale <strong>6–8</strong> w zależności od tego, przez ile przeskoków (hopów) docierają do Ciebie pożądane pakiety.
-        </div>
-
-        <h2>6. Pozostała konfiguracja optymalizacyjna</h2>
-        <p>Wprowadź poniższe komendy w CLI, aby zoptymalizować pracę radia:</p>
-        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Włączenie trybu routingu i dwubajtowych path-hashów
-set path.hash.mode 1
-set multi.acks 1
-
-# Ochrona przed zatykaniem silnym sygnałem (resetowanie gainu SX1262)
-set agc.reset.interval 500
-
-# Pozostawienie pustego hasła gościa (ułatwia sąsiedzką diagnostykę)
-set guest.password ""
-
-# Zapis i restart urządzenia
-write
-reboot</code></pre>
     </div>
 
     <footer>

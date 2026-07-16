@@ -149,6 +149,41 @@
             padding-bottom: 6px;
         }
 
+        /* Radio Params styles */
+        .radio-params {
+            margin-bottom: 40px;
+        }
+
+        .params-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .param-item {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow);
+        }
+
+        .param-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .param-value {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--accent-primary);
+        }
+
         .guides-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -170,9 +205,28 @@
             transition: all 0.2s ease;
         }
 
-        .guide-card:hover {
+        .guide-card:hover:not(.disabled) {
             transform: translateY(-2px);
             border-color: var(--accent-primary);
+        }
+
+        .guide-card.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            border-color: var(--border);
+        }
+
+        .badge-upcoming {
+            background-color: var(--border);
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
         .card-badge {
@@ -201,6 +255,42 @@
             font-weight: 700;
             font-size: 0.9rem;
             margin-top: auto;
+        }
+
+        /* Region section card */
+        .region-section-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .region-card-content {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .region-card-btn {
+            background-color: var(--accent-primary);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background-color 0.2s ease;
+        }
+
+        .region-card-btn:hover {
+            background-color: var(--accent-primary-hover);
         }
 
         .info-box {
@@ -253,59 +343,82 @@
         <span class="tagline">POLSKA ZACHODNIA / LORA.868</span>
         <h1>Zalecane ustawienia</h1>
         <p>
-            Konkretne i czytelne instrukcje konfiguracyjne dla poszczególnych urządzeń w regionie zachodnim (Dolny Śląsk, Lubuskie, Wielkopolska). Wybierz urządzenie, aby pobrać parametry.
+            Konkretne i czytelne instrukcje konfiguracyjne dla poszczególnych urządzeń w regionie zachodnim (Dolny Śląsk, Lubuskie, Wielkopolska).
         </p>
     </section>
 
     <main class="main-content">
+
+        <section class="radio-params">
+            <h2 class="section-title">Podstawowe Parametry Radia</h2>
+            <div class="params-grid">
+                <div class="param-item">
+                    <span class="param-label">Częstotliwość główna</span>
+                    <span class="param-value">869.618 MHz</span>
+                </div>
+                <div class="param-item">
+                    <span class="param-label">Szerokość kanału (BW)</span>
+                    <span class="param-value">62.5 kHz (Narrow)</span>
+                </div>
+                <div class="param-item">
+                    <span class="param-label">Wskaźnik SF</span>
+                    <span class="param-value">SF7 / SF8 / SF9</span>
+                </div>
+                <div class="param-item">
+                    <span class="param-label">Kodowanie (CR)</span>
+                    <span class="param-value">4/5 (CR5)</span>
+                </div>
+            </div>
+        </section>
+
         <h2 class="section-title">Instrukcje dla urządzeń</h2>
 
         <div class="guides-grid">
-
-            <a href="companion.html" class="guide-card">
-                <div>
-                    <div class="card-badge">TELEFON / URZĄDZENIE KLIENCKIE</div>
-                    <h3 class="card-title">Companion</h3>
-                    <p class="card-description">
-                        Konfiguracja aplikacji Android, parowanie Bluetooth, aktywacja prefixu 3-bajtowego oraz zasady nazewnictwa węzłów bez GPS.
-                    </p>
-                </div>
-                <span class="card-link">otwórz instrukcję →</span>
-            </a>
 
             <a href="repeater.html" class="guide-card">
                 <div>
                     <div class="card-badge">PRZEMIENNIK / STACJA BAZOWA</div>
                     <h3 class="card-title">Repeater</h3>
                     <p class="card-description">
-                        Optymalizacja czasów rozgłoszeń (adverty), profile delayów dopasowane do wysokości montażu oraz limity przeskoku (flood.max).
+                        Optymalizacja czasów rozgłoszeń (adverty), profile delayów dopasowane do wysokości montażu, limity przeskoku (flood.max) oraz parametry CLI.
                     </p>
                 </div>
                 <span class="card-link">otwórz instrukcję →</span>
             </a>
 
-            <a href="roomserver.html" class="guide-card">
+            <div class="guide-card disabled">
                 <div>
-                    <div class="card-badge">STACJA NASŁUCHOWA / ESP32</div>
+                    <div class="card-badge">TELEFON / URZĄDZENIE KLIENCKIE <span class="badge-upcoming">W przygotowaniu</span></div>
+                    <h3 class="card-title">Companion</h3>
+                    <p class="card-description">
+                        Konfiguracja aplikacji Android, parowanie Bluetooth, aktywacja prefixu 3-bajtowego oraz zasady nazewnictwa węzłów bez GPS.
+                    </p>
+                </div>
+                <span class="card-link" style="color: var(--text-muted);">instrukcja niedostępna</span>
+            </div>
+
+            <div class="guide-card disabled">
+                <div>
+                    <div class="card-badge">STACJA NASŁUCHOWA / ESP32 <span class="badge-upcoming">W przygotowaniu</span></div>
                     <h3 class="card-title">RoomServer / Observer</h3>
                     <p class="card-description">
                         Jak uruchomić bezgłośny nasłuch z przesyłaniem danych przez Wi-Fi bezpośrednio do systemów telemetrycznych letsmesh i cma.pl.
                     </p>
                 </div>
-                <span class="card-link">otwórz instrukcję →</span>
-            </a>
+                <span class="card-link" style="color: var(--text-muted);">instrukcja niedostępna</span>
+            </div>
 
-            <a href="regiony.html" class="guide-card">
-                <div>
-                    <div class="card-badge">ZAKRESY I KANAŁY</div>
-                    <h3 class="card-title">Regiony i Kanały</h3>
-                    <p class="card-description">
-                        Jak unikać szumu dzięki regionalnym terytoriom (Scopes) i jak poprawnie skonfigurować regiony na swoim repeaterze.
-                    </p>
-                </div>
-                <span class="card-link">otwórz instrukcję →</span>
-            </a>
+        </div>
 
+        <h2 class="section-title">Konfiguracja Regionów i Kanałów</h2>
+        <div class="region-section-card">
+            <div class="region-card-content">
+                <h3 class="card-title" style="margin: 0 0 8px 0;">Regiony i Kanały dla Zachodu</h3>
+                <p class="card-description" style="margin-bottom: 0;">
+                    Aby unikać nadmiernego szumu w eterze, sieć MeshCore wykorzystuje mechanizm Regional Scopes (Zakresów Terytorialnych). Sprawdź tabelę rekomendowanych kanałów regionalnych (np. #polska, #zachod, #dolnoslaskie) oraz reguły filtrowania ruchu na przemiennikach.
+                </p>
+            </div>
+            <a href="regiony.html" class="region-card-btn">Otwórz instrukcję regionów →</a>
         </div>
 
         <div class="info-box">
