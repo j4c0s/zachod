@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Regiony i Kanały – Konfiguracja Scopes</title>
+    <style>
+        :root {
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border: #e2e8f0;
+            --border-hover: #cbd5e1;
+            --accent-primary: #1e40af;
+            --accent-primary-hover: #1d4ed8;
+            --accent-primary-glow: rgba(30, 64, 175, 0.08);
+            --bg-success: #f0fdf4;
+            --border-success: #dcfce7;
+            --accent-success: #15803d;
+            --bg-warn: #fff7ed;
+            --border-warn: #ffedd5;
+            --accent-warn: #c2410c;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-page: #090d16;
+                --bg-card: #111827;
+                --text-main: #f3f4f6;
+                --text-muted: #9ca3af;
+                --border: #1f2937;
+                --border-hover: #374151;
+                --accent-primary: #3b82f6;
+                --accent-primary-hover: #60a5fa;
+                --accent-primary-glow: rgba(59, 130, 246, 0.15);
+                --bg-success: rgba(34, 197, 94, 0.08);
+                --border-success: rgba(34, 197, 94, 0.2);
+                --accent-success: #22c55e;
+                --bg-warn: rgba(249, 115, 22, 0.08);
+                --border-warn: rgba(249, 115, 22, 0.2);
+                --accent-warn: #f97316;
+            }
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 32px 24px;
+            width: 100%;
+        }
+
+        .nav-back {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .nav-back:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            margin: 0 0 8px 0;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin: 32px 0 16px 0;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: var(--bg-page);
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        tr:hover {
+            background-color: var(--bg-page);
+        }
+
+        ol, ul {
+            padding-left: 20px;
+            margin-bottom: 24px;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        li strong {
+            color: var(--text-main);
+        }
+
+        pre {
+            background-color: var(--bg-page);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            overflow-x: auto;
+            margin: 16px 0;
+            position: relative;
+        }
+
+        pre code {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+
+        .btn-copy {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.15s ease;
+        }
+
+        .btn-copy:hover {
+            color: var(--text-main);
+            border-color: var(--border-hover);
+            background-color: var(--bg-page);
+        }
+
+        .alert-callout {
+            border-radius: 12px;
+            padding: 16px;
+            margin: 24px 0;
+            border: 1px solid transparent;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .alert-callout-info {
+            background-color: var(--bg-success);
+            border-color: var(--border-success);
+            color: var(--text-muted);
+        }
+
+        .alert-callout-info strong {
+            color: var(--accent-success);
+        }
+
+        .alert-callout-warn {
+            background-color: var(--bg-warn);
+            border-color: var(--border-warn);
+            color: var(--text-muted);
+        }
+
+        .alert-callout-warn strong {
+            color: var(--accent-warn);
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 24px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="nav-back">← Powrót do strony głównej</a>
+
+        <h1>Regiony i Kanały</h1>
+        <div class="subtitle">Zasada działania Regional Scope (zakresów terytorialnych) oraz zalecane konfiguracje kanałów i regionów w Polsce Zachodniej.</div>
+
+        <h2>Dlaczego filtrujemy ruch?</h2>
+        <p>
+            Tradycyjne sieci mesh borykają się z problemem nadmiernego natężenia ruchu radiowego (broadcast storm). Gdy każdy węzeł w kraju przekazuje pakiety wszystkich innych użytkowników bez ograniczeń, pasmo szybko ulega zapchaniu. Rozwiązaniem w MeshCore jest mechanizm <strong>Regional Scope (Zakres Terytorialny)</strong>.
+        </p>
+        <p>
+            Dzięki temu pakiety wysłane np. na kanale lokalnym we Wrocławiu są ignorowane przez przemienniki w Poznaniu czy Szczecinie. Pozwala to na solidarność sąsiedzką i odciążenie odległych regionów od zbędnego ruchu.
+        </p>
+
+        <h2>Tabela Rekomendowanych Kanałów na Zachodzie</h2>
+        <p>Poniżej przedstawiamy zestaw kanałów i ich parametrów Scope, które konfigurujemy w aplikacji Companion:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Kanał w Companion</th>
+                    <th>Parametr Scope</th>
+                    <th>Zasięg terytorialny i przeznaczenie</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>#polska</strong></td>
+                    <td><code>pl</code></td>
+                    <td>Globalny ruch krajowy. Powtarzany przez wszystkie repeatery w Polsce.</td>
+                </tr>
+                <tr>
+                    <td><strong>#zachod</strong></td>
+                    <td><code>zachod</code></td>
+                    <td>Ruch zintegrowany dla Dolnego Śląska, Lubuskiego i Wielkopolski.</td>
+                </tr>
+                <tr>
+                    <td><strong>#dolnoslaskie</strong></td>
+                    <td><code>pl-ds</code></td>
+                    <td>Ruch wewnątrz województwa Dolnośląskiego.</td>
+                </tr>
+                <tr>
+                    <td><strong>#lubuskie</strong></td>
+                    <td><code>pl-lb</code></td>
+                    <td>Ruch wewnątrz województwa Lubuskiego.</td>
+                </tr>
+                <tr>
+                    <td><strong>#wlkp</strong></td>
+                    <td><code>wlkp</code></td>
+                    <td>Ruch wewnątrz województwa Wielkopolskiego.</td>
+                </tr>
+                <tr>
+                    <td><strong>#wroclaw</strong></td>
+                    <td><code>wroclaw</code></td>
+                    <td>Ruch lokalny aglomeracji wrocławskiej. Całkowicie ignorowany poza regionem.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Konfiguracja zakresów na Repeaterze (CLI)</h2>
+        <p>
+            Aby Twój repeater poprawnie przekazywał pakiety z powyższych zakresów regionalnych i ignorował ruch z innych części kraju, musisz zdefiniować dozwolone regiony w jego pamięci:
+        </p>
+
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Dodanie dopuszczalnych zakresów terytorialnych do bazy przemiennika
+region put pl
+region put zachod
+region put pl-ds
+region put pl-lb
+region put wlkp
+
+# Zezwolenie na floodowanie (rozsyłanie) pakietów z tych zakresów
+region allowf pl
+region allowf zachod
+region allowf pl-ds
+region allowf pl-lb
+region allowf wlkp
+
+# Zapisanie zmian w pamięci stałej
+region save
+reboot</code></pre>
+
+        <div class="alert-callout alert-callout-info">
+            <strong>Solidarność sąsiedzka:</strong>
+            Dzięki powyższym regułom, Twój przemiennik pomoże w przekazywaniu lokalnego ruchu sąsiadom, jednocześnie odrzucając zbędny szum z odległych województw.
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Społeczność MeshCore Zachód.</p>
+    </footer>
+
+    <script>
+        function copyCode(button) {
+            const pre = button.parentElement;
+            const code = pre.querySelector('code');
+
+            navigator.clipboard.writeText(code.innerText.trim()).then(() => {
+                const originalText = button.innerText;
+                button.innerText = "skopiowano!";
+                button.style.backgroundColor = "var(--bg-success)";
+                button.style.color = "var(--accent-success)";
+                button.style.borderColor = "var(--border-success)";
+
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.style.backgroundColor = "";
+                    button.style.color = "";
+                    button.style.borderColor = "";
+                }, 1500);
+            }).catch(err => {
+                console.error("Błąd kopiowania: ", err);
+            });
+        }
+    </script>
+</body>
+</html>

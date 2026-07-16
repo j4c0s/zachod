@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Companion – Ustawienia Klienckie</title>
+    <style>
+        :root {
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border: #e2e8f0;
+            --accent-primary: #1e40af;
+            --accent-primary-hover: #1d4ed8;
+            --accent-primary-glow: rgba(30, 64, 175, 0.08);
+            --bg-warn: #fff7ed;
+            --border-warn: #ffedd5;
+            --accent-warn: #c2410c;
+            --bg-success: #f0fdf4;
+            --border-success: #dcfce7;
+            --accent-success: #15803d;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-page: #090d16;
+                --bg-card: #111827;
+                --text-main: #f3f4f6;
+                --text-muted: #9ca3af;
+                --border: #1f2937;
+                --accent-primary: #3b82f6;
+                --accent-primary-hover: #60a5fa;
+                --accent-primary-glow: rgba(59, 130, 246, 0.15);
+                --bg-warn: rgba(249, 115, 22, 0.08);
+                --border-warn: rgba(249, 115, 22, 0.2);
+                --accent-warn: #f97316;
+                --bg-success: rgba(34, 197, 94, 0.08);
+                --border-success: rgba(34, 197, 94, 0.2);
+                --accent-success: #22c55e;
+            }
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 32px 24px;
+            width: 100%;
+        }
+
+        .nav-back {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .nav-back:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            margin: 0 0 8px 0;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin: 32px 0 16px 0;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        ol, ul {
+            padding-left: 20px;
+            margin-bottom: 24px;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        li strong {
+            color: var(--text-main);
+        }
+
+        .btn-action {
+            display: inline-block;
+            background-color: var(--accent-primary);
+            color: #ffffff;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin: 8px 0;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-action:hover {
+            background-color: var(--accent-primary-hover);
+        }
+
+        .alert-callout {
+            border-radius: 12px;
+            padding: 16px;
+            margin: 24px 0;
+            border: 1px solid transparent;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .alert-callout-info {
+            background-color: var(--bg-success);
+            border-color: var(--border-success);
+            color: var(--text-muted);
+        }
+
+        .alert-callout-info strong {
+            color: var(--accent-success);
+        }
+
+        .alert-callout-warn {
+            background-color: var(--bg-warn);
+            border-color: var(--border-warn);
+            color: var(--text-muted);
+        }
+
+        .alert-callout-warn strong {
+            color: var(--accent-warn);
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 24px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="nav-back">← Powrót do strony głównej</a>
+
+        <h1>Instrukcja Companion</h1>
+        <div class="subtitle">Konfiguracja telefonu, parowanie z urządzeniem radiowym LoRa oraz zasady nazewnictwa węzłów.</div>
+
+        <h2>1. Wybór sprzętu i flashowanie</h2>
+        <p>
+            Wszystkie węzły w regionie zachodnim działają na paśmie <strong>868 MHz</strong>. Nie używamy urządzeń dedykowanych na inne pasma. Pełną listę wspieranego sprzętu (takiego jak moduły Heltec V3, T-Beam, itp.) znajdziesz bezpośrednio na:
+        </p>
+        <p>
+            <a href="https://meshcore.io" target="_blank" rel="noopener noreferrer" class="btn-action">Lista sprzętu na meshcore.io →</a>
+        </p>
+        <p>
+            Aby wgrać oprogramowanie MeshCore na swoje urządzenie, skorzystaj z oficjalnego instalatora webowego przez kabel USB:
+        </p>
+        <p>
+            <a href="https://meshcore.io/flasher" target="_blank" rel="noopener noreferrer" class="btn-action">Oficjalny Flasher Webowy →</a>
+        </p>
+
+        <div class="alert-callout alert-callout-info">
+            <strong>🔋 Opcja energooszczędna:</strong> Jeśli Twoje urządzenie klienckie jest zasilane małą baterią, możesz wgrać firmware PowerSaving (EasySkyMesh). Gotowe pliki binarne pobierzesz z:
+            <a href="https://github.com/IoTThinks/EasySkyMesh/releases" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); font-weight: 700;">EasySkyMesh GitHub Releases</a>.
+        </div>
+
+        <h2>2. Parowanie z telefonem (Bluetooth)</h2>
+        <ol>
+            <li>Włącz Bluetooth w swoim telefonie komórkowym z systemem Android.</li>
+            <li>Uruchom świeżo sflashowane urządzenie radiowe LoRa.</li>
+            <li>Otwórz oficjalną aplikację <strong>Companion</strong>.</li>
+            <li>Wyszukaj nowe urządzenie na liście (zwykle pod nazwą <code>MeshCore-XXXX</code>) i sparuj je ze swoim telefonem.</li>
+        </ol>
+
+        <h2>3. Aktywacja Prefixu 3-Bajtowego</h2>
+        <p>
+            Aby zapewnić zgodność z siecią krajową i uniknąć kolizji pakietów, wymagane jest włączenie dłuższego formatu nagłówka w aplikacji Companion:
+        </p>
+        <ol>
+            <li>Wejdź w ustawienia aplikacji Companion (ikona koła zębatego).</li>
+            <li>Przejdź na sam dół do sekcji <strong>Opcje Eksperymentalne (Experimental Options)</strong>.</li>
+            <li>Zaznacz opcję <strong>prefix 3-byte</strong>.</li>
+            <li>Kliknij ikonę akceptacji (ptaszek) w prawym górnym rogu ekranu, aby zapisać ustawienia.</li>
+        </ol>
+
+        <h2>4. Zasady Nazewnictwa (Węzły bez GPS)</h2>
+        <p>
+            W polskiej społeczności nie ma jednego narzuconego schematu nazw. Istnieje jednak niezwykle ważna zasada ułatwiająca nam wszystkim analizowanie tras pakietów:
+        </p>
+
+        <div class="alert-callout alert-callout-warn">
+            <strong>💡 Zasada dla urządzeń bez GPS:</strong> Jeżeli Twoje urządzenie nie posiada wbudowanego odbiornika GPS (lub jest on wyłączony), <strong>zawsze dodaj nazwę swojej miejscowości lub dzielnicy do nazwy węzła</strong>.
+        </div>
+
+        <p>Dzięki temu od razu widać, skąd i dokąd dociera sygnał. Przykład dobrych nazw:</p>
+        <ul>
+            <li><code>Kowalski_Sulechow</code></li>
+            <li><code>Andrzej_Wroclaw_Krzyki</code></li>
+            <li><code>Tomasz_Poznan_Jezyce</code></li>
+        </ul>
+    </div>
+
+    <footer>
+        <p>© 2026 Społeczność MeshCore Zachód.</p>
+    </footer>
+
+</body>
+</html>

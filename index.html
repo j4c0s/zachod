@@ -6,32 +6,20 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>MeshCore #zachod – Regionalny Przewodnik</title>
+    <title>MeshCore #zachod – Regionalne Ustawienia</title>
     <style>
-        /* Zaawansowany i nowoczesny system zmiennych dla Light/Dark Mode (Colorado-Mesh Inspired) */
         :root {
             --bg-page: #f8fafc;
             --bg-card: #ffffff;
             --text-main: #0f172a;
             --text-muted: #475569;
             --border: #e2e8f0;
-            --border-hover: #cbd5e1;
             
             --accent-primary: #1e40af;
             --accent-primary-hover: #1d4ed8;
             --accent-primary-glow: rgba(30, 64, 175, 0.08);
             
-            --accent-warn: #c2410c;
-            --bg-warn: #fff7ed;
-            --border-warn: #ffedd5;
-            
-            --accent-success: #15803d;
-            --bg-success: #f0fdf4;
-            --border-success: #dcfce7;
-            
             --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
-            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -41,22 +29,10 @@
                 --text-main: #f3f4f6;
                 --text-muted: #9ca3af;
                 --border: #1f2937;
-                --border-hover: #374151;
                 
                 --accent-primary: #3b82f6;
                 --accent-primary-hover: #60a5fa;
                 --accent-primary-glow: rgba(59, 130, 246, 0.15);
-                
-                --accent-warn: #f97316;
-                --bg-warn: rgba(249, 115, 22, 0.08);
-                --border-warn: rgba(249, 115, 22, 0.2);
-                
-                --accent-success: #22c55e;
-                --bg-success: rgba(34, 197, 94, 0.08);
-                --border-success: rgba(34, 197, 94, 0.2);
-                
-                --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-                --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
             }
         }
 
@@ -76,7 +52,6 @@
             transition: background-color 0.3s ease;
         }
 
-        /* Menu nawigacyjne */
         header {
             border-bottom: 1px solid var(--border);
             background-color: var(--bg-card);
@@ -84,11 +59,10 @@
             position: sticky;
             top: 0;
             z-index: 50;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .header-container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -96,9 +70,6 @@
         }
 
         .brand {
-            display: flex;
-            align-items: center;
-            gap: 8px;
             font-weight: 800;
             font-size: 1.25rem;
             color: var(--text-main);
@@ -111,7 +82,7 @@
 
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             align-items: center;
         }
 
@@ -119,7 +90,7 @@
             color: var(--text-muted);
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: color 0.2s ease;
         }
 
@@ -127,43 +98,25 @@
             color: var(--text-main);
         }
 
-        .btn-discord-nav {
-            background-color: var(--accent-primary-glow);
-            color: var(--accent-primary);
-            padding: 8px 16px;
-            border-radius: 9999px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        .btn-discord-nav:hover {
-            background-color: var(--accent-primary);
-            color: #ffffff;
-        }
-
-        /* Hero sekcja */
         .hero {
             text-align: center;
-            padding: 64px 24px 48px 24px;
+            padding: 48px 24px 32px 24px;
             max-width: 800px;
             margin: 0 auto;
         }
 
         .hero h1 {
-            font-size: 2.5rem;
+            font-size: 2.25rem;
             font-weight: 900;
-            letter-spacing: -0.04em;
-            margin: 0 0 16px 0;
-            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin: 0 0 12px 0;
         }
 
         .hero p {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             line-height: 1.6;
             color: var(--text-muted);
-            margin: 0 auto 24px auto;
+            margin: 0 auto;
             max-width: 600px;
         }
 
@@ -172,385 +125,118 @@
             background-color: var(--accent-primary-glow);
             color: var(--accent-primary);
             font-weight: 800;
-            font-size: 0.8rem;
-            padding: 6px 14px;
+            font-size: 0.75rem;
+            padding: 4px 12px;
             border-radius: 9999px;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 16px;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
         }
 
-        /* Siatka kart (Guides Grid) */
         .main-content {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 0 24px 64px 24px;
+            padding: 0 24px 48px 24px;
             width: 100%;
         }
 
         .section-title {
-            font-size: 1.5rem;
+            font-size: 1.35rem;
             font-weight: 800;
-            margin-bottom: 24px;
-            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
             border-bottom: 2px solid var(--border);
-            padding-bottom: 8px;
+            padding-bottom: 6px;
         }
 
         .guides-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 24px;
-            margin-bottom: 64px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
         }
 
         .guide-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
+            border-radius: 12px;
+            padding: 20px;
             box-shadow: var(--shadow);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
         }
 
         .guide-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-2px);
             border-color: var(--accent-primary);
-            box-shadow: var(--shadow-lg);
         }
 
-        .card-header-icon {
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            color: var(--accent-primary);
-            font-weight: 800;
-            letter-spacing: 0.1em;
-            margin-bottom: 8px;
-        }
-
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 800;
-            margin: 0 0 8px 0;
-            letter-spacing: -0.02em;
-        }
-
-        .card-description {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-
-        .card-footer-link {
-            color: var(--accent-primary);
-            font-weight: 700;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            text-transform: lowercase;
-            margin-top: auto;
-        }
-
-        /* Ostrzeżenie i zasoby */
-        .resources-section {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 32px;
-            margin-bottom: 64px;
-            box-shadow: var(--shadow);
-        }
-
-        .resources-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 24px;
-            margin-top: 24px;
-        }
-
-        .resource-item h4 {
-            margin: 0 0 8px 0;
-            font-size: 1.05rem;
-            font-weight: 700;
-        }
-
-        .resource-item p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
-
-        .resource-link {
-            color: var(--accent-primary);
-            font-weight: 700;
-            text-decoration: none;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .resource-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border);
-            background-color: var(--bg-card);
-            padding: 32px 24px;
-            margin-top: auto;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        footer p {
-            margin: 4px 0;
-        }
-
-        /* System Modal dla szczegółów przewodnika */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            z-index: 100;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal-container {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            width: 100%;
-            max-width: 800px;
-            max-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            box-shadow: var(--shadow-lg);
-            animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95) translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        .modal-header {
-            padding: 24px 32px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header-title-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .modal-badge {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
+        .card-badge {
+            font-size: 0.75rem;
             color: var(--accent-primary);
             font-weight: 800;
             letter-spacing: 0.05em;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
-        .modal-title {
-            font-size: 1.5rem;
+        .card-title {
+            font-size: 1.15rem;
             font-weight: 800;
-            margin: 0;
-            letter-spacing: -0.02em;
+            margin: 0 0 6px 0;
         }
 
-        .modal-close {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.75rem;
-            cursor: pointer;
-            padding: 8px;
-            line-height: 1;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            width: 40px;
-            height: 40px;
-        }
-
-        .modal-close:hover {
-            background-color: var(--bg-page);
-            color: var(--text-main);
-        }
-
-        .modal-body {
-            padding: 32px;
-            overflow-y: auto;
-            font-size: 1rem;
-            line-height: 1.6;
-            color: var(--text-main);
-        }
-
-        /* Formaty wewnętrzne modali (Guides styling) */
-        .modal-body h3 {
-            font-size: 1.25rem;
-            font-weight: 800;
-            margin: 32px 0 16px 0;
-            color: var(--text-main);
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 8px;
-        }
-
-        .modal-body h3:first-of-type {
-            margin-top: 0;
-        }
-
-        .modal-body p {
+        .card-description {
+            font-size: 0.9rem;
+            line-height: 1.5;
             color: var(--text-muted);
             margin-bottom: 16px;
         }
 
-        .modal-body ul, .modal-body ol {
-            padding-left: 20px;
-            margin-bottom: 20px;
-            color: var(--text-muted);
+        .card-link {
+            color: var(--accent-primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-top: auto;
         }
 
-        .modal-body li {
-            margin-bottom: 10px;
-        }
-
-        .modal-body li strong {
-            color: var(--text-main);
-        }
-
-        /* Kod i tabele wewnątrz przewodników */
-        .modal-body pre {
-            background-color: var(--bg-page);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
-            overflow-x: auto;
-            margin: 16px 0;
-            position: relative;
-        }
-
-        .modal-body pre code {
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            color: var(--text-main);
-            background: none;
-            border: none;
-            padding: 0;
-        }
-
-        .btn-copy {
-            position: absolute;
-            top: 10px;
-            right: 10px;
+        .info-box {
             background-color: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 4px 8px;
-            font-size: 0.75rem;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 40px;
+        }
+
+        .info-box h3 {
+            margin-top: 0;
+            font-size: 1.15rem;
+            font-weight: 800;
+        }
+
+        .info-box p {
             color: var(--text-muted);
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.15s ease;
-        }
-
-        .btn-copy:hover {
-            color: var(--text-main);
-            border-color: var(--border-hover);
-            background-color: var(--bg-page);
-        }
-
-        .modal-body table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 24px 0;
-            font-size: 0.9rem;
-        }
-
-        .modal-body th, .modal-body td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .modal-body th {
-            background-color: var(--bg-page);
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .modal-body tr:hover {
-            background-color: var(--bg-page);
-        }
-
-        .alert-callout {
-            border-radius: 14px;
-            padding: 18px;
-            margin: 20px 0;
-            border: 1px solid transparent;
             font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 0;
         }
 
-        .alert-callout-warn {
-            background-color: var(--bg-warn);
-            border-color: var(--border-warn);
+        footer {
+            border-top: 1px solid var(--border);
+            background-color: var(--bg-card);
+            padding: 24px;
+            text-align: center;
+            font-size: 0.85rem;
             color: var(--text-muted);
-        }
-
-        .alert-callout-warn strong {
-            color: var(--accent-warn);
-        }
-
-        .alert-callout-info {
-            background-color: var(--bg-success);
-            border-color: var(--border-success);
-            color: var(--text-muted);
-        }
-
-        .alert-callout-info strong {
-            color: var(--accent-success);
-        }
-
-        .text-accent-primary {
-            color: var(--accent-primary);
-            font-weight: 600;
+            margin-top: auto;
         }
     </style>
 </head>
 <body>
 
-    <!-- Menu nawigacyjne -->
     <header>
         <div class="header-container">
             <a href="index.html" class="brand">
@@ -559,571 +245,81 @@
             <div class="nav-links">
                 <a href="sf6-testy.html" class="nav-link">Raport SF6</a>
                 <a href="https://meshcore.io" target="_blank" rel="noopener noreferrer" class="nav-link">meshcore.io</a>
-                <a href="https://discord.com/channels/1260614306978857073/1477994334543417364" target="_blank" rel="noopener noreferrer" class="btn-discord-nav">Dołącz do Discorda</a>
             </div>
         </div>
     </header>
 
-    <!-- Sekcja Hero -->
     <section class="hero">
-        <span class="tagline">POLSKA ZACHODNIA / LORA.869</span>
-        <h1>Przewodniki regionalne</h1>
+        <span class="tagline">POLSKA ZACHODNIA / LORA.868</span>
+        <h1>Zalecane ustawienia</h1>
         <p>
-            Vademecum wiedzy, konfiguracji i dobrych praktyk dla budowniczych sieci LoRa MeshCore w regionie zachodnim (Dolny Śląsk, Lubuskie, Wielkopolska). Przeczytaj poradniki, by zsynchronizować swój węzeł z regionalnymi ustaleniami.
+            Konkretne i czytelne instrukcje konfiguracyjne dla poszczególnych urządzeń w regionie zachodnim (Dolny Śląsk, Lubuskie, Wielkopolska). Wybierz urządzenie, aby pobrać parametry.
         </p>
     </section>
 
-    <!-- Główna zawartość i siatka przewodników -->
     <main class="main-content">
-        <h2 class="section-title">Przeczytaj przewodniki</h2>
+        <h2 class="section-title">Instrukcje dla urządzeń</h2>
 
         <div class="guides-grid">
 
-            <!-- Karta 1: ONBOARDING -->
-            <div class="guide-card" onclick="openGuide('onboarding')">
+            <a href="companion.html" class="guide-card">
                 <div>
-                    <div class="card-header-icon">◈◊ ONBOARDING</div>
-                    <h3 class="card-title">Jak zacząć</h3>
+                    <div class="card-badge">TELEFON / URZĄDZENIE KLIENCKIE</div>
+                    <h3 class="card-title">Companion</h3>
                     <p class="card-description">
-                        Wybór kompatybilnego sprzętu radiowego, parowanie Bluetooth z aplikacją Companion na telefonie oraz pierwsze kroki w sieci.
+                        Konfiguracja aplikacji Android, parowanie Bluetooth, aktywacja prefixu 3-bajtowego oraz zasady nazewnictwa węzłów bez GPS.
                     </p>
                 </div>
-                <div class="card-footer-link">explore →</div>
-            </div>
+                <span class="card-link">otwórz instrukcję →</span>
+            </a>
 
-            <!-- Karta 2: REFERENCE -->
-            <div class="guide-card" onclick="openGuide('reference')">
+            <a href="repeater.html" class="guide-card">
                 <div>
-                    <div class="card-header-icon">◇◊ REFERENCE</div>
-                    <h3 class="card-title">Parametry radiowe</h3>
+                    <div class="card-badge">PRZEMIENNIK / STACJA BAZOWA</div>
+                    <h3 class="card-title">Repeater</h3>
                     <p class="card-description">
-                        Standardowy krajowy preset EU/UK Narrow, dedykowana częstotliwość, aktywacja 3-bajtowego nagłówka i kanoniczne komendy CLI.
+                        Optymalizacja czasów rozgłoszeń (adverty), profile delayów dopasowane do wysokości montażu oraz limity przeskoku (flood.max).
                     </p>
                 </div>
-                <div class="card-footer-link">explore →</div>
-            </div>
+                <span class="card-link">otwórz instrukcję →</span>
+            </a>
 
-            <!-- Karta 3: DEEP DIVE -->
-            <div class="guide-card" onclick="openGuide('deep_dive')">
+            <a href="roomserver.html" class="guide-card">
                 <div>
-                    <div class="card-header-icon">◉◊ DEEP DIVE</div>
-                    <h3 class="card-title">Konfiguracja repeatera</h3>
+                    <div class="card-badge">STACJA NASŁUCHOWA / ESP32</div>
+                    <h3 class="card-title">RoomServer / Observer</h3>
                     <p class="card-description">
-                        Optymalizacja czasów rozgłoszeń, precyzyjne ustawienia limitów przeskoku (flood.max/unscoped) oraz sprzętowa weryfikacja przemiennika przed startem.
+                        Jak uruchomić bezgłośny nasłuch z przesyłaniem danych przez Wi-Fi bezpośrednio do systemów telemetrycznych letsmesh i cma.pl.
                     </p>
                 </div>
-                <div class="card-footer-link">explore →</div>
-            </div>
+                <span class="card-link">otwórz instrukcję →</span>
+            </a>
 
-            <!-- Karta 4: CONTRIBUTE -->
-            <div class="guide-card" onclick="openGuide('contribute')">
+            <a href="regiony.html" class="guide-card">
                 <div>
-                    <div class="card-header-icon">⌁◊ CONTRIBUTE</div>
-                    <h3 class="card-title">Uruchomienie Observera</h3>
+                    <div class="card-badge">ZAKRESY I KANAŁY</div>
+                    <h3 class="card-title">Regiony i Kanały</h3>
                     <p class="card-description">
-                        Jak przekształcić tani moduł ESP32 w zawsze aktywną stację nasłuchującą (Observera), która publikuje ramki na mapy letsmesh oraz meshcorekrk.
+                        Jak unikać szumu dzięki regionalnym terytoriom (Scopes) i jak poprawnie skonfigurować regiony na swoim repeaterze.
                     </p>
                 </div>
-                <div class="card-footer-link">explore →</div>
-            </div>
-
-            <!-- Karta 5: STANDARD -->
-            <div class="guide-card" onclick="openGuide('standard')">
-                <div>
-                    <div class="card-header-icon">◊◊ STANDARD</div>
-                    <h3 class="card-title">Zasady nazewnictwa</h3>
-                    <p class="card-description">
-                        Dobre praktyki nazywania węzłów bez modułu GPS. Dlaczego podanie nazwy miejscowości w identyfikatorze ratuje diagnostykę sieciową.
-                    </p>
-                </div>
-                <div class="card-footer-link">explore →</div>
-            </div>
-
-            <!-- Karta 6: CHANNELS -->
-            <div class="guide-card" onclick="openGuide('channels')">
-                <div>
-                    <div class="card-header-icon">►◊ CHANNELS</div>
-                    <h3 class="card-title">Kanały i Scopes</h3>
-                    <p class="card-description">
-                        Zmniejszanie szumów dzięki zakresom regionalnym (pl-ds, pl-lb, wlkp, zachod, wroclaw). Tabela kanałów oraz idea solidarności sąsiedzkiej.
-                    </p>
-                </div>
-                <div class="card-footer-link">explore →</div>
-            </div>
-
-            <!-- Karta 7: SUPPORT -->
-            <div class="guide-card" onclick="openGuide('support')">
-                <div>
-                    <div class="card-header-icon">◌◊ SUPPORT</div>
-                    <h3 class="card-title">Rozwiązywanie problemów</h3>
-                    <p class="card-description">
-                        Gdy programator nie wykrywa portu, brak połączenia BLE z telefonem, GPS nie może złapać pozycji lub poziom szumów w okolicy jest zbyt wysoki.
-                    </p>
-                </div>
-                <div class="card-footer-link">explore →</div>
-            </div>
+                <span class="card-link">otwórz instrukcję →</span>
+            </a>
 
         </div>
 
-        <!-- Sekcja zasobów -->
-        <div class="resources-section">
-            <h3 style="margin-top: 0; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em;">Narzędzia operacyjne i linki</h3>
-            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px;">
-                Przydatne programy, linki i repozytoria wykorzystywane przy budowie naszej sieci LoRa MeshCore:
+        <div class="info-box">
+            <h3>Standard Częstotliwości</h3>
+            <p>
+                Wszystkie węzły w regionie zachodnim pracują wyłącznie w europejskim pasmie <strong>868 MHz</strong> (EU/UK Narrow, dedykowana częstotliwość <strong>869.618 MHz</strong>). Prosimy o ścisłe przestrzeganie tej częstotliwości, aby zachować pełną spójność sieci radiowej.
             </p>
-            <div class="resources-grid">
-
-                <div class="resource-item">
-                    <h4>Oficjalny Flasher</h4>
-                    <p>Instalator webowy umożliwiający flashowanie oprogramowania MeshCore bezpośrednio z przeglądarki przez port USB.</p>
-                    <a href="https://meshcore.io/flasher" target="_blank" rel="noopener noreferrer" class="resource-link">otwórz flasher →</a>
-                </div>
-
-                <div class="resource-item">
-                    <h4>Firmware PowerSaving</h4>
-                    <p>Specjalne energooszczędne oprogramowanie (EasySkyMesh) idealnie dopasowane do małych urządzeń zasilanych akumulatorowo.</p>
-                    <a href="https://github.com/IoTThinks/EasySkyMesh/releases" target="_blank" rel="noopener noreferrer" class="resource-link">pobierz releases →</a>
-                </div>
-
-                <div class="resource-item">
-                    <h4>Raport z testów SF6</h4>
-                    <p>Nasze historyczne archiwum testów porównawczych Spreading Factor 6 z czerwca 2026 r., analityka ankiet i wnioski pasmowe.</p>
-                    <a href="sf6-testy.html" class="resource-link">zobacz raport →</a>
-                </div>
-
-                <div class="resource-item">
-                    <h4>Discord #zachod</h4>
-                    <p>Nasza regionalna społeczność na Discordzie. Miejsce dyskusji, koordynacji montażu repeaterów i wzajemnej pomocy.</p>
-                    <a href="https://discord.com/channels/1260614306978857073/1477994334543417364" target="_blank" rel="noopener noreferrer" class="resource-link">dołącz do rozmowy →</a>
-                </div>
-
-            </div>
         </div>
     </main>
 
-    <!-- Stopka strony -->
     <footer>
-        <p><strong>MeshCore #zachod</strong> – Społecznościowa, niezależna sieć radiowa LoRa Polski Zachodniej.</p>
-        <p>© 2026 Społeczność MeshCore Zachód. Infrastruktura otwarta dla każdego.</p>
+        <p><strong>MeshCore #zachod</strong> – Praktyczne vademecum konfiguracji sieci LoRa.</p>
+        <p>© 2026 Społeczność MeshCore Zachód.</p>
     </footer>
 
-    <!-- Overlay dla modali -->
-    <div class="modal-overlay" id="modalOverlay" onclick="closeGuideOnOverlay(event)">
-        <div class="modal-container" id="modalContainer">
-            <div class="modal-header">
-                <div class="modal-header-title-container">
-                    <span class="modal-badge" id="modalBadge">KATEGORIA</span>
-                    <h2 class="modal-title" id="modalTitle">Tytuł przewodnika</h2>
-                </div>
-                <button class="modal-close" onclick="closeGuide()">&times;</button>
-            </div>
-            <div class="modal-body" id="modalBody">
-                <!-- Treść generowana dynamicznie przez JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Dane przewodników i obsługa interakcji w JS -->
-    <script>
-        const guidesData = {
-            onboarding: {
-                badge: "◈◊ ONBOARDING",
-                title: "Jak zacząć (Getting Started)",
-                content: `
-                    <h3>1. Wybór odpowiedniego sprzętu radiowego</h3>
-                    <p>Aby dołączyć do społeczności MeshCore na Zachodzie, potrzebujesz urządzenia radiowego LoRa pracującego na europejskim pasmie ISM <strong>868 MHz / 433 MHz</strong> (u nas standard to 868 MHz). Rekomendowane platformy:</p>
-                    <ul>
-                        <li><strong>Heltec V3:</strong> Tani, bardzo popularny moduł z małym ekranem OLED. Idealny jako domowy klient lub pierwszy węzeł biurkowy.</li>
-                        <li><strong>LILYGO T-Beam (V1.1 / Supreme):</strong> Posiada wbudowany moduł GPS oraz koszyk na akumulator 18650. Wyśmienity na wyprawy terenowe.</li>
-                        <li><strong>LILYGO T-Echo:</strong> Bardzo energooszczędny moduł z ekranem e-papierowym (E-ink) w ładnej obudowie.</li>
-                        <li><strong>Station G1:</strong> Gotowe, odporne na warunki atmosferyczne urządzenie w metalowej obudowie, idealne do montażu na dachu w roli stacji bazowej.</li>
-                    </ul>
-
-                    <h3>2. Wgrywanie oprogramowania (Flashowanie)</h3>
-                    <p>Oprogramowanie wgrywa się w niezwykle prosty sposób przez przeglądarkę internetową:</p>
-                    <ol>
-                        <li>Podłącz urządzenie kablem USB do komputera (upewnij się, że kabel obsługuje przesył danych, a nie tylko ładowanie).</li>
-                        <li>Wejdź na oficjalną stronę instalatora: <a href="https://meshcore.io/flasher" target="_blank" rel="noopener noreferrer" class="text-accent-primary">meshcore.io/flasher</a>.</li>
-                        <li>Kliknij przycisk połączenia, wybierz swój port szeregowy COM z listy i postępuj zgodnie z instrukcjami na ekranie (instalator sam dobierze i zainstaluje najnowsze stabilne pliki binarne).</li>
-                    </ol>
-
-                    <div class="alert-callout alert-callout-info">
-                        <strong>🔋 Węzły bateryjne:</strong> Jeśli budujesz węzeł zasilany wyłącznie małą baterią i chcesz zmaksymalizować czas pracy, rozważ wgranie specjalnego wydania oprogramowania PowerSaving (EasySkyMesh). Pliki instalacyjne znajdziesz w repozytorium GitHub: <a href="https://github.com/IoTThinks/EasySkyMesh/releases" target="_blank" rel="noopener noreferrer" class="text-accent-primary">github.com/IoTThinks/EasySkyMesh/releases</a>.
-                    </div>
-
-                    <h3>3. Pierwsze uruchomienie i parowanie</h3>
-                    <p>Po udanym wgraniu oprogramowania i ponownym uruchomieniu modułu:</p>
-                    <ol>
-                        <li>Włącz Bluetooth w swoim telefonie komórkowym.</li>
-                        <li>Pobierz i uruchom oficjalną aplikację <strong>Companion</strong> dla systemu Android.</li>
-                        <li>Wyszukaj nowe urządzenie na liście (zwykle posiada nazwę typu <code>MeshCore-XXXX</code>) i sparuj się z nim.</li>
-                    </ol>
-                `
-            },
-            reference: {
-                badge: "◇◊ REFERENCE",
-                title: "Parametry radiowe i CLI (Radio Settings)",
-                content: `
-                    <h3>1. Standardowy preset dla Polski</h3>
-                    <p>Wypracowanym i ujednoliconym standardem w całym kraju jest preset <strong>EU/UK Narrow</strong>. Gwarantuje on świetny zasięg na gęstym obszarze miejskim i idealnie radzi sobie w eterze.</p>
-
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Parametr</th>
-                                <th>Zalecana Wartość</th>
-                                <th>Opis</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Preset radiowy</strong></td>
-                                <td><code>EU/UK (Narrow)</code></td>
-                                <td>Ujednolicony zestaw szerokości pasma i kodowania</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Częstotliwość</strong></td>
-                                <td><code>869.618 MHz</code></td>
-                                <td>Nasza wyznaczona częstotliwość regionalna</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Szerokość kanału</strong></td>
-                                <td><code>62.5 kHz</code></td>
-                                <td>Optymalny kompromis między przepustowością a czułością</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Spreading Factor (SF)</strong></td>
-                                <td><code>8</code></td>
-                                <td>Zapewnia stabilny kompromis prędkości i zasięgu</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Coding Rate (CR)</strong></td>
-                                <td><code>8</code></td>
-                                <td>Domyślne podwyższone kodowanie korekcyjne dla odporności na szum</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <h3>2. Konfiguracja prefixu 3-bajtowego</h3>
-                    <p>Siatka MeshCore w Polsce Zachodniej pracuje w oparciu o unowocześniony, 3-bajtowy prefix adresowy, który chroni pakiety przed kolizjami i ułatwia routing. Aby włączyć go w telefonie:</p>
-                    <ol>
-                        <li>W aplikacji Companion przejdź do ustawień (kółko zębate).</li>
-                        <li>Zjedź na dół i wejdź w zakładkę <strong>Opcje Eksperymentalne (Experimental Options)</strong>.</li>
-                        <li>Zaznacz opcję <strong>prefix 3-byte</strong>.</li>
-                        <li>Zatwierdź zmiany klikając ikonę akceptacji ("ptaszek") w prawym górnym rogu.</li>
-                    </ol>
-
-                    <h3>3. Kanoniczne komendy konfiguracyjne CLI</h3>
-                    <p>Jeśli konfigurujesz urządzenie (np. repeater) przez terminal/konsolę szeregową, użyj poniższych komend do ujednolicenia parametrów radiowych:</p>
-
-                    <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Ustawienie poprawnego presetu radiowego
-set modem.preset EU_UK_NARROW
-
-# Wymuszenie częstotliwości regionalnej
-set lora.frequency 869618000
-
-# Aktywacja obsługi nowoczesnego prefixu 3-bajtowego
-set prefix.3byte true
-
-# Zapisanie zmian i restart
-write
-reboot</code></pre>
-                `
-            },
-            deep_dive: {
-                badge: "◉◊ DEEP DIVE",
-                title: "Konfiguracja Repeatera (Repeater Tuning)",
-                content: `
-                    <h3>Przemiennik (Repeater) – Kręgosłup sieci</h3>
-                    <p>Repeatery to bezobsługowe stacje bazowe umieszczane wysoko (dachy, maszty, kominy), których jedynym celem jest odbiór, weryfikacja i dalsze przekazywanie (floodowanie) ramek radiowych. Nie posiadają sparowanego telefonu przez Bluetooth.</p>
-
-                    <h3>1. Kroki kontrolne przed i po instalacji</h3>
-                    <p>Zanim umieścisz repeater w docelowej, trudnodostępnej lokalizacji, bezwzględnie przeprowadź procedurę testową:</p>
-                    <ul>
-                        <li><strong>Kontrola zasilania:</strong> Zmierz pobór prądu i upewnij się, że ładowanie z akumulatora lub zasilacza buforowego działa stabilnie.</li>
-                        <li><strong>Status GPS:</strong> Jeśli repeater posiada GPS, wystaw go na zewnątrz i sprawdź, czy w logach pojawia się prawidłowy status lokalizacji (tzw. GPS fix).</li>
-                        <li><strong>Poziom szumów (Noise Floor):</strong> Sprawdź wskaźnik RSSI szumów tła. Jeśli stale przekracza -110 dBm, w pobliżu może znajdować się źródło silnych zakłóceń elektromagnetycznych (np. zasilacz impulsowy złej jakości), co dramatycznie ograniczy zasięg.</li>
-                    </ul>
-
-                    <h3>2. Konfiguracja optymalizacyjna przez CLI</h3>
-                    <p>Aby zapobiec przeciążeniu sieci przy gęstym pokryciu, repeatery muszą ściśle limitować trasowanie pakietów. Połącz się przez konsolę USB i wklej następujące parametry:</p>
-
-                    <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Ustawienie maksymalnego limitu przeskoków dla pakietów ze scope
-set flood.max 6
-
-# Konfiguracja wielokrotnych potwierdzeń i skróconych tras
-set multi.acks 1
-set path.hash.mode 2</code></pre>
-
-                    <div class="alert-callout alert-callout-info">
-                        <strong>⚙️ Dostrajanie parametru flood.max:</strong>
-                        Wartość <code>flood.max</code> (domyślnie 6) może być elastycznie dostosowana. Dobrą praktyką jest monitorowanie sieci: jeśli widzisz na mapie lub w logach, że pakiety od najdalszych sąsiadów docierają do Ciebie w maksymalnie 4 przeskokach (hopach), możesz obniżyć limit <code>flood.max</code> np. do 5. Zredukuje to zbędny ruch radiowy bez ucinania rzeczywistych tras komunikacyjnych.
-                    </div>
-
-                    <h3>3. Wprowadzenie parametru flood.max.unscoped</h3>
-                    <p>Unscoped pakiety to takie, które nie posiadają zdefiniowanego żadnego zakresu terytorialnego (scope). Pochodzą zazwyczaj od nowo uruchomionych, nieskonfigurowanych urządzeń. Aby chronić pasmo, limitujemy ich zasięg:</p>
-                    <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Ograniczenie przesyłu pakietów bez scope do 3 przeskoków
-set flood.max.unscoped 3</code></pre>
-                    <p>Dzięki temu "śmieciowy" lub nieświadomy ruch od domyślnie skonfigurowanych węzłów wygaśnie szybko w eterze, dając pierwszeństwo zaplanowanemu ruchowi regionalnemu.</p>
-
-                    <h3>4. Ograniczenie czasu rozgłoszeń statusu</h3>
-                    <p>Repeater nie może wysyłać swoich własnych pakietów statusowych (reklam) zbyt często. Ustaw interwał informacyjny (Advert/Info Flood) na <strong>23 godziny</strong>:</p>
-                    <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Rozgłaszanie statusu raz na dobę
-set status.interval 82800</code></pre>
-
-                    <div class="alert-callout alert-callout-warn">
-                        <strong>⚡ Solidarność sąsiedzka:</strong> Jeśli Twój repeater stoi wysoko na granicy województw (np. na wzniesieniu w Dolnośląskim <code>pl-ds</code>, skąd doskonale "widać" Lubuskie <code>pl-lb</code>), dodaj do niego sąsiednie regiony za pomocą komendy <code>region put pl-lb</code> oraz <code>region allowf pl-lb</code>. Pomagasz w ten sposób przesyłać pakiety sąsiadom, spajając całą zachodnią sieć!
-                    </div>
-                `
-            },
-            contribute: {
-                badge: "⌁◊ CONTRIBUTE",
-                title: "Uruchomienie Observera na ESP32 (MQTT Setup)",
-                content: `
-                    <h3>Czym jest Observer?</h3>
-                    <p>Observer (obserwator) to stacja nasłuchowa, która nie wysyła własnych pakietów w eter (lub robi to niezwykle rzadko), ale cały czas odbiera ramki radiowe od innych użytkowników sieci i przesyła je za pośrednictwem domowego Wi-Fi do internetowych baz danych i map.</p>
-
-                    <h3>Jak zrobić repeater z funkcją Observera na ESP32?</h3>
-                    <p>Zwykła płytka ESP32 (np. Heltec V3 lub T-Beam) stojąca w domu może jednocześnie nasłuchiwać pasma i przekazywać pakiety do internetowych systemów śledzenia topologii sieci. Konfiguracja krok po kroku:</p>
-
-                    <ol>
-                        <li>Zainstaluj oprogramowanie na ESP32 zgodnie z instrukcją z sekcji <strong>Onboarding</strong>.</li>
-                        <li>Podłącz urządzenie do komputera i uruchom CLI/konsolę szeregową.</li>
-                        <li>Skonfiguruj dane swojej domowej sieci Wi-Fi, aby urządzenie mogło połączyć się z Internetem:</li>
-                    </ol>
-
-                    <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Ustawienie nazwy sieci Wi-Fi oraz hasła
-set wifi.ssid "Nazwa_Twojej_Sieci"
-set wifi.password "Haslo_Do_Wifi"
-set wifi.enabled true</code></pre>
-
-                    <h3>Konfiguracja raportowania telemetrycznego</h3>
-                    <p>Aby Twój Observer wysyłał statystyki, listę usłyszanych stacji oraz pakiety diagnostyczne na mapy, musisz podać adresy serwerów zbierających dane. W Polsce Zachodniej rekomendujemy równoczesne raportowanie do dwóch serwisów:</p>
-
-                    <ul>
-                        <li><strong>letsmesh.net:</strong> Globalna, otwarta mapa sieci LoRa MeshCore.</li>
-                        <li><strong>meshcorekrk.cma.pl:</strong> Polski lokalny serwer analityczny i wizualizacyjny.</li>
-                    </ul>
-
-                    <p>Komendy konfiguracyjne do aktywacji raportowania sieciowego:</p>
-                    <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Włączenie przesyłania telemetrii przez MQTT / JSON
-set mqtt.enabled true
-set mqtt.server "letsmesh.net"
-set mqtt.port 1883
-
-# Konfiguracja dodatkowego polskiego węzła raportowania
-set custom.telemetry.server "meshcorekrk.cma.pl"
-set custom.telemetry.enabled true
-
-# Zapis i restart urządzenia
-write
-reboot</code></pre>
-
-                    <p>Po restarcie urządzenie połączy się z Wi-Fi. Każdy odebrany pakiet LoRa zostanie natychmiast opatrzony nagłówkiem z siłą sygnału (RSSI/SNR) i wysłany na serwery telemetryczne, dzięki czemu Twoja stacja będzie widoczna na mapach jako aktywny węzeł nasłuchowy.</p>
-                `
-            },
-            standard: {
-                badge: "◊◊ STANDARD",
-                title: "Dobre Praktyki Nazewnictwa (Naming Standards)",
-                content: `
-                    <h3>Brak sztywnego standardu w Polsce</h3>
-                    <p>W polskiej społeczności MeshCore nie wprowadzono dotychczas jednego, narzuconego odgórnie standardu nazewnictwa węzłów (takiego jak ma to miejsce w USA). Każdy użytkownik ma pełną swobodę w doborze nazwy dla swojego radia.</p>
-
-                    <h3>Dlaczego nazwa ma znaczenie diagnostyczne?</h3>
-                    <p>Większość domowych węzłów stacjonarnych oraz prostych repeaterów instalowanych na strychach czy dachach nie posiada wbudowanego odbiornika GPS, bądź moduł ten jest wyłączony z oszczędności energii. W rezultacie takie węzły nie raportują współrzędnych geograficznych i nie pojawiają się automatycznie we właściwych miejscach na mapach sieciowych.</p>
-
-                    <div class="alert-callout alert-callout-warn">
-                        <strong>💡 Złota zasada dla węzłów bez GPS:</strong>
-                        Jeżeli Twoje urządzenie nie przesyła dokładnych koordynatów GPS, <strong>zawsze umieść nazwę swojej miejscowości lub dzielnicy w nazwie węzła</strong>.
-                    </div>
-
-                    <h3>Przykłady dobrze dobranych nazw:</h3>
-                    <ul>
-                        <li><code>RPT_Wroclaw_Krzyki</code> — Od razu wiemy, że to repeater w południowej części Wrocławia.</li>
-                        <li><code>RPT_Luban_Poludnie</code> — Przemiennik obsługujący Lubań i okolice.</li>
-                        <li><code>Kowalski_Sulechow</code> — Węzeł kliencki (Companion) konkretnego użytkownika w Sulechowie.</li>
-                        <li><code>RPT_Swiebodzin_M-Maszt</code> — Przemiennik umieszczony na maszcie w Świebodzinie.</li>
-                    </ul>
-
-                    <h3>Korzyści z jasnego nazewnictwa:</h3>
-                    <ol>
-                        <li><strong>Łatwa diagnostyka:</strong> Widząc w logach pakiet przekazany przez <code>RPT_Wroclaw_Krzyki</code>, administratorzy sieci od razu wiedzą, jaka trasa została pokonana przez fale radiowe.</li>
-                        <li><strong>Identyfikacja DX-ów:</strong> Podczas podwyższonej propagacji radiowej łatwo zauważyć rekordowe połączenia (np. z Lubuskiego na Dolny Śląsk) bez analizowania adresów MAC.</li>
-                        <li><strong>Pomoc dla początkujących:</strong> Nowy użytkownik uruchamiający radio po raz pierwszy od razu widzi, z jakimi miejscowościami ma bezpośrednią łączność i przez jakie przemienniki przechodzą jego wiadomości.</li>
-                    </ol>
-                `
-            },
-            channels: {
-                badge: "►◊ CHANNELS",
-                title: "Kanały Regionalne i Scopes",
-                content: `
-                    <h3>Zrozumieć technologię Regional Scope</h3>
-                    <p>Tradycyjne sieci mesh borykają się z problemem tzw. burzy rozgłoszeniowej (broadcast storm). Jeśli każdy pakiet byłby bezkrytycznie powtarzany przez wszystkie repeatery w kraju, pasmo szybko uległoby całkowitemu zatkaniu. Rozwiązaniem tego problemu w MeshCore jest mechanizm <strong>Regional Scope (Zakres Terytorialny)</strong>.</p>
-
-                    <p>Każdy pakiet wysłany na określonym kanale może mieć przypisany terytorialny identyfikator (np. <code>pl-ds</code>). Repeatery odbierające ten pakiet sprawdzają swoją lokalną listę dozwolonych regionów. Jeśli nie obsługują danego regionu, porzucają pakiet, nie pozwalając mu na dalsze zaśmiecanie odległego eteru.</p>
-
-                    <h3>Jak skonfigurować kanał ze Scope w Companion?</h3>
-                    <ol>
-                        <li>W aplikacji Companion wejdź w zakładkę zarządzania kanałami (Channels).</li>
-                        <li>Wybierz lub utwórz kanał (np. <code>#zachod</code>).</li>
-                        <li>Wejdź w jego ustawienia szczegółowe i znajdź pole <strong>Scope</strong> (lub "Region/Zasięg").</li>
-                        <li>Wpisz tam odpowiedni identyfikator tekstowy (np. <code>zachod</code>) i zatwierdź zmiany.</li>
-                    </ol>
-
-                    <h3>Tabela rekomendowanych kanałów regionalnych na Zachodzie:</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Nazwa Kanału</th>
-                                <th>Parametr Scope</th>
-                                <th>Przeznaczenie i zachowanie</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>#polska</strong></td>
-                                <td><code>pl</code></td>
-                                <td>Ogólnokrajowy. Powtarzany przez wszystkie repeatery w Polsce. Przeznaczony do ważnych komunikatów i testów dalekiego zasięgu.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>#zachod</strong></td>
-                                <td><code>zachod</code></td>
-                                <td>Główny kanał integracyjny dla województw: dolnośląskiego, lubuskiego i wielkopolskiego.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>#dolnoslaskie</strong></td>
-                                <td><code>pl-ds</code></td>
-                                <td>Ruch wewnątrz województwa Dolnośląskiego.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>#lubuskie</strong></td>
-                                <td><code>pl-lb</code></td>
-                                <td>Ruch wewnątrz województwa Lubuskiego.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>#wlkp</strong></td>
-                                <td><code>wlkp</code></td>
-                                <td>Ruch wewnątrz województwa Wielkopolskiego.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>#wroclaw</strong></td>
-                                <td><code>wroclaw</code> (lub <code>wro</code>)</td>
-                                <td><strong>Zasięg lokalny miejski:</strong> Wrocław i ościenne gminy. Służy do pogawędek lokalnych, całkowicie blokując wyjście pakietów na repeatery dalekosiężne poza aglomeracją.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <h3>Komendy CLI dla repeaterów w celu aktywacji obsługi zakresów:</h3>
-                    <p>Aby Twój repeater poprawnie przekazywał pakiety z powyższych kanałów, musi mieć wgrane odpowiednie regiony:</p>
-                    <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Dodanie obsługiwanych zakresów regionalnych do bazy przemiennika
-region put pl
-region put zachod
-region put pl-ds
-region put pl-lb
-region put wlkp
-
-# Zezwolenie na bezwarunkowe powtarzanie (Flood) dla tych zakresów
-region allowf pl
-region allowf zachod
-region allowf pl-ds
-region allowf pl-lb
-region allowf wlkp
-
-# Zapisanie ustawień w pamięci nieulotnej
-region save
-reboot</code></pre>
-                `
-            },
-            support: {
-                badge: "◌◊ SUPPORT",
-                title: "Rozwiązywanie problemów (Troubleshooting)",
-                content: `
-                    <h3>1. Instalator (Flasher) nie wykrywa mojego urządzenia</h3>
-                    <p>Najczęstsza przyczyna leży po stronie kabla USB lub sterowników:</p>
-                    <ul>
-                        <li><strong>Kabel zasilający zamiast transmisyjnego:</strong> Wiele tanich kabli USB (szczególnie dołączanych do powerbanków) posiada tylko dwie żyły zasilające i nie potrafi przesyłać danych. Wymień kabel na inny.</li>
-                        <li><strong>Brak sterowników układu UART:</strong> Płytki deweloperskie komunikują się przez chipy takie jak CP210x lub CH340. Pobierz i zainstaluj na swoim komputerze odpowiednie sterowniki producenta.</li>
-                        <li><strong>Tryb Bootloadera:</strong> Jeśli proces zatrzymuje się na próbie połączenia, przytrzymaj na płytce fizyczny przycisk <strong>BOOT</strong> (lub <strong>PRG</strong>), podłącz kabel i dopiero wtedy kliknij przycisk instalacji we flasherze.</li>
-                    </ul>
-
-                    <h3>2. Brak połączenia Bluetooth z aplikacją Companion</h3>
-                    <p>Moduły BLE w telefonach potrafią się zawiesić lub zapamiętać nieaktualny stan urządzenia:</p>
-                    <ul>
-                        <li><strong>Restart Bluetooth:</strong> Wyłącz i włącz ponownie moduł Bluetooth w telefonie.</li>
-                        <li><strong>Wyczyść pamięć podręczną aplikacji:</strong> W ustawieniach systemu Android wejdź w aplikacje -> Companion -> Pamięć -> Wyczyść pamięć podręczną (Cache).</li>
-                        <li><strong>Sprawdź rolę urządzenia:</strong> Upewnij się, że urządzenie nie zostało omyłkowo skonfigurowane jako Repeater lub Room Server, ponieważ te profile celowo <strong>wyłączają</strong> moduł Bluetooth w celach oszczędności energii!</li>
-                    </ul>
-
-                    <h3>3. Odbiornik GPS nie może złapać pozycji (No GPS Fix)</h3>
-                    <ul>
-                        <li><strong>Przeszkody terenowe:</strong> Sygnał GPS z satelitów jest bardzo słaby. Pierwsze uruchomienie po flashowaniu (tzw. zimny start) musi odbyć się pod gołym niebem i może zająć do 10-15 minut. Grube ściany budynku całkowicie blokują sygnał.</li>
-                        <li><strong>Zakłócenia elektromagnetyczne:</strong> Antena GPS umieszczona zbyt blisko anteny nadawczej LoRa może ulec tymczasowemu przesterowaniu podczas nadawania ramki radiowej. Zachowaj dystans minimum kilku centymetrów między antenami.</li>
-                    </ul>
-
-                    <h3>4. Bardzo słaby zasięg i wysokie szumy</h3>
-                    <ul>
-                        <li><strong>Niedopasowanie anteny:</strong> Używanie fabrycznych anten dołączanych do płytek deweloperskich (często strojonych błędnie na pasmo 915 MHz zamiast europejskiego 868 MHz) dramatycznie obniża sprawność nadawania. Zainwestuj w sprawdzoną antenę dedykowaną na pasmo 868 MHz.</li>
-                        <li><strong>Współczynnik SWR:</strong> Nadawanie bez podłączonej anteny może nieodwracalnie spalić końcówkę mocy (układ RF / transiwer) w Twojej płytce. Nigdy nie uruchamiaj urządzenia bez wkręconej anteny!</li>
-                    </ul>
-                `
-            }
-        };
-
-        function openGuide(id) {
-            const data = guidesData[id];
-            if (!data) return;
-
-            document.getElementById('modalBadge').innerText = data.badge;
-            document.getElementById('modalTitle').innerText = data.title;
-            document.getElementById('modalBody').innerHTML = data.content;
-
-            const overlay = document.getElementById('modalOverlay');
-            overlay.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Blokowanie przewijania strony w tle
-        }
-
-        function closeGuide() {
-            const overlay = document.getElementById('modalOverlay');
-            overlay.style.display = 'none';
-            document.body.style.overflow = ''; // Przywrócenie przewijania strony
-        }
-
-        function closeGuideOnOverlay(event) {
-            // Zamknięcie tylko gdy kliknięto w tło (overlay), a nie w sam kontener modala
-            if (event.target === document.getElementById('modalOverlay')) {
-                closeGuide();
-            }
-        }
-
-        function copyCode(button) {
-            const pre = button.parentElement;
-            const code = pre.querySelector('code');
-
-            // Kopiowanie do schowka
-            navigator.clipboard.writeText(code.innerText.replace("kopiuj", "").trim()).then(() => {
-                const originalText = button.innerText;
-                button.innerText = "skopiowano!";
-                button.style.backgroundColor = "var(--bg-success)";
-                button.style.color = "var(--accent-success)";
-                button.style.borderColor = "var(--border-success)";
-
-                setTimeout(() => {
-                    button.innerText = originalText;
-                    button.style.backgroundColor = "";
-                    button.style.color = "";
-                    button.style.borderColor = "";
-                }, 1500);
-            }).catch(err => {
-                console.error("Błąd kopiowania: ", err);
-            });
-        }
-
-        // Obsługa zamykania modala klawiszem Escape
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeGuide();
-            }
-        });
-    </script>
 </body>
 </html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Repeater – Konfiguracja Przemiennika</title>
+    <style>
+        :root {
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border: #e2e8f0;
+            --border-hover: #cbd5e1;
+            --accent-primary: #1e40af;
+            --accent-primary-hover: #1d4ed8;
+            --accent-primary-glow: rgba(30, 64, 175, 0.08);
+            --bg-warn: #fff7ed;
+            --border-warn: #ffedd5;
+            --accent-warn: #c2410c;
+            --bg-success: #f0fdf4;
+            --border-success: #dcfce7;
+            --accent-success: #15803d;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-page: #090d16;
+                --bg-card: #111827;
+                --text-main: #f3f4f6;
+                --text-muted: #9ca3af;
+                --border: #1f2937;
+                --border-hover: #374151;
+                --accent-primary: #3b82f6;
+                --accent-primary-hover: #60a5fa;
+                --accent-primary-glow: rgba(59, 130, 246, 0.15);
+                --bg-warn: rgba(249, 115, 22, 0.08);
+                --border-warn: rgba(249, 115, 22, 0.2);
+                --accent-warn: #f97316;
+                --bg-success: rgba(34, 197, 94, 0.08);
+                --border-success: rgba(34, 197, 94, 0.2);
+                --accent-success: #22c55e;
+            }
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 32px 24px;
+            width: 100%;
+        }
+
+        .nav-back {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .nav-back:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            margin: 0 0 8px 0;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin: 32px 0 16px 0;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        ul, ol {
+            padding-left: 20px;
+            margin-bottom: 24px;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        li strong {
+            color: var(--text-main);
+        }
+
+        pre {
+            background-color: var(--bg-page);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            overflow-x: auto;
+            margin: 16px 0;
+            position: relative;
+        }
+
+        pre code {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+
+        .btn-copy {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.15s ease;
+        }
+
+        .btn-copy:hover {
+            color: var(--text-main);
+            border-color: var(--border-hover);
+            background-color: var(--bg-page);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: var(--bg-page);
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        tr:hover {
+            background-color: var(--bg-page);
+        }
+
+        .alert-callout {
+            border-radius: 12px;
+            padding: 16px;
+            margin: 24px 0;
+            border: 1px solid transparent;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .alert-callout-info {
+            background-color: var(--bg-success);
+            border-color: var(--border-success);
+            color: var(--text-muted);
+        }
+
+        .alert-callout-info strong {
+            color: var(--accent-success);
+        }
+
+        .alert-callout-warn {
+            background-color: var(--bg-warn);
+            border-color: var(--border-warn);
+            color: var(--text-muted);
+        }
+
+        .alert-callout-warn strong {
+            color: var(--accent-warn);
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 24px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="nav-back">← Powrót do strony głównej</a>
+
+        <h1>Instrukcja dla Repeaterów</h1>
+        <div class="subtitle">Parametry techniczne, zalecane limity przeskoku (flood) oraz profile opóźnień (txdelay) dla stacji bazowych na Zachodzie.</div>
+
+        <h2>1. Kroki kontrolne przed montażem</h2>
+        <p>Przed umieszczeniem przemiennika wysoko na dachu lub maszcie, upewnij się, że stacja działa bez zarzutu:</p>
+        <ul>
+            <li><strong>Zasilanie i pobór prądu:</strong> Sprawdź obciążenie akumulatorów lub zasilacza buforowego.</li>
+            <li><strong>Status GPS Fix:</strong> Jeśli moduł ma GPS, upewnij się, że widzi satelity na otwartym terenie.</li>
+            <li><strong>Poziom szumów (Noise Floor):</strong> Zmierz wskaźnik RSSI tła. Ciągły poziom szumów powyżej -110 dBm oznacza lokalne zakłócenia utrudniające odbiór.</li>
+        </ul>
+
+        <h2>2. Nazewnictwo Repeaterów</h2>
+        <div class="alert-callout alert-callout-warn">
+            <strong>Dobra praktyka:</strong> Ze względu na brak sztywnego krajowego standardu, zalecamy w nazwie przemiennika jasno wskazać miejscowość/dzielnicę oraz typ montażu, np. <code>RPT_Wroclaw_Krzyki</code> lub <code>RPT_Luban_Maszt</code>. Ułatwia to błyskawiczną identyfikację tras sygnału.
+        </div>
+
+        <h2>3. Rozgłoszenia (Adverty)</h2>
+        <p>
+            Aby zapobiec wysycaniu pasma częstymi, powtarzającymi się ramkami statusu, konfigurujemy rzadkie interwały reklam lokalnych oraz globalnych:
+        </p>
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Status lokalny tylko do bezpośrednich sąsiadów co 4 godziny (240 minut)
+set advert.interval 240
+
+# Status globalny przekazywany floodem po sieci co 24 godziny
+set flood.advert.interval 24</code></pre>
+
+        <h2>4. Profile Opóźnień Nadawania (txdelay)</h2>
+        <p>
+            Zróżnicowanie czasów opóźnienia chroni sieć przed kolizjami radiowymi na tym samym obszarze. Im wyżej położony węzeł, tym dłużej powinien odczekać przed retransmisją, pozwalając na nadanie stacjom położonym niżej:
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Profil wysokości</th>
+                    <th>Zastosowanie</th>
+                    <th>Parametry CLI</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>WYSOKI / MASZT</strong></td>
+                    <td>Wysokie wieże, maszty kratownicowe, dachy wieżowców (daleki zasięg)</td>
+                    <td><code>set txdelay 1.5<br>set direct.txdelay 1.0<br>set rxdelay 3</code></td>
+                </tr>
+                <tr>
+                    <td><strong>DACH / ROOFTOP</strong></td>
+                    <td>Klasyczny montaż anteny na dachu domu jednorodzinnego lub niskiego bloku</td>
+                    <td><code>set txdelay 0.8<br>set direct.txdelay 0.4<br>set rxdelay 3</code></td>
+                </tr>
+                <tr>
+                    <td><strong>DOM / NISKI</strong></td>
+                    <td>Węzeł domowy, antena na parapecie lub wewnątrz pomieszczeń</td>
+                    <td><code>set txdelay 0.3<br>set direct.txdelay 0.1<br>set rxdelay 3</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>5. Limity Przeskoku (Hopy)</h2>
+        <p>
+            W celu zredukowania ogólnego szumu w eterze, ograniczamy ruch nieukierunkowany (unscoped) przy jednoczesnym zezwoleniu na szerokie przeskoki dla dobrze zaadresowanych pakietów regionalnych:
+        </p>
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Maksymalny limit hopów dla pakietów ze scope regionalnym (np. zachod, pl-ds)
+set flood.max 64
+
+# Ograniczenie przesyłu dla ruchu ogólnego bez scope (unscoped)
+set flood.max.unscoped 8</code></pre>
+
+        <div class="alert-callout alert-callout-info">
+            <strong>💡 Wskazówka dotycząca unscoped:</strong>
+            Wartość <code>flood.max.unscoped 8</code> jest wyjściowym standardem. Obserwuj chat w swojej okolicy i dostosuj ten parametr w przedziale <strong>6–8</strong> w zależności od tego, przez ile przeskoków (hopów) docierają do Ciebie pożądane pakiety.
+        </div>
+
+        <h2>6. Pozostała konfiguracja optymalizacyjna</h2>
+        <p>Wprowadź poniższe komendy w CLI, aby zoptymalizować pracę radia:</p>
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Włączenie trybu routingu i dwubajtowych path-hashów
+set path.hash.mode 1
+set multi.acks 1
+
+# Ochrona przed zatykaniem silnym sygnałem (resetowanie gainu SX1262)
+set agc.reset.interval 500
+
+# Pozostawienie pustego hasła gościa (ułatwia sąsiedzką diagnostykę)
+set guest.password ""
+
+# Zapis i restart urządzenia
+write
+reboot</code></pre>
+    </div>
+
+    <footer>
+        <p>© 2026 Społeczność MeshCore Zachód.</p>
+    </footer>
+
+    <script>
+        function copyCode(button) {
+            const pre = button.parentElement;
+            const code = pre.querySelector('code');
+
+            navigator.clipboard.writeText(code.innerText.trim()).then(() => {
+                const originalText = button.innerText;
+                button.innerText = "skopiowano!";
+                button.style.backgroundColor = "var(--bg-success)";
+                button.style.color = "var(--accent-success)";
+                button.style.borderColor = "var(--border-success)";
+
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.style.backgroundColor = "";
+                    button.style.color = "";
+                    button.style.borderColor = "";
+                }, 1500);
+            }).catch(err => {
+                console.error("Błąd kopiowania: ", err);
+            });
+        }
+    </script>
+</body>
+</html>

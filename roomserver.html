@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>RoomServer / Observer – Nasłuch Sieci</title>
+    <style>
+        :root {
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border: #e2e8f0;
+            --border-hover: #cbd5e1;
+            --accent-primary: #1e40af;
+            --accent-primary-hover: #1d4ed8;
+            --accent-primary-glow: rgba(30, 64, 175, 0.08);
+            --bg-success: #f0fdf4;
+            --border-success: #dcfce7;
+            --accent-success: #15803d;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-page: #090d16;
+                --bg-card: #111827;
+                --text-main: #f3f4f6;
+                --text-muted: #9ca3af;
+                --border: #1f2937;
+                --border-hover: #374151;
+                --accent-primary: #3b82f6;
+                --accent-primary-hover: #60a5fa;
+                --accent-primary-glow: rgba(59, 130, 246, 0.15);
+                --bg-success: rgba(34, 197, 94, 0.08);
+                --border-success: rgba(34, 197, 94, 0.2);
+                --accent-success: #22c55e;
+            }
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 32px 24px;
+            width: 100%;
+        }
+
+        .nav-back {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .nav-back:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            margin: 0 0 8px 0;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin: 32px 0 16px 0;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        ol, ul {
+            padding-left: 20px;
+            margin-bottom: 24px;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        li strong {
+            color: var(--text-main);
+        }
+
+        pre {
+            background-color: var(--bg-page);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            overflow-x: auto;
+            margin: 16px 0;
+            position: relative;
+        }
+
+        pre code {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+
+        .btn-copy {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.15s ease;
+        }
+
+        .btn-copy:hover {
+            color: var(--text-main);
+            border-color: var(--border-hover);
+            background-color: var(--bg-page);
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 24px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="nav-back">← Powrót do strony głównej</a>
+
+        <h1>RoomServer / Observer</h1>
+        <div class="subtitle">Jak skonfigurować bezgłośny punkt nasłuchowy (Observera) na ESP32 i połączyć go ze światową oraz lokalną telemetrią przez Wi-Fi.</div>
+
+        <h2>Zasada działania Observera</h2>
+        <p>
+            Observer (obserwator) to urządzenie oparte o ESP32 z radiem LoRa, które nie wysyła własnych pakietów w eter (by nie generować niepotrzebnego szumu), lecz stale nasłuchuje pasma i przekazuje odebrane ramki drogą internetową (Wi-Fi) bezpośrednio na serwery telemetryczne i mapy topograficzne sieci.
+        </p>
+
+        <h2>Krok 1: Wstępna konfiguracja i Wi-Fi</h2>
+        <p>Wgraj oprogramowanie MeshCore na urządzenie przy użyciu flashera USB. Następnie podłącz się do konsoli szeregowej CLI i skonfiguruj połączenie z domową siecią bezprzewodową Wi-Fi:</p>
+
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Wprowadź dane Twojej domowej sieci bezprzewodowej
+set wifi.ssid "Nazwa_Twojej_Sieci"
+set wifi.password "Haslo_Do_Wifi"
+set wifi.enabled true</code></pre>
+
+        <h2>Krok 2: Konfiguracja połączenia MQTT i serwerów telemetrii</h2>
+        <p>
+            Aby Twoja stacja skutecznie przekazywała pakiety na mapy i do baz analitycznych, aktywujemy przesyłanie danych MQTT. W regionie zachodnim wysyłamy dane jednocześnie do dwóch niezależnych baz:
+        </p>
+        <ul>
+            <li><strong>letsmesh.net:</strong> Główna, globalna mapa sieci LoRa MeshCore.</li>
+            <li><strong>meshcorekrk.cma.pl:</strong> Krajowy polski serwer zbierający statystyki jakości linków, poziomu szumów oraz trasowania pakietów.</li>
+        </ul>
+
+        <p>Wprowadź w CLI poniższe komendy:</p>
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Włączenie podstawowego przesyłu danych na letsmesh.net
+set mqtt.enabled true
+set mqtt.server "letsmesh.net"
+set mqtt.port 1883
+
+# Aktywacja raportowania na polski serwer analityczny
+set custom.telemetry.server "meshcorekrk.cma.pl"
+set custom.telemetry.enabled true
+
+# Zapisanie ustawień i restart urządzenia
+write
+reboot</code></pre>
+
+        <p>
+            Po restarcie urządzenie automatycznie połączy się z siecią Wi-Fi i zacznie przesyłać odebrane pakiety radiowe do systemów internetowych. Na mapach Twój węzeł pojawi się jako aktywny punkt nasłuchowy oznaczony jako Observer.
+        </p>
+    </div>
+
+    <footer>
+        <p>© 2026 Społeczność MeshCore Zachód.</p>
+    </footer>
+
+    <script>
+        function copyCode(button) {
+            const pre = button.parentElement;
+            const code = pre.querySelector('code');
+
+            navigator.clipboard.writeText(code.innerText.trim()).then(() => {
+                const originalText = button.innerText;
+                button.innerText = "skopiowano!";
+                button.style.backgroundColor = "var(--bg-success)";
+                button.style.color = "var(--accent-success)";
+                button.style.borderColor = "var(--border-success)";
+
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.style.backgroundColor = "";
+                    button.style.color = "";
+                    button.style.borderColor = "";
+                }, 1500);
+            }).catch(err => {
+                console.error("Błąd kopiowania: ", err);
+            });
+        }
+    </script>
+</body>
+</html>
