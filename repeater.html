@@ -263,6 +263,7 @@
         <div class="alert-callout alert-callout-info">
             <strong>⚡ Ważna aktualizacja oprogramowania:</strong><br>
             Gorąco zachęcamy do aktualizowania repeaterów do wersji oprogramowania <strong>minimum 1.16</strong>.
+            Oficjalne wydania można pobrać bezpośrednio ze strony <a href="https://meshcore.io" target="_blank" rel="noopener noreferrer">meshcore.io</a>, a alternatywne i zoptymalizowane wersje oprogramowania od <a href="https://github.com/IoTThinks/EasySkyMesh/releases" target="_blank" rel="noopener noreferrer">IoTThinks</a> są dostępne na GitHubie.<br><br>
             Repeatery poniżej wersji 1.14 nie przesyłają wiadomości 2 i 3-bajtowych. Ponadto, wersje poniżej 1.16 wysyłają wiadomości z preambułą 16 zamiast 32, co jest kluczowym elementem w dalszej optymalizacji i obniżaniu zużycia energii baterii.
         </div>
 
@@ -296,7 +297,7 @@
         <p>
             Dla ułatwienia diagnostyki sieciowej i identyfikacji stacji bazowych, ustaw swoją nazwę companion (znak wywoławczy lub pseudonim), pod którą można się z Tobą bezpośrednio skontaktować w sieci. Ułatwi to odnalezienie właściciela w razie potrzeby kontaktu lub awarii:
         </p>
-        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set owner "TWÓJ_NICK_LUB_ZNAK"</code></pre>
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set owner.info "TWÓJ_NICK_LUB_ZNAK"</code></pre>
 
         <h2>4. Rozgłoszenia (Adverty)</h2>
         <p>
@@ -344,7 +345,18 @@
             Mechanizm Regional Scope służy do filtrowania i ograniczania ruchu radiowego w sieci, chroniąc Twój przemiennik przed zapchaniem przez niepotrzebne ramki z odległych województw. Dzięki tym regułom, Twój przemiennik pomoże w przekazywaniu lokalnego i krajowego ruchu sąsiadom, jednocześnie odrzucając zbędny szum.
         </p>
         <p>
-            Aby dodać dozwolone zakresy regionalne i zezwolić na ich przekazywanie dalej (floodowanie), wykonaj poniższe polecenia:
+            <strong>Ważna uwaga dotycząca kompatybilności:</strong> Dodanie regionów (scopes) do konfiguracji repeatera <strong>nie powoduje żadnych problemów z przesyłaniem dotychczasowych wiadomości bez ustawionego zakresu (unscoped)</strong>. Urządzenie nadal będzie poprawnie przekazywać tradycyjny ruch, ale dodatkowo zyska możliwość odbierania i przesyłania dalej wiadomości z przypisanym, konkretnym zakresem regionalnym.
+        </p>
+        <p>
+            <strong>Ustawienie domyślnego regionu (default.region):</strong><br>
+            Komenda <code>set default.region [scope]</code> (np. <code>set default.region zachod</code>) służy do zdefiniowania domyślnego zakresu terytorialnego. Przypisuje ona wybrany region do wszystkich pakietów generowanych bezpośrednio przez sam repeater (np. jego własne statusy i telemetryczne rozgłoszenia) oraz do pakietów, które dotarły do niego jako "czyste" (bez przypisanego żadnego scope'u). Dzięki temu pakiety te zostaną automatycznie "oznakowane" odpowiednim regionem i będą przekazywane zgodnie z polityką filtracji.
+        </p>
+        <div class="alert-callout alert-callout-warn">
+            <strong>🌍 Zasada dobierania regionów:</strong><br>
+            Pamiętaj, aby do konfiguracji repeatera dodawać <strong>wyłącznie regiony odpowiadające Twojemu własnemu województwu</strong> (voivodeship) oraz regionom nadrzędnym (jak krajowy <code>pl</code> czy zbiorczy <code>zachod</code>). Wyjątkiem są sytuacje, gdy przemiennik znajduje się blisko granicy województw lub pełni rolę fizycznego mostu (bridge) przenoszącego ruch pomiędzy sąsiadującymi regionami.
+        </div>
+        <p>
+            Aby dodać dozwolone zakresy regionalne, ustawić domyślny region oraz zezwolić na ich przekazywanie dalej (floodowanie), wykonaj poniższe polecenia w CLI:
         </p>
         <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put pl
 region put zachod
@@ -358,6 +370,7 @@ region allowf pl-ds
 region allowf pl-lb
 region allowf wlkp
 region allowf wroc
+set default.region zachod
 region save</code></pre>
         <p>
             Pełną listę oraz taryfikator rekomendowanych kanałów i regionów w Polsce Zachodniej znajdziesz na dedykowanej podstronie: <a href="regiony.html">Regiony i Kanały</a>.
@@ -375,6 +388,7 @@ region save</code></pre>
         </p>
 
         <ul>
+            <li><strong><code>set dutycycle 10</code>:</strong> Ogranicza cykl pracy nadajnika (duty cycle) do 10%, co jest bezpośrednio zgodne z europejskimi normami prawnymi dla pasma LoRa ISM (869.4–869.65 MHz). Wymusza to odpowiednio długi czas ciszy radiowej po każdej retransmisji, dbając o wolne pasmo i legalność działania stacji.</li>
             <li><strong><code>set flood.max.advert 8</code>:</strong> Ogranicza zasięg przesyłanych advertów sieciowych.</li>
             <li><strong><code>set path.hash.mode 2</code>:</strong> Wymusza dwubajtowy tryb generowania skrótów ścieżek (path-hash), co znacząco zmniejsza ryzyko kolizji identyfikatorów tras w większych sieciach.</li>
             <li><strong><code>set multi.acks 1</code>:</strong> Aktywuje wielokrotne potwierdzenia odbioru pakietów, co poprawia niezawodność dostarczania danych przy niestabilnym linku.</li>
@@ -453,7 +467,7 @@ set rxdelay 3</code></pre>
             Poniżej zebraliśmy wszystkie rekomendowane i standardowe komendy konfiguracji repeatera na Zachodzie w jednym miejscu. Możesz skopiować całą listę lub poszczególne parametry do wdrożenia w konsoli. Pamiętaj, aby po wszystkim zrestartować urządzenie:
         </p>
         <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj całość</button><code># 1. Tożsamość i kontakt (wprowadź swój własny nick)
-set owner "TWÓJ_NICK_LUB_ZNAK"
+set owner.info "TWÓJ_NICK_LUB_ZNAK"
 
 # 2. Czasy rozgłoszeń (adverty)
 set advert.interval 240
@@ -469,7 +483,8 @@ set guest.password ""
 # 5. Tryb przekazywania (Repeat Mode)
 set repeat.mode on
 
-# 6. Optymalizacja routingu i parametrów LoRa
+# 6. Optymalizacja routingu i parametrów LoRa oraz duty cycle
+set dutycycle 10
 set path.hash.mode 2
 set multi.acks 1
 set agc.reset.interval 500
@@ -489,6 +504,7 @@ region allowf pl-ds
 region allowf pl-lb
 region allowf wlkp
 region allowf wroc
+set default.region zachod
 region save
 
 # 8. Opcjonalne oszczędzanie energii (odkomentuj jeśli zasilasz bateryjnie)

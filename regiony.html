@@ -298,7 +298,26 @@
 
         <h2>Konfiguracja zakresów na Repeaterze (CLI)</h2>
         <p>
-            Aby Twój repeater poprawnie przekazywał pakiety z powyższych zakresów regionalnych i ignorował ruch z innych części kraju, musisz zdefiniować dozwolone regiony w jego pamięci:
+            Aby Twój repeater poprawnie przekazywał pakiety z powyższych zakresów regionalnych i ignorował ruch z innych części kraju, musisz zdefiniować dozwolone regiony w jego pamięci.
+        </p>
+
+        <div class="alert-callout alert-callout-info">
+            <strong>💡 Bezpieczna kompatybilność:</strong><br>
+            Dodanie regionalnych zakresów (scopes) do konfiguracji repeatera <strong>nie zakłóca i nie blokuje przesyłania dotychczasowych wiadomości bez ustawionego zakresu (unscoped)</strong>. Przemiennik wciąż będzie sprawnie przekazywał standardowy ruch, zyskując jednocześnie możliwość obsługi pakietów z przypisanym zakresem regionalnym.
+        </div>
+
+        <p>
+            <strong>Ustawianie domyślnego regionu (default.region):</strong><br>
+            Za pomocą polecenia <code>set default.region [scope]</code> (np. <code>set default.region zachod</code>) możemy określić domyślny region dla urządzenia. Sprawia to, że pakiety generowane przez sam przemiennik (np. statusy, telemetryczne rozgłoszenia) lub odebrane jako unscoped (bez przypisanego regionu) zostaną automatycznie oznaczone wybranym zakresem, co ułatwia ich prawidłowe trasowanie w sieci.
+        </p>
+
+        <div class="alert-callout alert-callout-warn">
+            <strong>🌍 Ważne zalecenie:</strong><br>
+            Należy dodawać do konfiguracji repeatera wyłącznie regiony, które bezpośrednio odpowiadają Twojemu własnemu województwu oraz regiony nadrzędne (takie jak <code>pl</code> czy <code>zachod</code>). Inne regiony zaleca się dodawać tylko w przypadku, gdy stacja znajduje się blisko granicy administracyjnej lub pełni rolę mostu (bridge) przekazującego ruch między województwami.
+        </div>
+
+        <p>
+            Wprowadź poniższe komendy w CLI, aby zdefiniować dozwolone regiony, skonfigurować domyślny region oraz zezwolić na ich przekazywanie (floodowanie):
         </p>
 
         <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Dodanie dopuszczalnych zakresów terytorialnych do bazy przemiennika
@@ -316,6 +335,9 @@ region allowf pl-ds
 region allowf pl-lb
 region allowf wlkp
 region allowf wroc
+
+# Ustawienie domyślnego regionu dla własnych i unscoped pakietów
+set default.region zachod
 
 # Zapisanie zmian w pamięci stałej
 region save
