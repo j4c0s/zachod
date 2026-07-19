@@ -250,7 +250,6 @@
             <li><strong>Scope (Zakres):</strong> To geograficzne życzenie zasięgu, które użytkownik dołącza do swojej wiadomości w aplikacji klienckiej (np. Companion).</li>
             <li><strong>Zasada dopasowania (Matching):</strong> Przemiennik przekaże dalej (retransmituje) wiadomość ze scope'em tylko wtedy, gdy nazwa tego scope'u znajduje się dokładnie na jego własnej liście dozwolonych regionów. Dopasowanie to opiera się na unikalnym kluczu 1:1 generowanym z nazwy (nie jest to proste dopasowanie podciągów).</li>
             <li><strong>Znak wieloznaczny (*):</strong> Domyślnie każdy przemiennik posiada aktywną regułę <code>*</code>, która pozwala na bezproblemowe przekazywanie wiadomości bez przypisanego zakresu (unscoped). Wyłączenie jej nie jest zalecane.</li>
-            <li><strong>Przypadek specjalny (Sonderfall):</strong> Zakres <code>local</code> lub <code>lokal</code> służy wyłącznie do testów lokalnych "antena w antenę". Przemienniki nie mogą mieć skonfigurowanego tego regionu, dzięki czemu takie wiadomości nigdy nie są puszczane w flood.</li>
         </ul>
 
         <h2>Tabela Rekomendowanych Kanałów na Zachodzie</h2>
@@ -320,7 +319,7 @@
 
         <div class="alert-callout alert-callout-info">
             <strong>💡 Brak problemów z dotychczasowymi wiadomościami (Wsteczna Kompatybilność):</strong><br>
-            Dodanie regionalnych zakresów (scopes) do konfiguracji repeatera <strong>nie powoduje absolutnie żadnych problemów z przesyłaniem dotychczasowych/standardowych wiadomości</strong> bez ustawionego zakresu (unscoped). Przemiennik wciąż będzie sprawnie przekazywał dotychczasowy ruch, zyskując jednocześnie nową możliwość odbierania i przesyłania dalej wiadomości ze skonfigurowanym, konkretnym zakresem regionalnym (scope).
+            Dodanie regionów do konfiguracji repeatera <strong>nie powoduje absolutnie żadnych problemów z przesyłaniem dotychczasowych/standardowych wiadomości</strong> bez ustawionego scope (tzw. unscoped). Przemiennik wciąż będzie sprawnie przekazywał dotychczasowy ruch, zyskując jednocześnie nową możliwość odbierania i przesyłania dalej wiadomości ze skonfigurowanym, konkretnym zakresem regionalnym.
         </div>
 
         <p>

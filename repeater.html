@@ -399,14 +399,46 @@
         </p>
 
         <ul>
-            <li><strong><code>set dutycycle 10</code>:</strong> Ogranicza cykl pracy nadajnika (duty cycle) do 10%, co jest bezpośrednio zgodne z europejskimi normami prawnymi dla pasma LoRa ISM (869.4–869.65 MHz). Wymusza to odpowiednio długi czas ciszy radiowej po każdej retransmisji, dbając o wolne pasmo i legalność działania stacji.</li>
-            <li><strong><code>set loop.detect minimal</code>:</strong> Włącza podstawowe, niskonarzutowe wykrywanie pętli (loop detection). Chroni to sieć przed zjawiskiem zapętlania się tych samych pakietów między sąsiednimi przemiennikami, zapobiegając lawinowemu przeciążeniu eteru.</li>
-            <li><strong><code>set multi.acks 1</code>:</strong> Aktywuje funkcję podwójnych/wielokrotnych potwierdzeń odbioru (multiple ACKs). Poprawia to niezawodność dostarczania danych, zwłaszcza przy niestabilnym, słabym połączeniu i w konfiguracjach wielodrożnych (multi-path), eliminując ryzyko zagubienia potwierdzeń.</li>
-            <li><strong><code>set flood.max.advert 8</code>:</strong> Ogranicza zasięg przesyłanych advertów sieciowych.</li>
-            <li><strong><code>set path.hash.mode 2</code>:</strong> Wymusza dwubajtowy tryb generowania skrótów ścieżek (path-hash), co znacząco zmniejsza ryzyko kolizji identyfikatorów tras w większych sieciach.</li>
-            <li><strong><code>set agc.reset.interval 500</code>:</strong> Określa interwał (w milisekundach) resetowania automatycznej kontroli wzmocnienia (AGC) w układzie SX1262, zapobiegając zatykaniu odbiornika przez silne, bliskie sygnały.</li>
-            <li><strong><code>set flood.max 64</code>:</strong> Maksymalny dopuszczalny limit hopów (przeskoków) dla pakietów z przypisanym i dozwolonym zakresem regionalnym (np. zachod, pl-ds).</li>
-            <li><strong><code>set flood.max.unscoped 8</code>:</strong> Ograniczenie przesyłu dla ogólnego ruchu bez przypisanego zakresu (unscoped). Pakiety te mają mniejszy priorytet rozprzestrzeniania się.</li>
+            <li style="margin-bottom: 20px;">
+                <strong>Ograniczenie cyklu pracy nadajnika (duty cycle):</strong>
+                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" style="top: 6px; right: 8px;" onclick="copyCode(this)">kopiuj</button><code>set dutycycle 10</code></pre>
+                Ogranicza cykl pracy nadajnika (duty cycle) do 10%, co jest bezpośrednio zgodne z europejskimi normami prawnymi dla pasma LoRa ISM (869.4–869.65 MHz). Wymusza to odpowiednio długi czas ciszy radiowej po każdej retransmisji, dbając o wolne pasmo i legalność działania stacji.
+            </li>
+            <li style="margin-bottom: 20px;">
+                <strong>Wykrywanie pętli (loop detection):</strong>
+                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" style="top: 6px; right: 8px;" onclick="copyCode(this)">kopiuj</button><code>set loop.detect minimal</code></pre>
+                Włącza podstawowe, niskonarzutowe wykrywanie pętli (loop detection). Chroni to sieć przed zjawiskiem zapętlania się tych samych pakietów między sąsiednimi przemiennikami, zapobiegając lawinowemu przeciążeniu eteru.
+            </li>
+            <li style="margin-bottom: 20px;">
+                <strong>Wielokrotne potwierdzenia odbioru (multiple ACKs):</strong>
+                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" style="top: 6px; right: 8px;" onclick="copyCode(this)">kopiuj</button><code>set multi.acks 1</code></pre>
+                Aktywuje funkcję podwójnych/wielokrotnych potwierdzeń odbioru (multiple ACKs). Poprawia to niezawodność dostarczania danych, zwłaszcza przy niestabilnym, słabym połączeniu i w konfiguracjach wielodrożnych (multi-path), eliminując ryzyko zagubienia potwierdzeń.
+            </li>
+            <li style="margin-bottom: 20px;">
+                <strong>Zasięg przesyłanych advertów sieciowych:</strong>
+                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" style="top: 6px; right: 8px;" onclick="copyCode(this)">kopiuj</button><code>set flood.max.advert 8</code></pre>
+                Ogranicza zasięg przesyłanych advertów sieciowych.
+            </li>
+            <li style="margin-bottom: 20px;">
+                <strong>Tryb generowania skrótów ścieżek (path-hash):</strong>
+                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" style="top: 6px; right: 8px;" onclick="copyCode(this)">kopiuj</button><code>set path.hash.mode 2</code></pre>
+                Wymusza dwubajtowy tryb generowania skrótów ścieżek (path-hash), co znacząco zmniejsza ryzyko kolizji identyfikatorów tras w większych sieciach.
+            </li>
+            <li style="margin-bottom: 20px;">
+                <strong>Resetowanie automatycznej kontroli wzmocnienia (AGC):</strong>
+                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" style="top: 6px; right: 8px;" onclick="copyCode(this)">kopiuj</button><code>set agc.reset.interval 500</code></pre>
+                Określa interwał (w milisekundach) resetowania automatycznej kontroli wzmocnienia (AGC) w układzie SX1262, zapobiegając zatykaniu odbiornika przez silne, bliskie sygnały.
+            </li>
+            <li style="margin-bottom: 20px;">
+                <strong>Limit hopów dla zakresów regionalnych:</strong>
+                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" style="top: 6px; right: 8px;" onclick="copyCode(this)">kopiuj</button><code>set flood.max 64</code></pre>
+                Maksymalny dopuszczalny limit hopów (przeskoków) dla pakietów z przypisanym i dozwolonym zakresem regionalnym (np. zachod, pl-ds).
+            </li>
+            <li style="margin-bottom: 20px;">
+                <strong>Limit hopów dla ogólnego ruchu bez przypisanego zakresu (unscoped):</strong>
+                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" style="top: 6px; right: 8px;" onclick="copyCode(this)">kopiuj</button><code>set flood.max.unscoped 8</code></pre>
+                Ograniczenie przesyłu dla ogólnego ruchu bez przypisanego zakresu (unscoped). Pakiety te mają mniejszy priorytet rozprzestrzeniania się.
+            </li>
         </ul>
 
         <div class="alert-callout alert-callout-info">
@@ -416,13 +448,25 @@
 
         <p><strong>Czułość odbiornika (RxGain) oraz zasilanie:</strong></p>
         <ul>
-            <li><strong><code>set radio.rxgain on/off</code></strong> oraz <strong><code>set radio.fem.rxgain on/off</code></strong>:
+            <li style="margin-bottom: 20px;">
+                <strong>Wzmocnienie odbioru sygnału radiowego (RxGain i FEM RxGain):</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0;">
+                    <pre style="margin: 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" style="top: 6px; right: 8px;" onclick="copyCode(this)">kopiuj</button><code>set radio.rxgain on</code></pre>
+                    <pre style="margin: 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" style="top: 6px; right: 8px;" onclick="copyCode(this)">kopiuj</button><code>set radio.rxgain off</code></pre>
+                    <pre style="margin: 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" style="top: 6px; right: 8px;" onclick="copyCode(this)">kopiuj</button><code>set radio.fem.rxgain on</code></pre>
+                    <pre style="margin: 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" style="top: 6px; right: 8px;" onclick="copyCode(this)">kopiuj</button><code>set radio.fem.rxgain off</code></pre>
+                </div>
                 Opcje te kontrolują wewnętrzne i zewnętrzne wzmocnienie odbioru sygnału radiowego (LNA / Front-End Module).
                 <br><em>Kiedy warto włączyć:</em> Gdy repeater jest zamontowany w miejscu o bardzo niskim poziomie szumów (czyste tło radiowe), aby wyłapywać skrajnie odległe i słabe sygnały.
                 <br><em>Kiedy wyłączyć (off):</em> Gdy urządzenie pracuje w pobliżu masztów GSM/BTS lub innych silnych źródeł zakłóceń – dodatkowe wzmocnienie może przesterować odbiornik.
                 <br><strong>Uwaga:</strong> Włączenie opcji rxgain zwiększa pobór prądu stacji, co należy uwzględnić przy zasilaniu bateryjnym!
             </li>
-            <li><strong><code>powersaving on/off</code></strong>:
+            <li style="margin-bottom: 20px;">
+                <strong>Oszczędzanie energii (Power Saving):</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0;">
+                    <pre style="margin: 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" style="top: 6px; right: 8px;" onclick="copyCode(this)">kopiuj</button><code>powersaving on</code></pre>
+                    <pre style="margin: 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" style="top: 6px; right: 8px;" onclick="copyCode(this)">kopiuj</button><code>powersaving off</code></pre>
+                </div>
                 Bardzo ważna funkcja dla posiadaczy repeaterów z zasilaniem bateryjnym/solarnym. Włączenie tej opcji usypia radio w momentach braku aktywności, co pozwala zaoszczędzić olbrzymie ilości energii.
                 <br>Dla głębokiej optymalizacji zużycia baterii niezwykle przydatny może okazać się również specjalny, zoptymalizowany firmware od IoTThinks EasySkyMesh:
                 <a href="https://github.com/IoTThinks/EasySkyMesh/releases" target="_blank" rel="noopener noreferrer">https://github.com/IoTThinks/EasySkyMesh/releases</a>.
@@ -448,27 +492,33 @@
                     <td><strong>WYSOKI / MASZT</strong><br><small>Sąsiedzi: &gt;15 bezpośrednich</small></td>
                     <td>Wysokie wieże, maszty kratownicowe, dachy wieżowców o bardzo dużym zasięgu.</td>
                     <td>
-                        <pre style="margin: 0; padding: 8px;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set txdelay 1.5
-set direct.txdelay 1.0
-set rxdelay 3</code></pre>
+                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="top: 4px; right: 6px; padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set txdelay 1.5</code></pre>
+                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="top: 4px; right: 6px; padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set direct.txdelay 1.0</code></pre>
+                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="top: 4px; right: 6px; padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set rxdelay 3</code></pre>
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <td><strong>DACH / ROOFTOP</strong><br><small>Sąsiedzi: 5 do 15</small></td>
                     <td>Klasyczny montaż anteny na dachu domu jednorodzinnego lub niskiego bloku.</td>
                     <td>
-                        <pre style="margin: 0; padding: 8px;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set txdelay 0.8
-set direct.txdelay 0.4
-set rxdelay 3</code></pre>
+                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="top: 4px; right: 6px; padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set txdelay 0.8</code></pre>
+                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="top: 4px; right: 6px; padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set direct.txdelay 0.4</code></pre>
+                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="top: 4px; right: 6px; padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set rxdelay 3</code></pre>
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <td><strong>DOM / NISKI</strong><br><small>Sąsiedzi: &lt;5 bezpośrednich</small></td>
                     <td>Węzeł domowy, antena na parapecie, balkonie lub wewnątrz pomieszczeń.</td>
                     <td>
-                        <pre style="margin: 0; padding: 8px;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set txdelay 0.3
-set direct.txdelay 0.1
-set rxdelay 3</code></pre>
+                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="top: 4px; right: 6px; padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set txdelay 0.3</code></pre>
+                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="top: 4px; right: 6px; padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set direct.txdelay 0.1</code></pre>
+                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="top: 4px; right: 6px; padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set rxdelay 3</code></pre>
+                        </div>
                     </td>
                 </tr>
             </tbody>
