@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>RoomServer / Observer – Nasłuch Sieci</title>
+    <title>RoomServer / Observer – Konfiguracja Obserwatora</title>
     <style>
         :root {
             --bg-page: #f8fafc;
@@ -22,6 +22,7 @@
             --border-success: #dcfce7;
             --accent-success: #15803d;
             --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
         }
 
         @media (prefers-color-scheme: dark) {
@@ -105,7 +106,7 @@
             margin-bottom: 16px;
         }
 
-        ol, ul {
+        ul, ol {
             padding-left: 20px;
             margin-bottom: 24px;
             color: var(--text-muted);
@@ -151,6 +152,7 @@
             cursor: pointer;
             font-weight: 600;
             transition: all 0.15s ease;
+            z-index: 10;
             order: 2;
         }
 
@@ -158,6 +160,49 @@
             color: var(--text-main);
             border-color: var(--border-hover);
             background-color: var(--bg-page);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: var(--bg-page);
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        tr:hover {
+            background-color: var(--bg-page);
+        }
+
+        .alert-callout {
+            border-radius: 12px;
+            padding: 16px;
+            margin: 24px 0;
+            border: 1px solid transparent;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .alert-callout-info {
+            background-color: var(--bg-success);
+            border-color: var(--border-success);
+            color: var(--text-muted);
+        }
+
+        .alert-callout-info strong {
+            color: var(--accent-success);
         }
 
         footer {
@@ -175,48 +220,116 @@
     <div class="container">
         <a href="index.html" class="nav-back">← Powrót do strony głównej</a>
 
-        <h1>RoomServer / Observer</h1>
-        <div class="subtitle">Jak skonfigurować bezgłośny punkt nasłuchowy (Observera) na ESP32 i połączyć go ze światową oraz lokalną telemetrią przez Wi-Fi.</div>
+        <h1>Instrukcja dla Obserwatora (Observera)</h1>
+        <div class="subtitle">Przewodnik krok po kroku po konfiguracji bezgłośnego punktu nasłuchowego sieci MeshCore na bazie ESP32.</div>
 
-        <h2>Zasada działania Observera</h2>
-        <p>
-            Observer (obserwator) to urządzenie oparte o ESP32 z radiem LoRa, które nie wysyła własnych pakietów w eter (by nie generować niepotrzebnego szumu), lecz stale nasłuchuje pasma i przekazuje odebrane ramki drogą internetową (Wi-Fi) bezpośrednio na serwery telemetryczne i mapy topograficzne sieci.
-        </p>
+        <div class="alert-callout alert-callout-info">
+            <strong>ℹ️ Opracowano na podstawie dokumentacji Let's Mesh:</strong><br>
+            Oficjalny wątek techniczny i szczegóły oprogramowania znajdziesz na <a href="https://forum.letsmesh.net/t/meshcore-firmware-with-wifi-ntp-and-packet-logging-to-the-meshcore-packet-analyzer/124" target="_blank" rel="noopener noreferrer">Forum Let's Mesh</a>.
+        </div>
 
-        <h2>Krok 1: Wstępna konfiguracja i Wi-Fi</h2>
-        <p>Wgraj oprogramowanie MeshCore na urządzenie przy użyciu flashera USB. Następnie podłącz się do konsoli szeregowej CLI i skonfiguruj połączenie z domową siecią bezprzewodową Wi-Fi:</p>
-
-        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Wprowadź dane Twojej domowej sieci bezprzewodowej
-set wifi.ssid "Nazwa_Twojej_Sieci"
-set wifi.password "Haslo_Do_Wifi"
-set wifi.enabled true</code></pre>
-
-        <h2>Krok 2: Konfiguracja połączenia MQTT i serwerów telemetrii</h2>
-        <p>
-            Aby Twoja stacja skutecznie przekazywała pakiety na mapy i do baz analitycznych, aktywujemy przesyłanie danych MQTT. W regionie zachodnim wysyłamy dane jednocześnie do dwóch niezależnych baz:
-        </p>
+        <h2>1. Instalacja oprogramowania</h2>
+        <p>Wgraj natywne oprogramowanie dedykowane dla Observera bezpośrednio z oficjalnego serwisu Let's Mesh Analyzer:</p>
         <ul>
-            <li><strong>letsmesh.net:</strong> Główna, globalna mapa sieci LoRa MeshCore.</li>
-            <li><strong>meshcorekrk.cma.pl:</strong> Krajowy polski serwer zbierający statystyki jakości linków, poziomu szumów oraz trasowania pakietów.</li>
+            <li>
+                <strong>Narzędzie instalacyjne online:</strong>
+                <a href="https://analyzer.letsmesh.net/observer/onboard?type=repeater&version=observer-uplink-native-dev" target="_blank" rel="noopener noreferrer">Flash Native Observer Firmware</a>
+            </li>
+            <li>
+                Po pomyślnym wgraniu oprogramowania zaleca się konfigurację podstawowych parametrów radiowych przy pomocy oficjalnego konfiguratora online na stronie <a href="https://meshcore.io" target="_blank" rel="noopener noreferrer">meshcore.io</a>.
+            </li>
         </ul>
 
-        <p>Wprowadź w CLI poniższe komendy:</p>
-        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code># Włączenie podstawowego przesyłu danych na letsmesh.net
-set mqtt.enabled true
-set mqtt.server "letsmesh.net"
-set mqtt.port 1883
+        <h2>2. Podstawowa konfiguracja Wi-Fi i parametrów stacji</h2>
+        <p>Połącz się z konsolą szeregową (CLI) urządzenia i wprowadź następujące komendy w celu konfiguracji Wi-Fi, lokalizacji IATA i kontaktów telemetrycznych:</p>
 
-# Aktywacja raportowania na polski serwer analityczny
-set custom.telemetry.server "meshcorekrk.cma.pl"
-set custom.telemetry.enabled true
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set wifi.ssid "NAZWA_TWOJEGO_WIFI"</code></pre>
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set wifi.pwd "HASLO_DO_WIFI"</code></pre>
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set mqtt.iata "KOD_IATA"</code></pre>
 
-# Zapisanie ustawień i restart urządzenia
-write
-reboot</code></pre>
-
-        <p>
-            Po restarcie urządzenie automatycznie połączy się z siecią Wi-Fi i zacznie przesyłać odebrane pakiety radiowe do systemów internetowych. Na mapach Twój węzeł pojawi się jako aktywny punkt nasłuchowy oznaczony jako Observer.
+        <p style="margin-left: 20px; font-size: 0.9rem;">
+            * Kody IATA określają przybliżoną pozycję geograficzną Twojego węzła (np. <code>WRO</code>, <code>IEG</code>). Listę dostępnych kodów i mapę sprawdzisz pod adresem:
+            <a href="https://analyzer.letsmesh.net/map/iata" target="_blank" rel="noopener noreferrer">Let's Mesh IATA Codes Map</a>.
         </p>
+
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set mqtt.owner "TWÓJ_PUBLICZNY_KLUCZ_COMPANIONA"</code></pre>
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set mqtt.email "TWÓJ_ADRES_EMAIL"</code></pre>
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set bridge.source rx</code></pre>
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>reboot</code></pre>
+
+        <h2>3. Dodatkowy serwer MQTT (Lokalny Analizator)</h2>
+        <p>W celu wsparcia lokalnego, krajowego polskiego analizatora, możesz przekierować odbierane pakiety również na serwer <code>meshcorekrk.cma.pl</code>:</p>
+
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set mqtt.server "mqtt.meshcorekrk.cma.pl"</code></pre>
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set mqtt.port 1883</code></pre>
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set mqtt.username "meshcore"</code></pre>
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set mqtt.password "meshcore"</code></pre>
+
+        <h2>4. Pełna lista komend GET w tym oprogramowaniu</h2>
+        <p>Jeżeli chcesz sprawdzić stan poszczególnych zmiennych lub przeprowadzić szczegółową diagnostykę, do Twojej dyspozycji są następujące komendy odpytujące:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Komenda CLI</th>
+                    <th>Opis działania w języku polskim</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>get mqtt.origin</code></td>
+                    <td>Pobiera nazwę pochodzenia (identyfikator urządzenia).</td>
+                </tr>
+                <tr>
+                    <td><code>get mqtt.iata</code></td>
+                    <td>Zwraca skonfigurowany kod IATA.</td>
+                </tr>
+                <tr>
+                    <td><code>get mqtt.status</code></td>
+                    <td>Sprawdza status wysyłania wiadomości stanu (on/off).</td>
+                </tr>
+                <tr>
+                    <td><code>get mqtt.packets</code></td>
+                    <td>Pobiera ustawienie przesyłu standardowych pakietów (on/off).</td>
+                </tr>
+                <tr>
+                    <td><code>get mqtt.raw</code></td>
+                    <td>Pobiera ustawienie przesyłu pakietów w formacie raw (on/off).</td>
+                </tr>
+                <tr>
+                    <td><code>get mqtt.tx</code></td>
+                    <td>Sprawdza status raportowania pakietów nadawanych TX (on/off).</td>
+                </tr>
+                <tr>
+                    <td><code>get mqtt.interval</code></td>
+                    <td>Zwraca interwał publikacji statusu MQTT (w milisekundach).</td>
+                </tr>
+                <tr>
+                    <td><code>get mqtt.server</code></td>
+                    <td>Zwraca aktualny adres serwera MQTT.</td>
+                </tr>
+                <tr>
+                    <td><code>get mqtt.port</code></td>
+                    <td>Zwraca numer portu serwera MQTT.</td>
+                </tr>
+                <tr>
+                    <td><code>get mqtt.username</code></td>
+                    <td>Pobiera nazwę użytkownika MQTT.</td>
+                </tr>
+                <tr>
+                    <td><code>get mqtt.password</code></td>
+                    <td>Pobiera skonfigurowane hasło do serwera MQTT.</td>
+                </tr>
+                <tr>
+                    <td><code>get mqtt.analyzer.us</code></td>
+                    <td>Zwraca stan przesyłu do serwera US Let's Mesh Analyzer (on/off).</td>
+                </tr>
+                <tr>
+                    <td><code>get mqtt.analyzer.eu</code></td>
+                    <td>Zwraca stan przesyłu do serwera EU Let's Mesh Analyzer (on/off).</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <footer>
