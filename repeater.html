@@ -97,6 +97,50 @@
             line-height: 1.5;
         }
 
+        /* Tab Switcher Styles */
+        .tab-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .tab-button:hover {
+            color: var(--text-main);
+            background-color: var(--accent-primary-glow);
+        }
+
+        .tab-button.active {
+            color: var(--accent-primary);
+            background-color: var(--accent-primary-glow);
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--accent-primary);
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
+        }
+
         h2 {
             font-size: 1.35rem;
             font-weight: 800;
@@ -350,6 +394,123 @@
             object-fit: contain;
             border-radius: 24px;
         }
+
+        /* Szybka Checklista CLI Styles */
+        .checklist-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .checklist-item {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .checklist-item.completed {
+            border-color: var(--border-success);
+            background-color: var(--bg-success);
+        }
+
+        .checklist-checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 4px;
+        }
+
+        .checklist-checkbox {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 2px solid var(--border);
+            cursor: pointer;
+            accent-color: var(--accent-success);
+            transition: all 0.15s ease;
+        }
+
+        .checklist-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .checklist-title {
+            font-weight: 800;
+            font-size: 1.05rem;
+            color: var(--text-main);
+        }
+
+        .checklist-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .checklist-commands {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+            margin-top: 4px;
+        }
+
+        .checklist-commands pre {
+            margin: 0;
+            width: 100%;
+        }
+
+        /* Profile selector for txdelay in checklist */
+        .profile-selector {
+            display: inline-flex;
+            gap: 6px;
+            margin-bottom: 8px;
+            background-color: var(--bg-page);
+            border: 1px solid var(--border);
+            padding: 4px;
+            border-radius: 8px;
+            width: max-content;
+            max-width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .profile-btn {
+            background: none;
+            border: none;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.15s ease;
+        }
+
+        .profile-btn:hover {
+            color: var(--text-main);
+        }
+
+        .profile-btn.active {
+            background-color: var(--accent-primary);
+            color: #ffffff;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .profile-btn.active {
+                background-color: var(--accent-primary);
+                color: var(--bg-card);
+            }
+        }
     </style>
 </head>
 <body>
@@ -360,178 +521,347 @@
         <h1>Instrukcja dla Repeaterów</h1>
         <div class="subtitle">Zwięzły poradnik: Szybka i zoptymalizowana konfiguracja stacji bazowych (przemienników) na Zachodzie.</div>
 
-        <!-- Firmware upgrade notice -->
-        <div class="alert-callout alert-callout-info">
-            <strong>⚡ Aktualizacja oprogramowania:</strong><br>
-            Zaleca się aktualizację do wersji oprogramowania <strong>minimum 1.16</strong>.
-            Oficjalne wydania pobierzesz ze strony <a href="https://meshcore.io" target="_blank" rel="noopener noreferrer">meshcore.io</a>. Zoptymalizowane wersje z oszczędzaniem energii i preambułą 32 pobierzesz bezpośrednio z <a href="https://github.com/IoTThinks/EasySkyMesh/releases" target="_blank" rel="noopener noreferrer">IoTThinks GitHub Releases</a>.
+        <!-- Tab Switcher -->
+        <div class="tab-container">
+            <button id="tab-btn-detailed" class="tab-button active" onclick="switchTab('detailed')">Pełna instrukcja</button>
+            <button id="tab-btn-checklist" class="tab-button" onclick="switchTab('checklist')">Szybka checklista CLI</button>
         </div>
 
-        <!-- CLI info notice -->
-        <div class="alert-callout alert-callout-warn">
-            <strong>💻 Wiersz poleceń (CLI):</strong><br>
-            Po wysłaniu każdej komendy w CLI zawsze poczekaj na zwrotne potwierdzenie jej wykonania z przemiennika.
-        </div>
-
-        <h2>1. Zasilanie i parametry fizyczne</h2>
-        <ul>
-            <li><strong>Zasilanie i Bilans solarny:</strong> Zweryfikuj stabilność napięcia przy nadawaniu. W instalacjach solarnych upewnij się, że panel i akumulator gwarantują stabilną pracę w nocy.</li>
-            <li><strong>Szumy tła (Noise Floor):</strong> RSSI tła powyżej -110 dBm oznacza lokalne zakłócenia. W pobliżu masztów komórkowych (BTS) wysoce zalecane jest użycie filtra szczelinowego (cavity filter).</li>
-            <li><strong>Nazewnictwo:</strong> W nazwie węzła nie stosuje się prefixu "RPT". Wystarczy nazwa określająca unikalną lokalizację (np. <code>Sulechow_Wsch</code>), ułatwiająca celowanie anten.</li>
-        </ul>
-
-        <h2>2. Tożsamość i kontakt</h2>
-        <p>Ustaw swój nick lub znak wywoławczy jako właściciel stacji do diagnostyki:</p>
-        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set owner.info "TWÓJ_NICK_LUB_ZNAK"</code></pre>
-
-        <h2>3. Rozgłoszenia (Adverty)</h2>
-        <div class="advert-grid">
-            <div class="advert-box">
-                <h4>Rozgłoszenie Lokalne (Zero-Hop)</h4>
-                <p>Ustaw interwał rozgłoszeń lokalnych w minutach (zalecane 4 godziny czyli 240 minut):</p>
-                <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set advert.interval 240</code></pre>
+        <!-- Detailed View (Original Content) -->
+        <div id="detailed-view">
+            <!-- Firmware upgrade notice -->
+            <div class="alert-callout alert-callout-info">
+                <strong>⚡ Aktualizacja oprogramowania:</strong><br>
+                Zaleca się aktualizację do wersji oprogramowania <strong>minimum 1.16</strong>.
+                Oficjalne wydania pobierzesz ze strony <a href="https://meshcore.io" target="_blank" rel="noopener noreferrer">meshcore.io</a>. Zoptymalizowane wersje z oszczędzaniem energii i preambułą 32 pobierzesz bezpośrednio z <a href="https://github.com/IoTThinks/EasySkyMesh/releases" target="_blank" rel="noopener noreferrer">IoTThinks GitHub Releases</a>.
             </div>
-            <div class="advert-box">
-                <h4>Rozgłoszenie Globalne (Flood)</h4>
-                <p>Ustaw interwał globalnych rozgłoszeń w godzinach (zalecane 23 godziny):</p>
-                <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set flood.advert.interval 23</code></pre>
+
+            <!-- CLI info notice -->
+            <div class="alert-callout alert-callout-warn">
+                <strong>💻 Wiersz poleceń (CLI):</strong><br>
+                Po wysłaniu każdej komendy w CLI zawsze poczekaj na zwrotne potwierdzenie jej wykonania z przemiennika.
             </div>
-        </div>
 
-        <h2>4. Synchronizacja zegara</h2>
-        <p>Do synchronizacji czasu systemowego:</p>
-        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>clock sync</code></pre>
-        <p>W przypadku błędnego zegara, którego nie można zsynchronizować tradycyjnie, użyj komendy restartu zegara:</p>
-        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>clkreboot</code></pre>
+            <h2>1. Zasilanie i parametry fizyczne</h2>
+            <ul>
+                <li><strong>Zasilanie i Bilans solarny:</strong> Zweryfikuj stabilność napięcia przy nadawaniu. W instalacjach solarnych upewnij się, że panel i akumulator gwarantują stabilną pracę w nocy.</li>
+                <li><strong>Szumy tła (Noise Floor):</strong> RSSI tła powyżej -110 dBm oznacza lokalne zakłócenia. W pobliżu masztów komórkowych (BTS) wysoce zalecane jest użycie filtra szczelinowego (cavity filter).</li>
+                <li><strong>Nazewnictwo:</strong> W nazwie węzła nie stosuje się prefixu "RPT". Wystarczy nazwa określająca unikalną lokalizację (np. <code>Sulechow_Wsch</code>), ułatwiająca celowanie anten.</li>
+            </ul>
 
-        <h2>5. Konfiguracja regionów</h2>
-        <p>
-            Do filtrowania niepotrzebnego ruchu radiowego z odległych województw stosuje się system regionów.
-            Dodanie ich do repeatera nie koliduje z dotychczasowym ruchem bez regionu (unscoped), a odblokowuje poprawne powtarzanie wiadomości regionalnych.
-        </p>
+            <h2>2. Tożsamość i kontakt</h2>
+            <p>Ustaw swój nick lub znak wywoławczy jako właściciel stacji do diagnostyki:</p>
+            <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set owner.info "TWÓJ_NICK_LUB_ZNAK"</code></pre>
 
-        <!-- Wideo instrukcja smartfona -->
-        <div class="video-section" id="wideoprzewodnik">
-            <h3>Instrukcja wideo (aplikacja mobilna)<a href="#wideoprzewodnik" class="video-anchor" title="Bezpośredni link do tej sekcji">#</a></h3>
-            <p>Poniższy film instruktażowy pokazuje krok po kroku, jak szybko i wygodnie skonfigurować regiony w repeaterze z poziomu aplikacji na smartfonie:</p>
-
-            <button class="btn-copy-link" onclick="copyDirectLink()">
-                <span>Kopiuj bezpośredni link do wideo 🔗</span>
-            </button>
-
-            <div class="phone-mockup-wrapper">
-                <div class="phone-mockup">
-                    <div class="phone-speaker"></div>
-                    <video controls preload="metadata" playsinline>
-                        <source src="region.mp4" type="video/mp4">
-                        Twoja przeglądarka nie obsługuje odtwarzacza wideo.
-                    </video>
+            <h2>3. Rozgłoszenia (Adverty)</h2>
+            <div class="advert-grid">
+                <div class="advert-box">
+                    <h4>Rozgłoszenie Lokalne (Zero-Hop)</h4>
+                    <p>Ustaw interwał rozgłoszeń lokalnych w minutach (zalecane 4 godziny czyli 240 minut):</p>
+                    <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set advert.interval 240</code></pre>
+                </div>
+                <div class="advert-box">
+                    <h4>Rozgłoszenie Globalne (Flood)</h4>
+                    <p>Ustaw interwał globalnych rozgłoszeń w godzinach (zalecane 23 godziny):</p>
+                    <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set flood.advert.interval 23</code></pre>
                 </div>
             </div>
+
+            <h2>4. Synchronizacja zegara</h2>
+            <p>Do synchronizacji czasu systemowego:</p>
+            <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>clock sync</code></pre>
+            <p>W przypadku błędnego zegara, którego nie można zsynchronizować tradycyjnie, użyj komendy restartu zegara:</p>
+            <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>clkreboot</code></pre>
+
+            <h2>5. Konfiguracja regionów</h2>
+            <p>
+                Do filtrowania niepotrzebnego ruchu radiowego z odległych województw stosuje się system regionów.
+                Dodanie ich do repeatera nie koliduje z dotychczasowym ruchem bez regionu (unscoped), a odblokowuje poprawne powtarzanie wiadomości regionalnych.
+            </p>
+
+            <!-- Wideo instrukcja smartfona -->
+            <div class="video-section" id="wideoprzewodnik">
+                <h3>Instrukcja wideo (aplikacja mobilna)<a href="#wideoprzewodnik" class="video-anchor" title="Bezpośredni link do tej sekcji">#</a></h3>
+                <p>Poniższy film instruktażowy pokazuje krok po kroku, jak szybko i wygodnie skonfigurować regiony w repeaterze z poziomu aplikacji na smartfonie:</p>
+
+                <button class="btn-copy-link" onclick="copyDirectLink()">
+                    <span>Kopiuj bezpośredni link do wideo 🔗</span>
+                </button>
+
+                <div class="phone-mockup-wrapper">
+                    <div class="phone-mockup">
+                        <div class="phone-speaker"></div>
+                        <video controls preload="metadata" playsinline>
+                            <source src="region.mp4" type="video/mp4">
+                            Twoja przeglądarka nie obsługuje odtwarzacza wideo.
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-callout alert-callout-info">
+                <strong>🌍 Zasada doboru regionów:</strong><br>
+                Dodawaj do konfiguracji <strong>wyłącznie regiony odpowiadające Twojemu województwu</strong> oraz regiony nadrzędne (jak <code>pl</code> czy <code>zachod</code>).
+                Pełną listę oraz taryfikator znajdziesz na stronie <a href="regiony.html" style="font-weight: bold; color: var(--accent-primary);">Regiony i Scopes</a>.
+            </div>
+
+            <p>Poniżej znajdują się schematyczne przykłady komend CLI służące do wprowadzania i zarządzania regionami:</p>
+            <div style="display: flex; flex-direction: column; gap: 8px; margin: 16px 0;">
+                <div style="font-weight: bold; color: var(--text-main);"># Wprowadzenie regionu do pamięci:</div>
+                <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put [nazwa_regionu]</code></pre>
+
+                <div style="font-weight: bold; color: var(--text-main);"># Zezwolenie na floodowanie pakietów z tego zakresu:</div>
+                <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region allowf [nazwa_regionu]</code></pre>
+
+                <div style="font-weight: bold; color: var(--text-main);"># Powiązanie własnych i unscoped pakietów z domyślnym regionem województwa:</div>
+                <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set default.region [nazwa_regionu]</code></pre>
+
+                <div style="font-weight: bold; color: var(--text-main);"># Zapisanie zmian w pamięci stacji i restart:</div>
+                <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region save</code></pre>
+                <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>reboot</code></pre>
+            </div>
+
+            <h2>6. Optymalizacja i bezpieczeństwo (CLI)</h2>
+            <ul>
+                <li style="margin-bottom: 20px;">
+                    <strong>Repeat Mode (Tryb powtarzania):</strong> Włącza powtarzanie ruchu w sieci.
+                    <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set repeat.mode on</code></pre>
+                </li>
+                <li style="margin-bottom: 20px;">
+                    <strong>Duty Cycle:</strong> Ogranicza czas nadawania do 10% (zgodność z europejskimi normami).
+                    <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set dutycycle 10</code></pre>
+                </li>
+                <li style="margin-bottom: 20px;">
+                    <strong>Loop Detect (Wykrywanie pętli):</strong> Chroni przed lawinowym zapętlaniem pakietów.
+                    <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set loop.detect minimal</code></pre>
+                </li>
+                <li style="margin-bottom: 20px;">
+                    <strong>Multiple ACKs:</strong> Poprawia stabilność potwierdzeń przy słabym sygnale.
+                    <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set multi.acks 1</code></pre>
+                </li>
+                <li style="margin-bottom: 20px;">
+                    <strong>Hasło Gościa:</strong> Pozostawienie pustego hasła konsoli pozwala sąsiadom na bezpieczny podgląd diagnostyczny.
+                    <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set guest.password ""</code></pre>
+                </li>
+            </ul>
+
+            <h2>7. Opóźnienia nadawania (txdelay)</h2>
+            <p>
+                Strojenie parametru <code>txdelay</code> chroni sieć przed kolizjami radiowymi. Im wyżej położony i lepiej słyszalny przemiennik, tym dłużej powinien czekać na retransmisję.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Profil wysokości</th>
+                        <th>Opis zastosowania</th>
+                        <th>Zalecane opóźnienia (CLI)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>WYSOKI / MASZT</strong><br><small>&gt;15 sąsiadów</small></td>
+                        <td>Wysokie wieże, dachy wieżowców.</td>
+                        <td>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set txdelay 1.5</code></pre>
+                                <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set direct.txdelay 1.0</code></pre>
+                                <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set rxdelay 3</code></pre>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>DACH / ROOFTOP</strong><br><small>5 - 15 sąsiadów</small></td>
+                        <td>Antena na dachu domu jednorodzinnego.</td>
+                        <td>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set txdelay 0.8</code></pre>
+                                <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set direct.txdelay 0.4</code></pre>
+                                <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set rxdelay 3</code></pre>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>DOM / NISKI</strong><br><small>&lt;5 sąsiadów</small></td>
+                        <td>Parapet, balkon, wewnątrz mieszkań.</td>
+                        <td>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set txdelay 0.3</code></pre>
+                                <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set direct.txdelay 0.1</code></pre>
+                                <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set rxdelay 3</code></pre>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>8. Pozostałe komendy CLI</h2>
+            <div style="display: flex; flex-direction: column; gap: 8px; margin: 16px 0;">
+                <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set path.hash.mode 2</code></pre>
+                <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set flood.max 64</code></pre>
+                <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set flood.max.unscoped 8</code></pre>
+                <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>powersaving on</code></pre>
+            </div>
         </div>
 
-        <div class="alert-callout alert-callout-info">
-            <strong>🌍 Zasada doboru regionów:</strong><br>
-            Dodawaj do konfiguracji <strong>wyłącznie regiony odpowiadające Twojemu województwu</strong> oraz regiony nadrzędne (jak <code>pl</code> czy <code>zachod</code>).
-            Pełną listę oraz taryfikator znajdziesz na stronie <a href="regiony.html" style="font-weight: bold; color: var(--accent-primary);">Regiony i Scopes</a>.
-        </div>
+        <!-- Checklist View (Simplified commands view) -->
+        <div id="checklist-view" style="display: none;">
+            <div class="alert-callout alert-callout-info" style="margin-top: 0; margin-bottom: 24px;">
+                <strong>📋 Szybka Checklista:</strong> Wybierz komendy po kolei, skopiuj je przyciskiem, a system automatycznie oznaczy je na liście jako wykonane.
+            </div>
 
-        <p>Poniżej znajdują się schematyczne przykłady komend CLI służące do wprowadzania i zarządzania regionami:</p>
-        <div style="display: flex; flex-direction: column; gap: 8px; margin: 16px 0;">
-            <div style="font-weight: bold; color: var(--text-main);"># Wprowadzenie regionu do pamięci:</div>
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put [nazwa_regionu]</code></pre>
-
-            <div style="font-weight: bold; color: var(--text-main);"># Zezwolenie na floodowanie pakietów z tego zakresu:</div>
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region allowf [nazwa_regionu]</code></pre>
-
-            <div style="font-weight: bold; color: var(--text-main);"># Powiązanie własnych i unscoped pakietów z domyślnym regionem województwa:</div>
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set default.region [nazwa_regionu]</code></pre>
-
-            <div style="font-weight: bold; color: var(--text-main);"># Zapisanie zmian w pamięci stacji i restart:</div>
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region save</code></pre>
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>reboot</code></pre>
-        </div>
-
-        <h2>6. Optymalizacja i bezpieczeństwo (CLI)</h2>
-        <ul>
-            <li style="margin-bottom: 20px;">
-                <strong>Repeat Mode (Tryb powtarzania):</strong> Włącza powtarzanie ruchu w sieci.
-                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set repeat.mode on</code></pre>
-            </li>
-            <li style="margin-bottom: 20px;">
-                <strong>Duty Cycle:</strong> Ogranicza czas nadawania do 10% (zgodność z europejskimi normami).
-                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set dutycycle 10</code></pre>
-            </li>
-            <li style="margin-bottom: 20px;">
-                <strong>Loop Detect (Wykrywanie pętli):</strong> Chroni przed lawinowym zapętlaniem pakietów.
-                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set loop.detect minimal</code></pre>
-            </li>
-            <li style="margin-bottom: 20px;">
-                <strong>Multiple ACKs:</strong> Poprawia stabilność potwierdzeń przy słabym sygnale.
-                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set multi.acks 1</code></pre>
-            </li>
-            <li style="margin-bottom: 20px;">
-                <strong>Hasło Gościa:</strong> Pozostawienie pustego hasła konsoli pozwala sąsiadom na bezpieczny podgląd diagnostyczny.
-                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set guest.password ""</code></pre>
-            </li>
-        </ul>
-
-        <h2>7. Opóźnienia nadawania (txdelay)</h2>
-        <p>
-            Strojenie parametru <code>txdelay</code> chroni sieć przed kolizjami radiowymi. Im wyżej położony i lepiej słyszalny przemiennik, tym dłużej powinien czekać na retransmisję.
-        </p>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Profil wysokości</th>
-                    <th>Opis zastosowania</th>
-                    <th>Zalecane opóźnienia (CLI)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>WYSOKI / MASZT</strong><br><small>&gt;15 sąsiadów</small></td>
-                    <td>Wysokie wieże, dachy wieżowców.</td>
-                    <td>
-                        <div style="display: flex; flex-direction: column; gap: 6px;">
-                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set txdelay 1.5</code></pre>
-                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set direct.txdelay 1.0</code></pre>
-                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set rxdelay 3</code></pre>
+            <div class="checklist-container">
+                <!-- Krok 1: Tożsamość -->
+                <div class="checklist-item" id="item-owner">
+                    <div class="checklist-checkbox-wrapper">
+                        <input type="checkbox" class="checklist-checkbox" id="chk-owner" onclick="toggleItem('owner')">
+                    </div>
+                    <div class="checklist-content">
+                        <div class="checklist-title">1. Tożsamość i kontakt</div>
+                        <div class="checklist-desc">Ustaw swój nick lub znak wywoławczy jako właściciel przemiennika.</div>
+                        <div class="checklist-commands">
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'owner')">kopiuj</button><code>set owner.info "TWÓJ_NICK_LUB_ZNAK"</code></pre>
                         </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><strong>DACH / ROOFTOP</strong><br><small>5 - 15 sąsiadów</small></td>
-                    <td>Antena na dachu domu jednorodzinnego.</td>
-                    <td>
-                        <div style="display: flex; flex-direction: column; gap: 6px;">
-                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set txdelay 0.8</code></pre>
-                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set direct.txdelay 0.4</code></pre>
-                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set rxdelay 3</code></pre>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><strong>DOM / NISKI</strong><br><small>&lt;5 sąsiadów</small></td>
-                    <td>Parapet, balkon, wewnątrz mieszkań.</td>
-                    <td>
-                        <div style="display: flex; flex-direction: column; gap: 6px;">
-                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set txdelay 0.3</code></pre>
-                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set direct.txdelay 0.1</code></pre>
-                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set rxdelay 3</code></pre>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    </div>
+                </div>
 
-        <h2>8. Pozostałe komendy CLI</h2>
-        <div style="display: flex; flex-direction: column; gap: 8px; margin: 16px 0;">
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set path.hash.mode 2</code></pre>
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set flood.max 64</code></pre>
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set flood.max.unscoped 8</code></pre>
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>powersaving on</code></pre>
+                <!-- Krok 2: Adverty -->
+                <div class="checklist-item" id="item-adverts">
+                    <div class="checklist-checkbox-wrapper">
+                        <input type="checkbox" class="checklist-checkbox" id="chk-adverts" onclick="toggleItem('adverts')">
+                    </div>
+                    <div class="checklist-content">
+                        <div class="checklist-title">2. Rozgłoszenia (Adverty)</div>
+                        <div class="checklist-desc">Skonfiguruj optymalne interwały dla rozgłoszeń lokalnych (co 4h) oraz globalnych (co 23h).</div>
+                        <div class="checklist-commands">
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'adverts')">kopiuj</button><code>set advert.interval 240</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'adverts')">kopiuj</button><code>set flood.advert.interval 23</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Krok 3: Czas -->
+                <div class="checklist-item" id="item-time">
+                    <div class="checklist-checkbox-wrapper">
+                        <input type="checkbox" class="checklist-checkbox" id="chk-time" onclick="toggleItem('time')">
+                    </div>
+                    <div class="checklist-content">
+                        <div class="checklist-title">3. Synchronizacja czasu i zegar</div>
+                        <div class="checklist-desc">Zsynchronizuj czas systemowy lub zrestartuj moduł zegara w przypadku problemów.</div>
+                        <div class="checklist-commands">
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'time')">kopiuj</button><code>clock sync</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'time')">kopiuj</button><code>clkreboot</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Krok 4: Regiony podstawowe -->
+                <div class="checklist-item" id="item-regions-base">
+                    <div class="checklist-checkbox-wrapper">
+                        <input type="checkbox" class="checklist-checkbox" id="chk-regions-base" onclick="toggleItem('regions-base')">
+                    </div>
+                    <div class="checklist-content">
+                        <div class="checklist-title">4. Podstawowa konfiguracja regionów</div>
+                        <div class="checklist-desc">Wprowadź i zezwól na podstawowe zakresy (Europe, Polska, Zachód) w pamięci przemiennika.</div>
+                        <div class="checklist-commands">
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'regions-base')">kopiuj</button><code>region put europe</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'regions-base')">kopiuj</button><code>region put pl</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'regions-base')">kopiuj</button><code>region put zachod</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Krok 5: Regiony regionalne -->
+                <div class="checklist-item" id="item-regions-local">
+                    <div class="checklist-checkbox-wrapper">
+                        <input type="checkbox" class="checklist-checkbox" id="chk-regions-local" onclick="toggleItem('regions-local')">
+                    </div>
+                    <div class="checklist-content">
+                        <div class="checklist-title">5. Dodawanie regionów swojego województwa i miasta</div>
+                        <div class="checklist-desc">Dodaj region odpowiedni dla Twojego województwa (np. pl-ds, pl-lb lub wlkp) oraz miasta (np. wro). Szczegóły znajdziesz w zakładce <a href="regiony.html" style="font-weight: 700; color: var(--accent-primary);">Regiony i Scopes</a>.</div>
+                        <div class="checklist-commands">
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'regions-local')">kopiuj</button><code>region put pl-ds</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'regions-local')">kopiuj</button><code>region put pl-lb</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'regions-local')">kopiuj</button><code>region put wlkp</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'regions-local')">kopiuj</button><code>region put wro</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Krok 6: Domyślny region i restart -->
+                <div class="checklist-item" id="item-regions-save">
+                    <div class="checklist-checkbox-wrapper">
+                        <input type="checkbox" class="checklist-checkbox" id="chk-regions-save" onclick="toggleItem('regions-save')">
+                    </div>
+                    <div class="checklist-content">
+                        <div class="checklist-title">6. Powiązanie domyślnego regionu i zapis</div>
+                        <div class="checklist-desc">Ustaw domyślny region dla wysyłanych pakietów (np. pl), sprawdź listę i zapisz konfigurację w pamięci.</div>
+                        <div class="checklist-commands">
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'regions-save')">kopiuj</button><code>set default.region pl</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'regions-save')">kopiuj</button><code>region save</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'regions-save')">kopiuj</button><code>reboot</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Krok 7: Optymalizacja -->
+                <div class="checklist-item" id="item-opt">
+                    <div class="checklist-checkbox-wrapper">
+                        <input type="checkbox" class="checklist-checkbox" id="chk-opt" onclick="toggleItem('opt')">
+                    </div>
+                    <div class="checklist-content">
+                        <div class="checklist-title">7. Optymalizacja parametrów pracy i bezpieczeństwo</div>
+                        <div class="checklist-desc">Włącz kluczowe tryby pracy: Repeat Mode, bezpieczny Duty Cycle (10%), Loop Detect, Multiple ACKs oraz pozostaw puste hasło gościa dla diagnostyki sąsiedzkiej.</div>
+                        <div class="checklist-commands">
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'opt')">kopiuj</button><code>set repeat.mode on</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'opt')">kopiuj</button><code>set dutycycle 10</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'opt')">kopiuj</button><code>set loop.detect minimal</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'opt')">kopiuj</button><code>set multi.acks 1</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'opt')">kopiuj</button><code>set guest.password ""</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Krok 8: Txdelay -->
+                <div class="checklist-item" id="item-txdelay">
+                    <div class="checklist-checkbox-wrapper">
+                        <input type="checkbox" class="checklist-checkbox" id="chk-txdelay" onclick="toggleItem('txdelay')">
+                    </div>
+                    <div class="checklist-content">
+                        <div class="checklist-title">8. Opóźnienia nadawania (txdelay)</div>
+                        <div class="checklist-desc">Dopasuj opóźnienia, aby chronić sieć przed kolizjami radiowymi. Wybierz profil wysokości stacji:</div>
+
+                        <div class="profile-selector">
+                            <button id="prof-maszt" class="profile-btn active" onclick="setChecklistProfile('maszt')">WYSOKI / MASZT (&gt;15)</button>
+                            <button id="prof-rooftop" class="profile-btn" onclick="setChecklistProfile('rooftop')">DACH / ROOFTOP (5-15)</button>
+                            <button id="prof-niski" class="profile-btn" onclick="setChecklistProfile('niski')">DOM / NISKI (&lt;5)</button>
+                        </div>
+
+                        <div class="checklist-commands">
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'txdelay')">kopiuj</button><code id="code-txdelay">set txdelay 1.5</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'txdelay')">kopiuj</button><code id="code-dtxdelay">set direct.txdelay 1.0</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'txdelay')">kopiuj</button><code>set rxdelay 3</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Krok 9: Inne -->
+                <div class="checklist-item" id="item-others">
+                    <div class="checklist-checkbox-wrapper">
+                        <input type="checkbox" class="checklist-checkbox" id="chk-others" onclick="toggleItem('others')">
+                    </div>
+                    <div class="checklist-content">
+                        <div class="checklist-title">9. Pozostałe parametry i oszczędzanie energii</div>
+                        <div class="checklist-desc">Skonfiguruj optymalne parametry śledzenia tras (hash.mode), limity floodowania oraz tryb oszczędzania energii.</div>
+                        <div class="checklist-commands">
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'others')">kopiuj</button><code>set path.hash.mode 2</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'others')">kopiuj</button><code>set flood.max 64</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'others')">kopiuj</button><code>set flood.max.unscoped 8</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'others')">kopiuj</button><code>powersaving on</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -540,6 +870,99 @@
     </footer>
 
     <script>
+        // Tab switching logic
+        function switchTab(tab) {
+            const detailedBtn = document.getElementById('tab-btn-detailed');
+            const checklistBtn = document.getElementById('tab-btn-checklist');
+            const detailedView = document.getElementById('detailed-view');
+            const checklistView = document.getElementById('checklist-view');
+
+            if (tab === 'detailed') {
+                detailedBtn.classList.add('active');
+                checklistBtn.classList.remove('active');
+                detailedView.style.display = 'block';
+                checklistView.style.display = 'none';
+            } else if (tab === 'checklist') {
+                checklistBtn.classList.add('active');
+                detailedBtn.classList.remove('active');
+                detailedView.style.display = 'none';
+                checklistView.style.display = 'block';
+            }
+        }
+
+        // Toggle manual checklist items
+        function toggleItem(id) {
+            const checkbox = document.getElementById('chk-' + id);
+            const item = document.getElementById('item-' + id);
+            if (checkbox.checked) {
+                item.classList.add('completed');
+            } else {
+                item.classList.remove('completed');
+            }
+        }
+
+        // Checklist copying logic - auto check when copying
+        function copyChecklistCode(button, itemId) {
+            const pre = button.parentElement;
+            const code = pre.querySelector('code');
+
+            navigator.clipboard.writeText(code.innerText.trim()).then(() => {
+                const originalText = button.innerText;
+                button.innerText = "skopiowano!";
+                button.style.backgroundColor = "var(--bg-success)";
+                button.style.color = "var(--accent-success)";
+                button.style.borderColor = "var(--border-success)";
+
+                // Auto-check checkbox and highlight container
+                const checkbox = document.getElementById('chk-' + itemId);
+                const item = document.getElementById('item-' + itemId);
+                if (checkbox) {
+                    checkbox.checked = true;
+                }
+                if (item) {
+                    item.classList.add('completed');
+                }
+
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.style.backgroundColor = "";
+                    button.style.color = "";
+                    button.style.borderColor = "";
+                }, 1500);
+            }).catch(err => {
+                console.error("Błąd kopiowania: ", err);
+            });
+        }
+
+        // Interactive profile selector logic in checklist
+        function setChecklistProfile(profile) {
+            const btnMaszt = document.getElementById('prof-maszt');
+            const btnRooftop = document.getElementById('prof-rooftop');
+            const btnNiski = document.getElementById('prof-niski');
+
+            const codeTxdelay = document.getElementById('code-txdelay');
+            const codeDtxdelay = document.getElementById('code-dtxdelay');
+
+            btnMaszt.classList.remove('active');
+            btnRooftop.classList.remove('active');
+            btnNiski.classList.remove('active');
+
+            if (profile === 'maszt') {
+                btnMaszt.classList.add('active');
+                codeTxdelay.innerText = "set txdelay 1.5";
+                codeDtxdelay.innerText = "set direct.txdelay 1.0";
+            } else if (profile === 'rooftop') {
+                btnRooftop.classList.add('active');
+                codeTxdelay.innerText = "set txdelay 0.8";
+                codeDtxdelay.innerText = "set direct.txdelay 0.4";
+            } else if (profile === 'niski') {
+                btnNiski.classList.add('active');
+                codeTxdelay.innerText = "set txdelay 0.3";
+                codeDtxdelay.innerText = "set direct.txdelay 0.1";
+            }
+        }
+
+        // Original copying function
         function copyCode(button) {
             const pre = button.parentElement;
             const code = pre.querySelector('code');
