@@ -350,6 +350,105 @@
             object-fit: contain;
             border-radius: 24px;
         }
+
+        /* View Toggle Switcher styles */
+        .view-toggle-container {
+            display: inline-flex;
+            background-color: var(--bg-page);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 32px;
+            gap: 4px;
+        }
+
+        .view-toggle-btn {
+            background: none;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .view-toggle-btn.active {
+            background-color: var(--accent-primary);
+            color: #ffffff;
+            box-shadow: var(--shadow);
+        }
+
+        .view-toggle-btn:not(.active):hover {
+            color: var(--text-main);
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .view-toggle-btn:not(.active):hover {
+                background-color: rgba(255, 255, 255, 0.05);
+            }
+        }
+
+        /* Checklist style for simplified mode */
+        .checklist-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .checklist-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            transition: border-color 0.2s ease;
+        }
+
+        .checklist-card:hover {
+            border-color: var(--border-hover);
+        }
+
+        .checklist-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .checklist-checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--accent-primary);
+        }
+
+        .checklist-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checklist-checkbox:checked + .checklist-title {
+            text-decoration: line-through;
+            color: var(--text-muted);
+            opacity: 0.7;
+        }
+
+        .checklist-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin: 4px 0 12px 30px;
+        }
+
+        .checklist-body {
+            margin-left: 30px;
+        }
     </style>
 </head>
 <body>
@@ -360,7 +459,14 @@
         <h1>Instrukcja dla Repeaterów</h1>
         <div class="subtitle">Zwięzły poradnik: Szybka i zoptymalizowana konfiguracja stacji bazowych (przemienników) na Zachodzie.</div>
 
-        <!-- Firmware upgrade notice -->
+        <!-- View Toggle Buttons -->
+        <div class="view-toggle-container">
+            <button id="btn-view-full" class="view-toggle-btn active" onclick="switchView('full')">📖 Pełna instrukcja</button>
+            <button id="btn-view-simple" class="view-toggle-btn" onclick="switchView('simple')">⚡ Szybka checklista CLI</button>
+        </div>
+
+        <div id="view-full-content">
+            <!-- Firmware upgrade notice -->
         <div class="alert-callout alert-callout-info">
             <strong>⚡ Aktualizacja oprogramowania:</strong><br>
             Zaleca się aktualizację do wersji oprogramowania <strong>minimum 1.16</strong>.
@@ -533,6 +639,289 @@
             <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set flood.max.unscoped 8</code></pre>
             <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>powersaving on</code></pre>
         </div>
+        </div> <!-- End of #view-full-content -->
+
+        <!-- Sekcja: Uproszczona wersja (Checklista) -->
+        <div id="view-simple-content" style="display: none;">
+            <div class="alert-callout alert-callout-info" style="margin-top: 0;">
+                <strong>⚡ Szybka checklista CLI:</strong><br>
+                Ta wersja zawiera wyłącznie najważniejsze komendy konfiguracyjne z krótkimi opisami. Idealna dla zaawansowanych użytkowników, którzy chcą sprawnie skopiować i wkleić konfigurację po kolei. Możesz zaznaczać wykonane kroki przy pomocy pól wyboru.
+            </div>
+
+            <div class="checklist-container">
+                <!-- Grupa 1: Tożsamość i kontakt -->
+                <h3>1. Tożsamość i kontakt</h3>
+
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-owner" class="checklist-checkbox">
+                        <label for="chk-owner" class="checklist-title">Ustawienie nicku/znaku stacji</label>
+                    </div>
+                    <div class="checklist-desc">Identyfikuje stację w sieci na potrzeby diagnostyki. Zamień wartość w cudzysłowie na własny nick lub znak.</div>
+                    <div class="checklist-body">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set owner.info "TWÓJ_NICK_LUB_ZNAK"</code></pre>
+                    </div>
+                </div>
+
+                <!-- Grupa 2: Rozgłoszenia -->
+                <h3>2. Rozgłoszenia (Adverty)</h3>
+
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-adv-local" class="checklist-checkbox">
+                        <label for="chk-adv-local" class="checklist-title">Rozgłoszenie Lokalne (Zero-Hop)</label>
+                    </div>
+                    <div class="checklist-desc">Ustawienie interwału rozgłoszeń lokalnych (rekomendowane 4 godziny czyli 240 minut).</div>
+                    <div class="checklist-body">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set advert.interval 240</code></pre>
+                    </div>
+                </div>
+
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-adv-flood" class="checklist-checkbox">
+                        <label for="chk-adv-flood" class="checklist-title">Rozgłoszenie Globalne (Flood)</label>
+                    </div>
+                    <div class="checklist-desc">Ustawienie interwału globalnego rozgłoszenia (rekomendowane 23 godziny).</div>
+                    <div class="checklist-body">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set flood.advert.interval 23</code></pre>
+                    </div>
+                </div>
+
+                <!-- Grupa 3: Synchronizacja czasu -->
+                <h3>3. Synchronizacja czasu</h3>
+
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-clk-sync" class="checklist-checkbox">
+                        <label for="chk-clk-sync" class="checklist-title">Synchronizacja czasu stacji</label>
+                    </div>
+                    <div class="checklist-desc">Wymuszenie synchronizacji czasu systemowego z czasem sieciowym.</div>
+                    <div class="checklist-body">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>clock sync</code></pre>
+                    </div>
+                </div>
+
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-clk-reboot" class="checklist-checkbox">
+                        <label for="chk-clk-reboot" class="checklist-title">Awaryjny restart zegara</label>
+                    </div>
+                    <div class="checklist-desc">Służy do awaryjnego zresetowania i zsynchronizowania zegara w razie problemów.</div>
+                    <div class="checklist-body">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>clkreboot</code></pre>
+                    </div>
+                </div>
+
+                <!-- Grupa 4: Regiony -->
+                <h3>4. Konfiguracja regionów (Dostosuj pod swoje województwo)</h3>
+
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-reg-put" class="checklist-checkbox">
+                        <label for="chk-reg-put" class="checklist-title">Dodanie regionu do pamięci</label>
+                    </div>
+                    <div class="checklist-desc">Wpisanie wybranego kodu regionu (np. pl, zachod, pl-ds) do bazy urządzenia.</div>
+                    <div class="checklist-body">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put [nazwa_regionu]</code></pre>
+                    </div>
+                </div>
+
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-reg-allow" class="checklist-checkbox">
+                        <label for="chk-reg-allow" class="checklist-title">Zezwolenie na floodowanie regionu</label>
+                    </div>
+                    <div class="checklist-desc">Odblokowanie powtarzania (floodowania) wiadomości należących do danego regionu.</div>
+                    <div class="checklist-body">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region allowf [nazwa_regionu]</code></pre>
+                    </div>
+                </div>
+
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-reg-default" class="checklist-checkbox">
+                        <label for="chk-reg-default" class="checklist-title">Powiązanie własnych pakietów z domyślnym regionem</label>
+                    </div>
+                    <div class="checklist-desc">Służy do automatycznego tagowania regionem wszystkich wysyłanych własnych oraz bezregionowych (unscoped) pakietów.</div>
+                    <div class="checklist-body">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set default.region [nazwa_regionu]</code></pre>
+                    </div>
+                </div>
+
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-reg-save" class="checklist-checkbox">
+                        <label for="chk-reg-save" class="checklist-title">Zapisanie ustawień regionów</label>
+                    </div>
+                    <div class="checklist-desc">Zapisuje wprowadzone konfiguracje regionów w pamięci nieulotnej stacji.</div>
+                    <div class="checklist-body">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region save</code></pre>
+                    </div>
+                </div>
+
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-reboot" class="checklist-checkbox">
+                        <label for="chk-reboot" class="checklist-title">Restart urządzenia</label>
+                    </div>
+                    <div class="checklist-desc">Wykonuje restart stacji bazowej w celu pełnego zaaplikowania zmian.</div>
+                    <div class="checklist-body">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>reboot</code></pre>
+                    </div>
+                </div>
+
+                <!-- Grupa 5: Optymalizacja i tryb pracy -->
+                <h3>5. Optymalizacja i tryb pracy</h3>
+
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-repeat-mode" class="checklist-checkbox">
+                        <label for="chk-repeat-mode" class="checklist-title">Włączenie powtarzania (Repeat Mode)</label>
+                    </div>
+                    <div class="checklist-desc">Aktywuje właściwy tryb retransmisji pakietów w sieci LoRa.</div>
+                    <div class="checklist-body">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set repeat.mode on</code></pre>
+                    </div>
+                </div>
+
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-dutycycle" class="checklist-checkbox">
+                        <label for="chk-dutycycle" class="checklist-title">Ograniczenie czasu nadawania (Duty Cycle)</label>
+                    </div>
+                    <div class="checklist-desc">Ograniczenie czasu nadawania do 10% (wymóg prawny w Europie dla pasma ISM).</div>
+                    <div class="checklist-body">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set dutycycle 10</code></pre>
+                    </div>
+                </div>
+
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-loop-detect" class="checklist-checkbox">
+                        <label for="chk-loop-detect" class="checklist-title">Wykrywanie pętli (Loop Detect)</label>
+                    </div>
+                    <div class="checklist-desc">Ustawienie minimalnego wykrywania pętli w celu ochrony przed burzami pakietów.</div>
+                    <div class="checklist-body">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set loop.detect minimal</code></pre>
+                    </div>
+                </div>
+
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-multi-acks" class="checklist-checkbox">
+                        <label for="chk-multi-acks" class="checklist-title">Optymalizacja potwierdzeń (Multiple ACKs)</label>
+                    </div>
+                    <div class="checklist-desc">Optymalizacja zachowania retransmisji potwierdzeń przy wielohopowej komunikacji.</div>
+                    <div class="checklist-body">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set multi.acks 1</code></pre>
+                    </div>
+                </div>
+
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-guest-pass" class="checklist-checkbox">
+                        <label for="chk-guest-pass" class="checklist-title">Usunięcie hasła gościa</label>
+                    </div>
+                    <div class="checklist-desc">Umożliwia bezpieczny podgląd diagnostyczny sąsiednim węzłom w sieci bez praw zapisu.</div>
+                    <div class="checklist-body">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set guest.password ""</code></pre>
+                    </div>
+                </div>
+
+                <!-- Grupa 6: Opóźnienia nadawania (Zależne od profilu wysokości) -->
+                <h3>6. Opóźnienia nadawania (Wybierz 1 profil)</h3>
+
+                <!-- Profil Wysoki -->
+                <div class="checklist-card" style="border-left: 4px solid #ef4444;">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-prof-high" class="checklist-checkbox">
+                        <label for="chk-prof-high" class="checklist-title">Profil WYSOKI / MASZT (&gt;15 sąsiadów)</label>
+                    </div>
+                    <div class="checklist-desc">Dla stacji umieszczonych na wysokich masztach, wieżach i dachach wieżowców. Skopiuj wszystkie trzy komendy:</div>
+                    <div class="checklist-body" style="display: flex; flex-direction: column; gap: 8px;">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set txdelay 1.5</code></pre>
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set direct.txdelay 1.0</code></pre>
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set rxdelay 3</code></pre>
+                    </div>
+                </div>
+
+                <!-- Profil Dach -->
+                <div class="checklist-card" style="border-left: 4px solid #f59e0b;">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-prof-mid" class="checklist-checkbox">
+                        <label for="chk-prof-mid" class="checklist-title">Profil DACH / ROOFTOP (5 - 15 sąsiadów)</label>
+                    </div>
+                    <div class="checklist-desc">Dla stacji umieszczonych na dachu domu jednorodzinnego lub niskiego bloku:</div>
+                    <div class="checklist-body" style="display: flex; flex-direction: column; gap: 8px;">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set txdelay 0.8</code></pre>
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set direct.txdelay 0.4</code></pre>
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set rxdelay 3</code></pre>
+                    </div>
+                </div>
+
+                <!-- Profil Niski -->
+                <div class="checklist-card" style="border-left: 4px solid #10b981;">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-prof-low" class="checklist-checkbox">
+                        <label for="chk-prof-low" class="checklist-title">Profil DOM / NISKI (&lt;5 sąsiadów)</label>
+                    </div>
+                    <div class="checklist-desc">Dla instalacji parapetowych, balkonowych lub wewnątrz mieszkań:</div>
+                    <div class="checklist-body" style="display: flex; flex-direction: column; gap: 8px;">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set txdelay 0.3</code></pre>
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set direct.txdelay 0.1</code></pre>
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set rxdelay 3</code></pre>
+                    </div>
+                </div>
+
+                <!-- Grupa 7: Pozostałe optymalizacje -->
+                <h3>7. Pozostałe komendy CLI</h3>
+
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-path-hash" class="checklist-checkbox">
+                        <label for="chk-path-hash" class="checklist-title">Tryb haszowania ścieżki (Path Hash Mode)</label>
+                    </div>
+                    <div class="checklist-desc">Ustawienie optymalnego algorytmu śledzenia ścieżek pakietów.</div>
+                    <div class="checklist-body">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set path.hash.mode 2</code></pre>
+                    </div>
+                </div>
+
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-flood-max" class="checklist-checkbox">
+                        <label for="chk-flood-max" class="checklist-title">Limit powtórzeń globalnych (Flood Max)</label>
+                    </div>
+                    <div class="checklist-desc">Maksymalny limit retransmisji pakietów powodziowych (rekomendowane 64).</div>
+                    <div class="checklist-body">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set flood.max 64</code></pre>
+                    </div>
+                </div>
+
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-flood-unscoped" class="checklist-checkbox">
+                        <label for="chk-flood-unscoped" class="checklist-title">Retransmisja pakietów bez regionu</label>
+                    </div>
+                    <div class="checklist-desc">Ograniczenie powtarzania starych pakietów niemających określonego regionu w celu redukcji szumu.</div>
+                    <div class="checklist-body">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set flood.max.unscoped 8</code></pre>
+                    </div>
+                </div>
+
+                <div class="checklist-card">
+                    <div class="checklist-header">
+                        <input type="checkbox" id="chk-powersave" class="checklist-checkbox">
+                        <label for="chk-powersave" class="checklist-title">Oszczędzanie energii (powersaving)</label>
+                    </div>
+                    <div class="checklist-desc">Zalecane wyłącznie dla stacji zasilanych akumulatorowo/bateryjnie w celu oszczędzania energii.</div>
+                    <div class="checklist-body">
+                        <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>powersaving on</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer>
@@ -540,6 +929,25 @@
     </footer>
 
     <script>
+        function switchView(mode) {
+            const fullContent = document.getElementById('view-full-content');
+            const simpleContent = document.getElementById('view-simple-content');
+            const btnFull = document.getElementById('btn-view-full');
+            const btnSimple = document.getElementById('btn-view-simple');
+
+            if (mode === 'full') {
+                fullContent.style.display = 'block';
+                simpleContent.style.display = 'none';
+                btnFull.classList.add('active');
+                btnSimple.classList.remove('active');
+            } else {
+                fullContent.style.display = 'none';
+                simpleContent.style.display = 'block';
+                btnFull.classList.remove('active');
+                btnSimple.classList.add('active');
+            }
+        }
+
         function copyCode(button) {
             const pre = button.parentElement;
             const code = pre.querySelector('code');
