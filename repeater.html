@@ -135,18 +135,20 @@
             overflow-x: auto;
             margin: 16px 0;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
         }
 
         pre code {
             font-family: var(--font-mono);
             font-size: 0.85rem;
             color: var(--text-main);
+            order: 1;
         }
 
         .btn-copy {
-            position: absolute;
-            top: 10px;
-            right: 10px;
             background-color: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 6px;
@@ -157,6 +159,7 @@
             font-weight: 600;
             transition: all 0.15s ease;
             z-index: 10;
+            order: 2;
         }
 
         .btn-copy:hover {
@@ -453,23 +456,23 @@
         <ul>
             <li style="margin-bottom: 20px;">
                 <strong>Repeat Mode (Tryb powtarzania):</strong> Włącza powtarzanie ruchu w sieci.
-                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" style="top: 6px; right: 8px;" onclick="copyCode(this)">kopiuj</button><code>set repeat.mode on</code></pre>
+                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set repeat.mode on</code></pre>
             </li>
             <li style="margin-bottom: 20px;">
                 <strong>Duty Cycle:</strong> Ogranicza czas nadawania do 10% (zgodność z europejskimi normami).
-                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" style="top: 6px; right: 8px;" onclick="copyCode(this)">kopiuj</button><code>set dutycycle 10</code></pre>
+                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set dutycycle 10</code></pre>
             </li>
             <li style="margin-bottom: 20px;">
                 <strong>Loop Detect (Wykrywanie pętli):</strong> Chroni przed lawinowym zapętlaniem pakietów.
-                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" style="top: 6px; right: 8px;" onclick="copyCode(this)">kopiuj</button><code>set loop.detect minimal</code></pre>
+                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set loop.detect minimal</code></pre>
             </li>
             <li style="margin-bottom: 20px;">
                 <strong>Multiple ACKs:</strong> Poprawia stabilność potwierdzeń przy słabym sygnale.
-                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" style="top: 6px; right: 8px;" onclick="copyCode(this)">kopiuj</button><code>set multi.acks 1</code></pre>
+                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set multi.acks 1</code></pre>
             </li>
             <li style="margin-bottom: 20px;">
                 <strong>Hasło Gościa:</strong> Pozostawienie pustego hasła konsoli pozwala sąsiadom na bezpieczny podgląd diagnostyczny.
-                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" style="top: 6px; right: 8px;" onclick="copyCode(this)">kopiuj</button><code>set guest.password ""</code></pre>
+                <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set guest.password ""</code></pre>
             </li>
         </ul>
 
@@ -492,9 +495,9 @@
                     <td>Wysokie wieże, dachy wieżowców.</td>
                     <td>
                         <div style="display: flex; flex-direction: column; gap: 6px;">
-                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="top: 4px; right: 6px; padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set txdelay 1.5</code></pre>
-                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="top: 4px; right: 6px; padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set direct.txdelay 1.0</code></pre>
-                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="top: 4px; right: 6px; padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set rxdelay 3</code></pre>
+                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set txdelay 1.5</code></pre>
+                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set direct.txdelay 1.0</code></pre>
+                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set rxdelay 3</code></pre>
                         </div>
                     </td>
                 </tr>
@@ -503,9 +506,9 @@
                     <td>Antena na dachu domu jednorodzinnego.</td>
                     <td>
                         <div style="display: flex; flex-direction: column; gap: 6px;">
-                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="top: 4px; right: 6px; padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set txdelay 0.8</code></pre>
-                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="top: 4px; right: 6px; padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set direct.txdelay 0.4</code></pre>
-                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="top: 4px; right: 6px; padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set rxdelay 3</code></pre>
+                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set txdelay 0.8</code></pre>
+                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set direct.txdelay 0.4</code></pre>
+                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set rxdelay 3</code></pre>
                         </div>
                     </td>
                 </tr>
@@ -514,9 +517,9 @@
                     <td>Parapet, balkon, wewnątrz mieszkań.</td>
                     <td>
                         <div style="display: flex; flex-direction: column; gap: 6px;">
-                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="top: 4px; right: 6px; padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set txdelay 0.3</code></pre>
-                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="top: 4px; right: 6px; padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set direct.txdelay 0.1</code></pre>
-                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="top: 4px; right: 6px; padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set rxdelay 3</code></pre>
+                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set txdelay 0.3</code></pre>
+                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set direct.txdelay 0.1</code></pre>
+                            <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set rxdelay 3</code></pre>
                         </div>
                     </td>
                 </tr>
