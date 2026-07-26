@@ -6,41 +6,51 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Companion – Ustawienia Klienckie</title>
+    <title>Companion – Aplikacja i Urządzenie do Rozmów</title>
     <style>
         :root {
-            --bg-page: #f8fafc;
+            --bg-page: #fbfbf9;
             --bg-card: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #475569;
-            --border: #e2e8f0;
-            --accent-primary: #1e40af;
-            --accent-primary-hover: #1d4ed8;
-            --accent-primary-glow: rgba(30, 64, 175, 0.08);
-            --bg-warn: #fff7ed;
-            --border-warn: #ffedd5;
-            --accent-warn: #c2410c;
-            --bg-success: #f0fdf4;
-            --border-success: #dcfce7;
-            --accent-success: #15803d;
+            --text-main: #1c2d1e;
+            --text-muted: #536455;
+            --border: #e1e7e2;
+
+            --accent-primary: #2d7d46;
+            --accent-primary-hover: #1e592f;
+            --accent-primary-glow: rgba(45, 125, 70, 0.08);
+
+            --bg-warn: #fdf8f5;
+            --border-warn: #fbe6de;
+            --accent-warn: #e07a5f;
+
+            --bg-success: #f4faf6;
+            --border-success: #e1f2e6;
+            --accent-success: #2d7d46;
+
+            --shadow: 0 6px 16px rgba(45, 125, 70, 0.04), 0 2px 4px rgba(45, 125, 70, 0.02);
         }
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --bg-page: #090d16;
-                --bg-card: #111827;
-                --text-main: #f3f4f6;
-                --text-muted: #9ca3af;
-                --border: #1f2937;
-                --accent-primary: #3b82f6;
-                --accent-primary-hover: #60a5fa;
-                --accent-primary-glow: rgba(59, 130, 246, 0.15);
-                --bg-warn: rgba(249, 115, 22, 0.08);
-                --border-warn: rgba(249, 115, 22, 0.2);
-                --accent-warn: #f97316;
-                --bg-success: rgba(34, 197, 94, 0.08);
-                --border-success: rgba(34, 197, 94, 0.2);
-                --accent-success: #22c55e;
+                --bg-page: #101911;
+                --bg-card: #162418;
+                --text-main: #f0f4f1;
+                --text-muted: #8ca38f;
+                --border: #233827;
+
+                --accent-primary: #52b774;
+                --accent-primary-hover: #76cf94;
+                --accent-primary-glow: rgba(82, 183, 116, 0.15);
+
+                --bg-warn: rgba(224, 122, 95, 0.08);
+                --border-warn: rgba(224, 122, 95, 0.2);
+                --accent-warn: #f39274;
+
+                --bg-success: rgba(82, 183, 116, 0.08);
+                --border-success: rgba(82, 183, 116, 0.2);
+                --accent-success: #52b774;
+
+                --shadow: 0 6px 16px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
             }
         }
 
@@ -57,6 +67,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            transition: background-color 0.3s ease;
         }
 
         .container {
@@ -80,32 +91,34 @@
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 2.25rem;
             font-weight: 900;
             letter-spacing: -0.03em;
-            margin: 0 0 8px 0;
+            margin: 0 0 12px 0;
+            color: var(--text-main);
         }
 
         .subtitle {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--text-muted);
             margin-bottom: 32px;
-            line-height: 1.5;
+            line-height: 1.55;
         }
 
         h2 {
-            font-size: 1.35rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            margin: 32px 0 16px 0;
+            margin: 36px 0 18px 0;
             border-bottom: 1px solid var(--border);
             padding-bottom: 8px;
+            color: var(--text-main);
         }
 
         p {
             font-size: 1rem;
             line-height: 1.6;
             color: var(--text-muted);
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         ol, ul {
@@ -116,7 +129,7 @@
 
         li {
             margin-bottom: 10px;
-            line-height: 1.5;
+            line-height: 1.55;
         }
 
         li strong {
@@ -129,23 +142,26 @@
             color: #ffffff;
             font-weight: 700;
             text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 12px 24px;
+            border-radius: 12px;
             margin: 8px 0;
-            transition: background-color 0.2s ease;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px var(--accent-primary-glow);
         }
 
         .btn-action:hover {
             background-color: var(--accent-primary-hover);
+            transform: translateY(-1px);
         }
 
         .alert-callout {
-            border-radius: 12px;
-            padding: 16px;
-            margin: 24px 0;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 28px 0;
             border: 1px solid transparent;
             font-size: 0.95rem;
-            line-height: 1.5;
+            line-height: 1.6;
+            box-shadow: var(--shadow);
         }
 
         .alert-callout-info {
@@ -183,66 +199,66 @@
     <div class="container">
         <a href="index.html" class="nav-back">← Powrót do strony głównej</a>
 
-        <h1>Instrukcja Companion</h1>
-        <div class="subtitle">Konfiguracja telefonu, parowanie z urządzeniem radiowym LoRa oraz zasady nazewnictwa węzłów.</div>
+        <h1>Companion – Urządzenie i Aplikacja do Rozmów</h1>
+        <div class="subtitle">Jak połączyć swój telefon z darmowym radiem MeshCore, aby łatwo i bezpłatnie rozmawiać z rodziną i sąsiadami. Całość działa jak prosty komunikator tekstowy na krótkie, zwięzłe wiadomości (do 150 znaków).</div>
 
-        <h2>1. Wybór sprzętu i flashowanie</h2>
+        <h2>1. Wybór sprzętu i przygotowanie urządzenia</h2>
         <p>
-            Wszystkie węzły w regionie zachodnim działają na paśmie <strong>868 MHz</strong>. Nie używamy urządzeń dedykowanych na inne pasma. Pełną listę wspieranego sprzętu (takiego jak moduły Heltec V3, T-Beam, itp.) znajdziesz bezpośrednio na:
+            Aby stworzyć własne przenośne radio do rozmów z rodziną na spacerze lub sąsiadami z okolicy, potrzebujesz małego urządzenia radiowego. Wszystkie nasze urządzenia w regionie zachodnim działają na bezpiecznym, przyjaznym dla środowiska pasie <strong>868 MHz</strong>. Kompletną listę polecanych, łatwo dostępnych urządzeń (takich jak Heltec V3 czy T-Beam) znajdziesz tutaj:
         </p>
         <p>
-            <a href="https://meshcore.io" target="_blank" rel="noopener noreferrer" class="btn-action">Lista sprzętu na meshcore.io →</a>
+            <a href="https://meshcore.io" target="_blank" rel="noopener noreferrer" class="btn-action">Sprawdź listę polecanego sprzętu →</a>
         </p>
         <p>
-            Aby wgrać oprogramowanie MeshCore na swoje urządzenie, skorzystaj z oficjalnego instalatora webowego przez kabel USB:
+            Instalacja oprogramowania na urządzeniu jest niezwykle prosta i nie wymaga żadnej wiedzy hakerskiej. Wystarczy podłączyć je kabelkiem USB do komputera i kliknąć przycisk w oficjalnym instalatorze w przeglądarce internetowej:
         </p>
         <p>
-            <a href="https://meshcore.io/flasher" target="_blank" rel="noopener noreferrer" class="btn-action">Oficjalny Flasher Webowy →</a>
+            <a href="https://meshcore.io/flasher" target="_blank" rel="noopener noreferrer" class="btn-action">Uruchom prosty instalator internetowy →</a>
         </p>
 
         <div class="alert-callout alert-callout-info">
-            <strong>🔋 Opcja energooszczędna:</strong> Jeśli Twoje urządzenie klienckie jest zasilane małą baterią, możesz wgrać firmware PowerSaving (EasySkyMesh). Gotowe pliki binarne pobierzesz z:
-            <a href="https://github.com/IoTThinks/EasySkyMesh/releases" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); font-weight: 700;">EasySkyMesh GitHub Releases</a>.
+            <strong>🔋 Dodatkowe oszczędzanie baterii:</strong> Jeśli chcesz, aby Twoje kieszonkowe urządzenie działało na baterii jeszcze dłużej podczas całodniowych rodzinnych wycieczek, polecamy wgranie zoptymalizowanej wersji oprogramowania z oszczędzaniem energii:
+            <a href="https://github.com/IoTThinks/EasySkyMesh/releases" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); font-weight: 700;">IoTThinks EasySkyMesh releases</a>.
         </div>
 
-        <h2>2. Parowanie z telefonem (Bluetooth)</h2>
+        <h2>2. Łączenie z telefonem (Bluetooth)</h2>
         <ol>
-            <li>Włącz Bluetooth w swoim telefonie komórkowym z systemem Android.</li>
-            <li>Uruchom świeżo sflashowane urządzenie radiowe LoRa.</li>
-            <li>Otwórz oficjalną aplikację <strong>Companion</strong>.</li>
-            <li>Wyszukaj nowe urządzenie na liście (zwykle pod nazwą <code>MeshCore-XXXX</code>) i sparuj je ze swoim telefonem.</li>
+            <li>Upewnij się, że Bluetooth w Twoim telefonie jest włączony.</li>
+            <li>Włącz swoje małe kieszonkowe radio LoRa.</li>
+            <li>Otwórz na telefonie oficjalną, polską aplikację <strong>Companion</strong>.</li>
+            <li>Wybierz wyszukane urządzenie z listy (najczęściej pojawia się pod nazwą <code>MeshCore-XXXX</code>) i połącz się z nim jednym kliknięciem. Urządzenia są już sparowane i gotowe do drogi!</li>
         </ol>
 
-        <h2>3. Aktywacja Prefixu 3-Bajtowego</h2>
+        <h2>3. Przygotowanie do darmowych rozmów (Prefix 3-bajtowy)</h2>
         <p>
-            Aby zapewnić zgodność z siecią krajową i uniknąć kolizji pakietów, wymagane jest włączenie dłuższego formatu nagłówka w aplikacji Companion:
+            Aplikacja Companion posiada opcję, która dba o to, by wiadomości wysyłane przez nas i naszych sąsiadów sprawnie docierały do celu bez zakłóceń. Warto ją włączyć:
         </p>
         <ol>
-            <li>Wejdź w ustawienia aplikacji Companion (ikona koła zębatego).</li>
-            <li>Przejdź na sam dół do sekcji <strong>Opcje Eksperymentalne (Experimental Options)</strong>.</li>
+            <li>W prawym górnym rogu aplikacji Companion kliknij ikonkę z kołem zębatym (Ustawienia).</li>
+            <li>Przewiń ekran na sam dół do zakładki <strong>Opcje Eksperymentalne (Experimental Options)</strong>.</li>
             <li>Zaznacz opcję <strong>prefix 3-byte</strong>.</li>
-            <li>Kliknij ikonę akceptacji (ptaszek) w prawym górnym rogu ekranu, aby zapisać ustawienia.</li>
+            <li>Zatwierdź zmiany klikając ikonkę ptaszka (Zapisz) w prawym górnym rogu. I to wszystko!</li>
         </ol>
 
-        <h2>4. Zasady Nazewnictwa (Węzły bez GPS)</h2>
+        <h2>4. Przyjazne nazywanie swojego urządzenia</h2>
         <p>
-            W polskiej społeczności nie ma jednego narzuconego schematu nazw. Istnieje jednak niezwykle ważna zasada ułatwiająca nam wszystkim analizowanie tras pakietów:
+            W naszej sieci nie ma surowych, technicznych reguł, ale bardzo cenimy sobie sąsiedzką życzliwość. Ponieważ kieszonkowe urządzenia zazwyczaj nie mają aktywnego odbiornika GPS w celu oszczędzania baterii, niezwykle ułatwimy sobie kontakt, nazywając urządzenie w sposób opisowy:
         </p>
 
         <div class="alert-callout alert-callout-warn">
-            <strong>💡 Zasada dla urządzeń bez GPS:</strong> Jeżeli Twoje urządzenie nie posiada wbudowanego odbiornika GPS (lub jest on wyłączony), <strong>zawsze dodaj nazwę swojej miejscowości lub dzielnicy do nazwy węzła</strong>.
+            <strong>🌻 Dobra praktyka sąsiedzka:</strong> Podpisz się swoim imieniem lub pseudonimem oraz podaj swoją miejscowość lub dzielnicę. Dzięki temu sąsiedzi będą wiedzieć, z kim rozmawiają i skąd dociera sygnał!
         </div>
 
-        <p>Dzięki temu od razu widać, skąd i dokąd dociera sygnał. Przykład dobrych nazw:</p>
+        <p>Przykłady bardzo ładnych, przyjaznych nazw:</p>
         <ul>
-            <li><code>Kowalski_Sulechow</code></li>
-            <li><code>Andrzej_Wroclaw_Krzyki</code></li>
-            <li><code>Tomasz_Poznan_Jezyce</code></li>
+            <li><code>Marek_Sulechow</code></li>
+            <li><code>Kasia_i_Antek_Wroclaw_Krzyki</code></li>
+            <li><code>Rodzina_Nowakow_Poznan_Jezyce</code></li>
         </ul>
     </div>
 
     <footer>
-        <p>© 2026 Społeczność MeshCore Zachód.</p>
+        <p>© 2026 Społeczność MeshCore Zachód. Budujemy sieć z sercem. ❤️</p>
     </footer>
 
 </body>

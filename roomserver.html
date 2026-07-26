@@ -6,39 +6,46 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>RoomServer / Observer – Konfiguracja Obserwatora</title>
+    <title>Obserwator – Konfiguracja Cichego Pomocnika Sieci</title>
     <style>
         :root {
-            --bg-page: #f8fafc;
+            --bg-page: #fbfbf9;
             --bg-card: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #475569;
-            --border: #e2e8f0;
-            --border-hover: #cbd5e1;
-            --accent-primary: #1e40af;
-            --accent-primary-hover: #1d4ed8;
-            --accent-primary-glow: rgba(30, 64, 175, 0.08);
-            --bg-success: #f0fdf4;
-            --border-success: #dcfce7;
-            --accent-success: #15803d;
+            --text-main: #1c2d1e;
+            --text-muted: #536455;
+            --border: #e1e7e2;
+            --border-hover: #cbd3cc;
+
+            --accent-primary: #2d7d46;
+            --accent-primary-hover: #1e592f;
+            --accent-primary-glow: rgba(45, 125, 70, 0.08);
+
+            --bg-success: #f4faf6;
+            --border-success: #e1f2e6;
+            --accent-success: #2d7d46;
+
             --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            --shadow: 0 6px 16px rgba(45, 125, 70, 0.04), 0 2px 4px rgba(45, 125, 70, 0.02);
         }
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --bg-page: #090d16;
-                --bg-card: #111827;
-                --text-main: #f3f4f6;
-                --text-muted: #9ca3af;
-                --border: #1f2937;
-                --border-hover: #374151;
-                --accent-primary: #3b82f6;
-                --accent-primary-hover: #60a5fa;
-                --accent-primary-glow: rgba(59, 130, 246, 0.15);
-                --bg-success: rgba(34, 197, 94, 0.08);
-                --border-success: rgba(34, 197, 94, 0.2);
-                --accent-success: #22c55e;
+                --bg-page: #101911;
+                --bg-card: #162418;
+                --text-main: #f0f4f1;
+                --text-muted: #8ca38f;
+                --border: #233827;
+                --border-hover: #314d36;
+
+                --accent-primary: #52b774;
+                --accent-primary-hover: #76cf94;
+                --accent-primary-glow: rgba(82, 183, 116, 0.15);
+
+                --bg-success: rgba(82, 183, 116, 0.08);
+                --border-success: rgba(82, 183, 116, 0.2);
+                --accent-success: #52b774;
+
+                --shadow: 0 6px 16px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
             }
         }
 
@@ -55,6 +62,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            transition: background-color 0.3s ease;
         }
 
         .container {
@@ -78,32 +86,34 @@
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 2.25rem;
             font-weight: 900;
             letter-spacing: -0.03em;
-            margin: 0 0 8px 0;
+            margin: 0 0 12px 0;
+            color: var(--text-main);
         }
 
         .subtitle {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--text-muted);
             margin-bottom: 32px;
-            line-height: 1.5;
+            line-height: 1.55;
         }
 
         h2 {
-            font-size: 1.35rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            margin: 32px 0 16px 0;
+            margin: 36px 0 18px 0;
             border-bottom: 1px solid var(--border);
             padding-bottom: 8px;
+            color: var(--text-main);
         }
 
         p {
             font-size: 1rem;
             line-height: 1.6;
             color: var(--text-muted);
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         ul, ol {
@@ -114,7 +124,7 @@
 
         li {
             margin-bottom: 10px;
-            line-height: 1.5;
+            line-height: 1.55;
         }
 
         li strong {
@@ -145,8 +155,8 @@
         .btn-copy {
             background-color: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 4px 8px;
+            border-radius: 8px;
+            padding: 6px 12px;
             font-size: 0.75rem;
             color: var(--text-muted);
             cursor: pointer;
@@ -187,12 +197,13 @@
         }
 
         .alert-callout {
-            border-radius: 12px;
-            padding: 16px;
-            margin: 24px 0;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 28px 0;
             border: 1px solid transparent;
             font-size: 0.95rem;
-            line-height: 1.5;
+            line-height: 1.6;
+            box-shadow: var(--shadow);
         }
 
         .alert-callout-info {
@@ -220,120 +231,125 @@
     <div class="container">
         <a href="index.html" class="nav-back">← Powrót do strony głównej</a>
 
-        <h1>Instrukcja dla Obserwatora (Observera)</h1>
-        <div class="subtitle">Przewodnik krok po kroku po konfiguracji bezgłośnego punktu nasłuchowego sieci MeshCore na bazie ESP32.</div>
+        <h1>Obserwator – Cichy Pomocnik i Diagnostyka Sieci</h1>
+        <div class="subtitle">Przewodnik krok po kroku: Jak w prosty sposób uruchomić bezgłośny punkt nasłuchowy (Obserwatora) na bazie modułu ESP32.</div>
 
         <div class="alert-callout alert-callout-info">
-            <strong>ℹ️ Opracowano na podstawie dokumentacji Let's Mesh:</strong><br>
-            Oficjalny wątek techniczny i szczegóły oprogramowania znajdziesz na <a href="https://forum.letsmesh.net/t/meshcore-firmware-with-wifi-ntp-and-packet-logging-to-the-meshcore-packet-analyzer/124" target="_blank" rel="noopener noreferrer">Forum Let's Mesh</a>.
+            <strong>ℹ️ Opracowano przy wsparciu społeczności Let's Mesh:</strong><br>
+            Więcej szczegółów oraz oficjalny wątek techniczny dotyczący tego oprogramowania znajdziesz na przyjaznym <a href="https://forum.letsmesh.net/t/meshcore-firmware-with-wifi-ntp-and-packet-logging-to-the-meshcore-packet-analyzer/124" target="_blank" rel="noopener noreferrer">Forum Let's Mesh</a>.
         </div>
 
-        <h2>1. Instalacja oprogramowania</h2>
-        <p>Wgraj natywne oprogramowanie dedykowane dla Observera bezpośrednio z oficjalnego serwisu Let's Mesh Analyzer:</p>
+        <h2>Kim jest Obserwator?</h2>
+        <p>
+            Obserwator to bezgłośny, mały, domowy pomocnik sieci. Nie nadaje wiadomości i nie zakłóca spokoju — zamiast tego "słucha" ruchu w eterze i pozwala innym użytkownikom oraz stacjom na diagnostykę stanu sieci. Bezpiecznie przekazuje informacje o jakości połączeń przez domowe Wi-Fi bezpośrednio do map i systemów telemetrycznych, dzięki czemu cała społeczność wie, czy sieć działa prawidłowo.
+        </p>
+
+        <h2>1. Łatwa instalacja oprogramowania</h2>
+        <p>Instalacja jest w pełni automatyczna i bezpieczna. Wystarczy podłączyć moduł ESP32 kablem USB do komputera i kliknąć przycisk na poniższej stronie:</p>
         <ul>
             <li>
-                <strong>Narzędzie instalacyjne online:</strong>
-                <a href="https://analyzer.letsmesh.net/observer/onboard?type=repeater&version=observer-uplink-native-dev" target="_blank" rel="noopener noreferrer">Flash Native Observer Firmware</a>
+                <strong>Szybka instalacja online:</strong>
+                <a href="https://analyzer.letsmesh.net/observer/onboard?type=repeater&version=observer-uplink-native-dev" target="_blank" rel="noopener noreferrer">Instaluj oprogramowanie Obserwatora →</a>
             </li>
             <li>
-                Po pomyślnym wgraniu oprogramowania zaleca się konfigurację podstawowych parametrów radiowych przy pomocy oficjalnego konfiguratora online na stronie <a href="https://meshcore.io" target="_blank" rel="noopener noreferrer">meshcore.io</a>.
+                Po pomyślnym wgraniu oprogramowania zaleca się konfigurację parametrów radiowych przy pomocy oficjalnego konfiguratora online na stronie <a href="https://meshcore.io" target="_blank" rel="noopener noreferrer">meshcore.io</a>.
             </li>
         </ul>
 
-        <h2>2. Podstawowa konfiguracja Wi-Fi i parametrów stacji</h2>
-        <p>Połącz się z konsolą szeregową (CLI) urządzenia i wprowadź następujące komendy w celu konfiguracji Wi-Fi, lokalizacji IATA i kontaktów telemetrycznych:</p>
+        <h2>2. Podłączenie do domowego Wi-Fi</h2>
+        <p>Połącz się ze stacją przez wiersz poleceń (CLI) i wpisz poniższe komendy, by dać Obserwatorowi dostęp do Internetu oraz określić jego lokalizację:</p>
 
         <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set wifi.ssid "NAZWA_TWOJEGO_WIFI"</code></pre>
         <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set wifi.pwd "HASLO_DO_WIFI"</code></pre>
         <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set mqtt.iata "KOD_IATA"</code></pre>
 
-        <p style="margin-left: 20px; font-size: 0.9rem;">
-            * Kody IATA określają przybliżoną pozycję geograficzną Twojego węzła (np. <code>WRO</code>, <code>IEG</code>). Listę dostępnych kodów i mapę sprawdzisz pod adresem:
-            <a href="https://analyzer.letsmesh.net/map/iata" target="_blank" rel="noopener noreferrer">Let's Mesh IATA Codes Map</a>.
+        <p style="margin-left: 20px; font-size: 0.95rem;">
+            * Kod IATA określa przybliżoną okolicę Twojego węzła (np. <code>WRO</code> dla Wrocławia, <code>IEG</code> dla Zielonej Góry). Listę kodów IATA oraz piękną mapę znajdziesz pod adresem:
+            <a href="https://analyzer.letsmesh.net/map/iata" target="_blank" rel="noopener noreferrer">Mapa kodów IATA Let's Mesh</a>.
         </p>
 
-        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set mqtt.owner "TWÓJ_PUBLICZNY_KLUCZ_COMPANIONA"</code></pre>
-        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set mqtt.email "TWÓJ_ADRES_EMAIL"</code></pre>
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set mqtt.owner "TWOJ_KLUCZ_COMPANIONA"</code></pre>
+        <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set mqtt.email "TWOJ_ADRES_EMAIL"</code></pre>
         <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set bridge.source rx</code></pre>
         <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>reboot</code></pre>
 
-        <h2>3. Dodatkowy serwer MQTT (Lokalny Analizator)</h2>
-        <p>W celu wsparcia lokalnego, krajowego polskiego analizatora, możesz przekierować odbierane pakiety również na serwer <code>meshcorekrk.cma.pl</code>:</p>
+        <h2>3. Wsparcie dla lokalnego Analizatora (MQTT)</h2>
+        <p>Aby wspierać naszą polską społeczność oraz ułatwić lokalną diagnostykę sąsiadom, możesz skierować dane do serwera <code>meshcorekrk.cma.pl</code>:</p>
 
         <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set mqtt.server "mqtt.meshcorekrk.cma.pl"</code></pre>
         <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set mqtt.port 1883</code></pre>
         <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set mqtt.username "meshcore"</code></pre>
         <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set mqtt.password "meshcore"</code></pre>
 
-        <h2>4. Pełna lista komend GET w tym oprogramowaniu</h2>
-        <p>Jeżeli chcesz sprawdzić stan poszczególnych zmiennych lub przeprowadzić szczegółową diagnostykę, do Twojej dyspozycji są następujące komendy odpytujące:</p>
+        <h2>4. Pełna lista przyjaznych komend odpytujących (GET)</h2>
+        <p>Gdy zechcesz sprawdzić status stacji lub zobaczyć jej parametry, możesz skorzystać z następujących poleceń diagnostycznych:</p>
 
         <table>
             <thead>
                 <tr>
-                    <th>Komenda CLI</th>
-                    <th>Opis działania w języku polskim</th>
+                    <th>Komenda diagnostyczna</th>
+                    <th>Co ona pokazuje?</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td><code>get mqtt.origin</code></td>
-                    <td>Pobiera nazwę pochodzenia (identyfikator urządzenia).</td>
+                    <td>Pobiera unikalny identyfikator Twojego Obserwatora.</td>
                 </tr>
                 <tr>
                     <td><code>get mqtt.iata</code></td>
-                    <td>Zwraca skonfigurowany kod IATA.</td>
+                    <td>Pokazuje przypisany kod lokalizacji IATA.</td>
                 </tr>
                 <tr>
                     <td><code>get mqtt.status</code></td>
-                    <td>Sprawdza status wysyłania wiadomości stanu (on/off).</td>
+                    <td>Sprawdza, czy stacja wysyła swój status sprawności (on/off).</td>
                 </tr>
                 <tr>
                     <td><code>get mqtt.packets</code></td>
-                    <td>Pobiera ustawienie przesyłu standardowych pakietów (on/off).</td>
+                    <td>Sprawdza status przekazywania zwykłych pakietów (on/off).</td>
                 </tr>
                 <tr>
                     <td><code>get mqtt.raw</code></td>
-                    <td>Pobiera ustawienie przesyłu pakietów w formacie raw (on/off).</td>
+                    <td>Pokazuje, czy wysyłamy pakiety w oryginalnej formie surowej (on/off).</td>
                 </tr>
                 <tr>
                     <td><code>get mqtt.tx</code></td>
-                    <td>Sprawdza status raportowania pakietów nadawanych TX (on/off).</td>
+                    <td>Sprawdza, czy raportujemy wysyłane pakiety (on/off).</td>
                 </tr>
                 <tr>
                     <td><code>get mqtt.interval</code></td>
-                    <td>Zwraca interwał publikacji statusu MQTT (w milisekundach).</td>
+                    <td>Zwraca czas (w milisekundach) pomiędzy wysyłaniem statusu stacji.</td>
                 </tr>
                 <tr>
                     <td><code>get mqtt.server</code></td>
-                    <td>Zwraca aktualny adres serwera MQTT.</td>
+                    <td>Pokazuje adres serwera, na który wysyłamy status.</td>
                 </tr>
                 <tr>
                     <td><code>get mqtt.port</code></td>
-                    <td>Zwraca numer portu serwera MQTT.</td>
+                    <td>Zwraca numer portu serwera telemetrycznego.</td>
                 </tr>
                 <tr>
                     <td><code>get mqtt.username</code></td>
-                    <td>Pobiera nazwę użytkownika MQTT.</td>
+                    <td>Zwraca nazwę użytkownika połączenia telemetrycznego.</td>
                 </tr>
                 <tr>
                     <td><code>get mqtt.password</code></td>
-                    <td>Pobiera skonfigurowane hasło do serwera MQTT.</td>
+                    <td>Zwraca skonfigurowane hasło połączenia.</td>
                 </tr>
                 <tr>
                     <td><code>get mqtt.analyzer.us</code></td>
-                    <td>Zwraca stan przesyłu do serwera US Let's Mesh Analyzer (on/off).</td>
+                    <td>Sprawdza wysyłanie do amerykańskiego serwera Let's Mesh (on/off).</td>
                 </tr>
                 <tr>
                     <td><code>get mqtt.analyzer.eu</code></td>
-                    <td>Zwraca stan przesyłu do serwera EU Let's Mesh Analyzer (on/off).</td>
+                    <td>Sprawdza wysyłanie do europejskiego serwera Let's Mesh (on/off).</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
     <footer>
-        <p>© 2026 Społeczność MeshCore Zachód.</p>
+        <p>© 2026 Społeczność MeshCore Zachód. Budujemy sieć z sercem. ❤️</p>
     </footer>
 
     <script>
