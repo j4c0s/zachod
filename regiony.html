@@ -6,44 +6,54 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Regiony i Scopes – Konfiguracja Przemiennika</title>
+    <title>Regiony i Scopes – Przyjazny Przewodnik po Zasięgach</title>
     <style>
         :root {
-            --bg-page: #f8fafc;
+            --bg-page: #fbfbf9;
             --bg-card: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #475569;
-            --border: #e2e8f0;
-            --border-hover: #cbd5e1;
-            --accent-primary: #1e40af;
-            --accent-primary-hover: #1d4ed8;
-            --accent-primary-glow: rgba(30, 64, 175, 0.08);
-            --bg-success: #f0fdf4;
-            --border-success: #dcfce7;
-            --accent-success: #15803d;
-            --bg-warn: #fff7ed;
-            --border-warn: #ffedd5;
-            --accent-warn: #c2410c;
+            --text-main: #1c2d1e;
+            --text-muted: #536455;
+            --border: #e1e7e2;
+            --border-hover: #cbd3cc;
+
+            --accent-primary: #2d7d46;
+            --accent-primary-hover: #1e592f;
+            --accent-primary-glow: rgba(45, 125, 70, 0.08);
+
+            --bg-success: #f4faf6;
+            --border-success: #e1f2e6;
+            --accent-success: #2d7d46;
+
+            --bg-warn: #fdf8f5;
+            --border-warn: #fbe6de;
+            --accent-warn: #e07a5f;
+
             --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            --shadow: 0 6px 16px rgba(45, 125, 70, 0.04), 0 2px 4px rgba(45, 125, 70, 0.02);
         }
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --bg-page: #090d16;
-                --bg-card: #111827;
-                --text-main: #f3f4f6;
-                --text-muted: #9ca3af;
-                --border: #1f2937;
-                --border-hover: #374151;
-                --accent-primary: #3b82f6;
-                --accent-primary-hover: #60a5fa;
-                --accent-primary-glow: rgba(59, 130, 246, 0.15);
-                --bg-success: rgba(34, 197, 94, 0.08);
-                --border-success: rgba(34, 197, 94, 0.2);
-                --accent-success: #22c55e;
-                --bg-warn: rgba(249, 115, 22, 0.08);
-                --border-warn: rgba(249, 115, 22, 0.2);
-                --accent-warn: #f97316;
+                --bg-page: #101911;
+                --bg-card: #162418;
+                --text-main: #f0f4f1;
+                --text-muted: #8ca38f;
+                --border: #233827;
+                --border-hover: #314d36;
+
+                --accent-primary: #52b774;
+                --accent-primary-hover: #76cf94;
+                --accent-primary-glow: rgba(82, 183, 116, 0.15);
+
+                --bg-success: rgba(82, 183, 116, 0.08);
+                --border-success: rgba(82, 183, 116, 0.2);
+                --accent-success: #52b774;
+
+                --bg-warn: rgba(224, 122, 95, 0.08);
+                --border-warn: rgba(224, 122, 95, 0.2);
+                --accent-warn: #f39274;
+
+                --shadow: 0 6px 16px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
             }
         }
 
@@ -60,6 +70,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            transition: background-color 0.3s ease;
         }
 
         .container {
@@ -83,29 +94,31 @@
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 2.25rem;
             font-weight: 900;
             letter-spacing: -0.03em;
-            margin: 0 0 8px 0;
+            margin: 0 0 12px 0;
+            color: var(--text-main);
         }
 
         .subtitle {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--text-muted);
             margin-bottom: 32px;
-            line-height: 1.5;
+            line-height: 1.55;
         }
 
         h2 {
-            font-size: 1.35rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            margin: 32px 0 16px 0;
+            margin: 36px 0 18px 0;
             border-bottom: 1px solid var(--border);
             padding-bottom: 8px;
+            color: var(--text-main);
         }
 
         h3 {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 800;
             margin: 24px 0 12px 0;
             color: var(--text-main);
@@ -115,7 +128,7 @@
             font-size: 1rem;
             line-height: 1.6;
             color: var(--text-muted);
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         ol, ul {
@@ -126,7 +139,7 @@
 
         li {
             margin-bottom: 10px;
-            line-height: 1.5;
+            line-height: 1.55;
         }
 
         li strong {
@@ -157,8 +170,8 @@
         .btn-copy {
             background-color: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 4px 8px;
+            border-radius: 8px;
+            padding: 6px 12px;
             font-size: 0.75rem;
             color: var(--text-muted);
             cursor: pointer;
@@ -184,19 +197,20 @@
         .hierarchy-node {
             background-color: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 12px 16px;
+            border-radius: 12px;
+            padding: 14px 18px;
             position: relative;
             transition: transform 0.2s, border-color 0.2s;
+            box-shadow: var(--shadow);
         }
 
         .hierarchy-node:hover {
             border-color: var(--accent-primary);
         }
 
-        .node-level-1 { margin-left: 0; border-left: 4px solid #3b82f6; }
-        .node-level-2 { margin-left: 24px; border-left: 4px solid #10b981; }
-        .node-level-3 { margin-left: 48px; border-left: 4px solid #f59e0b; }
+        .node-level-1 { margin-left: 0; border-left: 4px solid #52b774; }
+        .node-level-2 { margin-left: 24px; border-left: 4px solid #3b82f6; }
+        .node-level-3 { margin-left: 48px; border-left: 4px solid #e07a5f; }
         .node-level-4 { margin-left: 72px; border-left: 4px solid #8b5cf6; }
         .node-level-5 { margin-left: 96px; border-left: 4px solid #ec4899; }
 
@@ -212,7 +226,7 @@
 
         .node-badge {
             font-family: var(--font-mono);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             background-color: var(--bg-page);
             border: 1px solid var(--border);
             padding: 2px 6px;
@@ -223,17 +237,18 @@
         .node-desc {
             font-size: 0.85rem;
             color: var(--text-muted);
-            margin-top: 4px;
-            line-height: 1.4;
+            margin-top: 6px;
+            line-height: 1.45;
         }
 
         .alert-callout {
-            border-radius: 12px;
-            padding: 16px;
-            margin: 24px 0;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 28px 0;
             border: 1px solid transparent;
             font-size: 0.95rem;
-            line-height: 1.5;
+            line-height: 1.6;
+            box-shadow: var(--shadow);
         }
 
         .alert-callout-info {
@@ -279,7 +294,7 @@
         .video-section h3 {
             margin-top: 0;
             margin-bottom: 12px;
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             font-weight: 800;
             color: var(--text-main);
         }
@@ -305,8 +320,8 @@
             gap: 6px;
             background-color: var(--bg-page);
             border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 8px 16px;
+            border-radius: 12px;
+            padding: 10px 18px;
             font-size: 0.85rem;
             color: var(--text-muted);
             cursor: pointer;
@@ -369,81 +384,88 @@
     <div class="container">
         <a href="index.html" class="nav-back">← Powrót do strony głównej</a>
 
-        <h1>Regiony i Scopes</h1>
-        <div class="subtitle">Zasada działania Regionów i zakresu regionu (scope) oraz hierarchia terytorialna w Polsce Zachodniej.</div>
+        <h1>Regiony i Zasięgi</h1>
+        <div class="subtitle">Zasada działania Regionów i zasięgów terytorialnych (Scopes) – czyli jak dbamy o czystość fal radiowych.</div>
 
         <h2>Po co w ogóle tego używać?</h2>
         <p>
-            <strong>Dla solidarności sąsiedzkiej!</strong><br>
-        <p>W klasycznych sieciach Mesh wiadomości krążą bez żadnych ograniczeń po całej infrastrukturze. Brak mechanizmu przypisującego przesyłane pakiety do konkretnego obszaru sprawia, że pasmo szybko się zapycha, co prowadzi do strat danych.</p>
-        <p>Wprowadzenie regionów oraz zakresów (scope'ów) w sieci MeshCore pozwala na inteligentne filtrowanie tego ruchu. Działa to w prosty sposób:
+            <strong>Dla solidarności sąsiedzkiej i czystego powietrza!</strong>
+        </p>
+        <p>
+            W klasycznych sieciach bezprzewodowych wiadomości krążą bez żadnych ograniczeń, odbijając się od każdego napotkanego urządzenia. Gdy użytkowników przybywa, sieć szybko się zapycha, co prowadzi do gubienia wiadomości.
+        </p>
+        <p>Wprowadzenie przyjaznego podziału na regiony i zasięgi w MeshCore pozwala nam mądrze i lokalnie kierować ruchem:
         <ul>
-            <li><strong>Precyzyjny kolportaż:</strong> Jeśli ustawisz region, lokalne wiadomości (np. z Wrocławia) dotyczące spraw miejskich nie będą bezpotrzebnie przesyłane do Poznania. Analogicznie – ruch z województwa lubuskiego nie trafi do dolnośląskiego.</li>
-            <li><strong>Pełna kontrola:</strong> Regiony w żaden sposób nie ograniczają zasięgu. To osoba wysyłająca decyduje, jak duży obszar ma objąć dana wiadomość.</li>
+            <li><strong>Lokalne sprawy zostają na miejscu:</strong> Jeśli rozmawiasz z rodziną we Wrocławiu o planach na niedzielny obiad, Twoja wiadomość nie musi bez celu lecieć na drugi koniec województwa lubuskiego i zapychać tamtejszych urządzeń.</li>
+            <li><strong>Ty decydujesz o zasięgu:</strong> To osoba wysyłająca wiadomość decyduje w aplikacji, do jak dużego obszaru chce się zwrócić (np. tylko do swojego miasta, województwa czy całego kraju).</li>
         </ul>
         </p>
         <p>
-            W przyszłości poprawnie skonfigurowane regiony pozwolą nam również – w razie potrzeby – skutecznie ograniczyć ruch przypadkowy i nieprzypisany (unscoped).
+            Wszystko to sprawia, że nasza wspólna sieć działa płynnie, urządzenia zużywają mniej baterii, a rozmowy zawsze docierają do celu.
         </p>
 
-        <h2>Zasada działania: Region i Scope</h2>
-        <p>Mechanizm Regional Scope (zakres regionu) to inteligentny filtr ruchu radiowego. Dzięki niemu lokalne rozmowy z jednego miasta nie blokują pasma na drugim końcu Polski.        </p>
+        <h2>Jak to działa? Prosta analogia</h2>
+        <p>
+            Wyobraź sobie, że wysyłasz list. Zasięg (Scope) to adres napisany na kopercie (np. "Wrocław" albo "Polska"). Nasze przekaźniki to przyjaźni listonosze, którzy patrzą na adres i przekazują list dalej tylko wtedy, gdy obsługują dany rejon.
+        </p>
         <ul>
-            <li><strong>Region (Regiony):</strong> Zapisane znaki lokalizacji w konfiguracji repeatera. Definiują które pakiety/wiadomości są dla niego dozwolone do dalszego przekazywania.</li>
-            <li><strong>Scope (Zakres):</strong> To oznaczenie pakietu/wiadomości, które użytkownik dołącza do swojej wiadomości w aplikacji klienckiej (np. na kanale).</li>
-            <li><strong>Zasada dopasowania (Matching):</strong> Repeater przekaże dalej pakiety/wiadomości ze scope'em tylko wtedy, gdy nazwa tego scope'u znajduje się na jego liście dozwolonych regionów.</li>
-            <li><strong>Znak wieloznaczny (* - flood):</strong> Domyślnie każdy przemiennik posiada aktywną regułę <code>*</code> tak zwany flood, która pozwala na bezproblemowe przekazywanie pakietu/wiadomości bez przypisanego scope'u (unscoped). Wyłączenie jej nie jest zalecane, bo spowoduje problemy z komunikacją.</li>
+            <li><strong>Dozwolone Regiony:</strong> Lista obszarów, które dany przekaźnik zadeklarował obsługiwać.</li>
+            <li><strong>Zasięg wiadomości (Scope):</strong> Etykieta dołączana do Twojej wiadomości w aplikacji klienckiej (np. na wybranym kanale).</li>
+            <li><strong>Zasada dopasowania:</strong> Przekaźnik prześle wiadomość dalej tylko wtedy, gdy jej zasięg pokrywa się z obszarami, które obsługuje.</li>
+            <li><strong>Wiadomości ogólne (Unscoped):</strong> Domyślnie każdy przekaźnik przekazuje również wiadomości bez żadnej etykiety regionalnej, dbając o to, by nikt nie został odcięty.</li>
         </ul>
 
-        <h2>Hierarchia Terytorialna Regionów</h2>
+        <h2>Hierarchia Terytorialna Zasięgów</h2>
         <p>
-            Regiony w sieci MeshCore są zorganizowane w strukturę drzewa. Poniższy schemat obrazuje strukturę terytorialną w regionie zachodnim:
+            Zasięgi w sieci MeshCore układają się jak warstwy — od najbliższej okolicy aż po cały kontynent:
         </p>
 
         <div class="hierarchy-container">
             <!-- Level 1 -->
             <div class="hierarchy-node node-level-1">
                 <div class="node-title">Poziom 1: Kontynent <span class="node-badge">europe</span></div>
-                <div class="node-desc">Najwyższy stopień ogólności. Szeroki ruch obejmujący cały kontynent europejski. Używany niezwykle rzadko, przydatny do kontaktu międzynarodowego.</div>
+                <div class="node-desc">Szeroka łączność ogólnoeuropejska. Używana bardzo rzadko, na przykład podczas dalekich wyjazdów lub zagranicznych testów.</div>
             </div>
 
             <!-- Level 2 -->
             <div class="hierarchy-node node-level-2">
                 <div class="node-title">Poziom 2: Kraj <span class="node-badge">pl</span></div>
-                <div class="node-desc">Zasięg ogólnokrajowy. Łączy stacje bazowe w całej Polsce i jest powtarzany przez wszystkie polskie repeatery.</div>
+                <div class="node-desc">Łączność ogólnokrajowa. Pozwala rozmawiać z użytkownikami w całej Polsce; jest powtarzana przez stacje w całym kraju.</div>
             </div>
 
             <!-- Level 3 -->
             <div class="hierarchy-node node-level-3">
                 <div class="node-title">Poziom 3: Makroregion <span class="node-badge">zachod</span></div>
-                <div class="node-desc">Zintegrowany ruch dla Polski Zachodniej (obejmuje województwa Dolnośląskie, Lubuskie i Wielkopolskie).</div>
+                <div class="node-desc">Zintegrowany zasięg dla Polski Zachodniej (Dolny Śląsk, Lubuskie i Wielkopolska).</div>
             </div>
 
             <!-- Level 4 -->
             <div class="hierarchy-node node-level-4">
-                <div class="node-title">Poziom 4: Województwa <span class="node-badge">pl-ds</span>/<span class="node-badge">pl-lb</span>/<span class="node-badge">wlkp</span></div>
-                <div class="node-desc">Ruch ograniczony do konkretnych granic administracyjnych województw: dolnośląskiego (pl-ds), lubuskiego (pl-lb) oraz wielkopolskiego (wlkp).</div>
+                <div class="node-title">Poziom 4: Województwa <span class="node-badge">pl-ds</span> / <span class="node-badge">pl-lb</span> / <span class="node-badge">wlkp</span></div>
+                <div class="node-desc">Łączność wewnątrz granic administracyjnych konkretnych województw: Dolnośląskiego (pl-ds), Lubuskiego (pl-lb) oraz Wielkopolskiego (wlkp).</div>
             </div>
 
             <!-- Level 5 -->
             <div class="hierarchy-node node-level-5">
-                <div class="node-title">Poziom 5: Lokalne / Aglomeracyjne / Miejskie <span class="node-badge">wro</span>/<span class="node-badge">poz</span></div>
-                <div class="node-desc">Najniższy stopień, dedykowany konkretnym aglomeracjom jak Wrocław (wro) Poznań (poz) a także innych miast i regionów. Pozwala na swobodną, gęstą komunikację miejską bez obciążania stacji w regionach nadrzędnych.</div>
+                <div class="node-title">Poziom 5: Miasta i Aglomeracje <span class="node-badge">wro</span> / <span class="node-badge">poz</span></div>
+                <div class="node-desc">Szybka, gęsta komunikacja lokalna (np. Wrocław - wro, Poznań - poz). Idealna do codziennych rozmów z sąsiadami bez obciążania stacji w regionach nadrzędnych.</div>
             </div>
         </div>
+
         <div class="alert-callout alert-callout-warn">
-            <strong>🌍 Ważne zalecenie terytorialne:</strong><br>
-            Zaleca się dodawanie do konfiguracji repeatera wyłącznie regionów, które bezpośrednio odpowiadają Twojej lokalizacji (województwo, miasto) oraz regiony nadrzędne (takie jak <code>pl</code> czy <code>zachod</code>). Inne regiony sąsiednich województw należy dodawać tylko wtedy, gdy stacja znajduje się blisko granicy administracyjnej lub pełni rolę przekaźnika dla tych regionów.
+            <strong>🌍 Sąsiedzka porada:</strong><br>
+            Konfigurując przekaźnik, dodawaj tylko te regiony, w których stacja się znajduje. Pozwoli to zachować porządek w eterze i uratuje baterie urządzeń w sąsiednich województwach!
         </div>
-        <h2>Dodanie regionów do konfiguracji repeatera</h2>
+
+        <h2>Dodawanie regionów do konfiguracji przekaźnika</h2>
         <p>
-            Aby Twój repeater poprawnie przekazywał pakiety z powyższych zakresów regionalnych, musisz zdefiniować dozwolone regiony w jego pamięci.
+            Aby Twój przekaźnik prawidłowo pomagał sąsiadom i przesyłał lokalne rozmowy, musisz wprowadzić odpowiednie kody regionów do jego pamięci.
         </p>
 
         <!-- Wideo instrukcja smartfona -->
         <div class="video-section" id="wideoprzewodnik">
             <h3>Instrukcja wideo (aplikacja mobilna)<a href="#wideoprzewodnik" class="video-anchor" title="Bezpośredni link do tej sekcji">#</a></h3>
-            <p>Poniższy film instruktażowy pokazuje krok po kroku, jak szybko i wygodnie skonfigurować regiony w repeaterze z poziomu aplikacji na smartfonie:</p>
+            <p>Ten prosty i przejrzysty filmik pokazuje, jak szybko i wygodnie ustawić regiony na telefonie:</p>
 
             <button class="btn-copy-link" onclick="copyDirectLink()">
                 <span>Kopiuj bezpośredni link do wideo 🔗</span>
@@ -461,55 +483,53 @@
         </div>
 
         <div class="alert-callout alert-callout-info">
-            <strong>💡 Wsteczna Kompatybilność:</strong><br>
-            Dodanie regionów do konfiguracji repeatera <strong>nie powoduje absolutnie żadnych problemów z przesyłaniem dotychczasowych/standardowych wiadomości</strong> bez ustawionego scope (unscoped). Repeater będzie nadal przekazywał dotychczasowy ruch, zyskując nową możliwość odbierania i przesyłania wiadomości ze skonfigurowanym, konkretnym zakresem regionalnym.
+            <strong>💡 Pełna zgodność:</strong><br>
+            Dodanie regionów do przekaźnika <strong>w żaden sposób nie blokuje ani nie utrudnia przesyłania standardowych wiadomości bez ustawionego zasięgu</strong>. Przekaźnik będzie działał tak jak dawniej, zyskując nową możliwość inteligentnego pomagania w rozmowach lokalnych.
         </div>
 
         <p>
-            <strong>Ustawianie domyślnego regionu repeatera (default.region):</strong><br>
-            Za pomocą polecenia <code>set default.region [nazwa_scope]</code> można określić domyślny scope pakietów wysyłanych przez urządzenie.<br><br>
-            <strong>Co robi ta funkcja?</strong><br>
-            Wprowadzenie regionu domyślnego powoduje, że wszystkie pakiety generowane bezpośrednio przez samo urządzenie (np. Adverty) zostaną oznaczone scopem. Najlepiej ustawić większy region np. pl lub zachod.
+            <strong>Domyślny region stacji (default.region):</strong><br>
+            To przydatne ustawienie określa, jakim zasięgiem mają być podpisywane sygnały wysyłane automatycznie przez sam przekaźnik (np. jego własne ogłoszenia statusu). Najlepiej ustawić tu region krajowy <code>pl</code> lub makroregionalny <code>zachod</code>.
         </p>
 
-        <h3>Pełna lista komend które możesz skopiować do wiersza polecenia CLI w Repeaterze:</h3>
+        <h3>Lista przydatnych komend gotowych do skopiowania (CLI):</h3>
         <p>
-            Wprowadź wybrane komendy w CLI repeatera, aby zdefiniować dozwolone regiony:
+            Wybierz i skopiuj potrzebne komendy, by ustawić regiony w swoim przekaźniku:
         </p>
 
         <div style="display: flex; flex-direction: column; gap: 8px; margin: 16px 0;">
-            <div style="font-weight: bold; margin-top: 8px; color: var(--text-main);">Dodanie regionów podstawowych (dodaj wszystkie):</div>
+            <div style="font-weight: bold; margin-top: 8px; color: var(--text-main);">Podstawowe regiony (warto dodać wszystkie):</div>
             <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put europe</code></pre>
             <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put pl</code></pre>
             <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put zachod</code></pre>
 
-            <div style="font-weight: bold; margin-top: 8px; color: var(--text-main);">Dodanie regionów województwa (wybierz właściwy):</div>
+            <div style="font-weight: bold; margin-top: 8px; color: var(--text-main);">Regiony województw (wybierz właściwy dla siebie):</div>
             <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put pl-ds</code></pre>
             <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put pl-lb</code></pre>
             <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put wlkp</code></pre>
 
-            <div style="font-weight: bold; margin-top: 8px; color: var(--text-main);">Dodanie regionów twojego miasta (np. Wrocławia):</div>
+            <div style="font-weight: bold; margin-top: 8px; color: var(--text-main);">Twoje miasto (np. Wrocław):</div>
             <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put wro</code></pre>
 
-            <div style="font-weight: bold; margin-top: 12px; color: var(--text-main);">Ustawienie domyślnego regionu dla pakietów repeatera(np. pl):</div>
+            <div style="font-weight: bold; margin-top: 12px; color: var(--text-main);">Ustawienie domyślnego regionu dla stacji (np. pl):</div>
             <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set default.region pl</code></pre>
 
-            <div style="font-weight: bold; margin-top: 12px; color: var(--text-main);">Sprawdzenie wprowadzonych regionów:</div>
+            <div style="font-weight: bold; margin-top: 12px; color: var(--text-main);">Sprawdzenie zapisanych ustawień:</div>
             <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region</code></pre>
             <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region default</code></pre>
 
-            <div style="font-weight: bold; margin-top: 12px; color: var(--text-main);">Zapisanie zmian w pamięci stałej:</div>
+            <div style="font-weight: bold; margin-top: 12px; color: var(--text-main);">Zapisanie zmian w pamięci stacji:</div>
             <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region save</code></pre>
         </div>
 
         <p>
-            Chcesz poznać listę zalecanych kanałów i ich regionów, które można skonfigurować w Companionie?
-            Przejdź na stronę <a href="kanaly.html" style="color: var(--accent-primary); font-weight: 700;">Zalecane Kanały i Scopes</a>.
+            Chcesz zobaczyć, do jakich kanałów w aplikacji Companion przypisane są te zasięgi?
+            Przejdź na przyjazną stronę <a href="kanaly.html" style="color: var(--accent-primary); font-weight: 700;">Zalecane Kanały i Zasięgi</a>.
         </p>
     </div>
 
     <footer>
-        <p>© 2026 Społeczność MeshCore Zachód. Autor Jaco Lubań☄️</p>
+        <p>© 2026 Społeczność MeshCore Zachód. Budujemy sieć z sercem. ❤️</p>
     </footer>
 
     <script>

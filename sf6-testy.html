@@ -6,62 +6,61 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Testy SF6 na Zachodzie – Wyniki i Wnioski</title>
+    <title>Testy SF6 na Zachodzie – Wspólne Podsumowanie</title>
     <style>
-        /* Zaawansowany i nowoczesny system zmiennych dla Light/Dark Mode */
         :root {
-            --bg-page: #f8fafc;
+            --bg-page: #fbfbf9;
             --bg-card: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
+            --text-main: #1c2d1e;
+            --text-muted: #536455;
+            --border: #e1e7e2;
 
-            --accent-primary: #2563eb;
-            --accent-primary-hover: #1d4ed8;
-            --accent-primary-glow: rgba(37, 99, 235, 0.15);
+            --accent-primary: #2d7d46;
+            --accent-primary-hover: #1e592f;
+            --accent-primary-glow: rgba(45, 125, 70, 0.08);
 
-            --accent-warn: #ea580c;
-            --bg-warn: #fff7ed;
-            --border-warn: #ffedd5;
+            --accent-warn: #e07a5f;
+            --bg-warn: #fdf8f5;
+            --border-warn: #fbe6de;
 
-            --accent-danger: #e11d48;
-            --bg-danger: #fff1f2;
-            --border-danger: #ffe4e6;
+            --accent-danger: #d9534f;
+            --bg-danger: #fdf6f6;
+            --border-danger: #fbebeb;
 
-            --accent-success: #16a34a;
-            --bg-success: #f0fdf4;
-            --border-success: #dcfce7;
+            --accent-success: #2d7d46;
+            --bg-success: #f4faf6;
+            --border-success: #e1f2e6;
 
-            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+            --shadow: 0 6px 16px rgba(45, 125, 70, 0.04), 0 2px 4px rgba(45, 125, 70, 0.02);
+            --shadow-lg: 0 12px 24px rgba(45, 125, 70, 0.06), 0 4px 6px rgba(45, 125, 70, 0.03);
         }
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --bg-page: #0b0f19;
-                --bg-card: #131c2e;
-                --text-main: #f8fafc;
-                --text-muted: #94a3b8;
-                --border: #1e293b;
+                --bg-page: #101911;
+                --bg-card: #162418;
+                --text-main: #f0f4f1;
+                --text-muted: #8ca38f;
+                --border: #233827;
 
-                --accent-primary: #3b82f6;
-                --accent-primary-hover: #60a5fa;
-                --accent-primary-glow: rgba(59, 130, 246, 0.25);
+                --accent-primary: #52b774;
+                --accent-primary-hover: #76cf94;
+                --accent-primary-glow: rgba(82, 183, 116, 0.15);
 
-                --accent-warn: #f97316;
-                --bg-warn: rgba(249, 115, 22, 0.1);
-                --border-warn: rgba(249, 115, 22, 0.2);
+                --accent-warn: #f39274;
+                --bg-warn: rgba(224, 122, 95, 0.08);
+                --border-warn: rgba(224, 122, 95, 0.2);
 
-                --accent-danger: #f43f5e;
-                --bg-danger: rgba(244, 63, 94, 0.1);
-                --border-danger: rgba(244, 63, 94, 0.2);
+                --accent-danger: #f27474;
+                --bg-danger: rgba(217, 83, 79, 0.08);
+                --border-danger: rgba(217, 83, 79, 0.2);
 
-                --accent-success: #22c55e;
-                --bg-success: rgba(34, 197, 94, 0.1);
-                --border-success: rgba(34, 197, 94, 0.2);
+                --accent-success: #52b774;
+                --bg-success: rgba(82, 183, 116, 0.08);
+                --border-success: rgba(82, 183, 116, 0.2);
 
-                --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-                --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+                --shadow: 0 6px 16px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
+                --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.25), 0 4px 6px rgba(0, 0, 0, 0.15);
             }
         }
 
@@ -119,6 +118,7 @@
             margin: 0;
             letter-spacing: -0.025em;
             line-height: 1.25;
+            color: var(--text-main);
         }
 
         h2 {
@@ -129,8 +129,9 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            border-bottom: 2px solid var(--bg-page);
+            border-bottom: 2px solid var(--border);
             padding-bottom: 8px;
+            color: var(--text-main);
         }
 
         h3 {
@@ -154,6 +155,7 @@
             padding: 20px;
             margin: 20px 0;
             border: 1px solid transparent;
+            box-shadow: var(--shadow);
         }
 
         .callout-warn {
@@ -183,7 +185,7 @@
 
         li {
             margin-bottom: 10px;
-            line-height: 1.5;
+            line-height: 1.55;
         }
 
         li strong {
@@ -306,19 +308,19 @@
     <!-- Nagłówek -->
     <div class="header-section">
         <span class="date-badge">Raport z testów (20-21.06.2026)</span>
-        <h1>Testy SF6 na Zachodzie</h1>
+        <h1>Testy Szybkości SF6 na Zachodzie</h1>
     </div>
 
     <!-- Podziękowania -->
     <div class="callout callout-info">
-        <strong>Dziękujemy za udział!</strong><br>
-        Chcielibyśmy serdecznie podziękować wszystkim testującym za niesamowitą mobilizację i wytrwałość – nawet w momentach, gdy technologia stawiała opór. Wasze zaangażowanie pozwoliło nam zebrać dane od 19 respondentów opiekujących się łącznie 50 repeaterami.
+        <strong>Dziękujemy za wspólne zaangażowanie!</strong><br>
+        Chcielibyśmy z całego serca podziękować wszystkim członkom naszej społeczności za wspaniałą mobilizację i wytrwałość — nawet wtedy, gdy fale radiowe płatały nam figle. Wasza pomoc pozwoliła nam zebrać cenne dane od 19 osób opiekujących się łącznie 50 przekaźnikami.
     </div>
 
     <!-- ANKIETA I WYNIKI -->
     <div class="survey-container">
-        <h2 style="justify-content: center; margin-top: 0; border: none;">Podsumowanie i Ankieta</h2>
-        <p>Ankieta jest nadal otwarta dla osób, które nie zdążyły się dopisać. Możesz również na bieżąco śledzić szczegółowe statystyki odpowiedzi.</p>
+        <h2 style="justify-content: center; margin-top: 0; border: none;">Podsumowanie i Wyniki Ankiety</h2>
+        <p>Nasza wspólna ankieta jest nadal otwarta dla spóźnialskich. Możesz również na bieżąco przeglądać przejrzyste statystyki odpowiedzi.</p>
 
         <div class="btn-group">
             <a href="https://forms.gle/iC8YP65YbjEieHU59" target="_blank" rel="noopener noreferrer" class="btn-action">Otwórz ankietę</a>
@@ -326,9 +328,9 @@
         </div>
     </div>
 
-    <h2>Wnioski z ankiet</h2>
+    <h2>Najważniejsze wnioski z ankiet</h2>
 
-    <h3>Liczby i zaangażowanie</h3>
+    <h3>Liczby i nasza społeczność</h3>
     <div class="stat-grid">
         <div class="stat-item">
             <span class="stat-value">19</span>
@@ -336,41 +338,41 @@
         </div>
         <div class="stat-item">
             <span class="stat-value">50</span>
-            <span class="stat-label">Repeaterów</span>
+            <span class="stat-label">Przekaźników</span>
         </div>
         <div class="stat-item">
             <span class="stat-value">~10h</span>
-            <span class="stat-label">Czas testu</span>
+            <span class="stat-label">Czas testów</span>
         </div>
     </div>
-    <p>Testy objęły głównie <strong>Dolny Śląsk</strong> (Wrocław, Świdnica, Jelenia Góra, rejon DTR, Książ Śląski) oraz Wielkopolskę i Lubuskie (Leszno, Poznań, Zielona Góra, Sulechów, Lubań). Odnotowaliśmy również pojedyncze raporty ze Szczecina i Częstochowy.</p>
+    <p>Testy objęły przede wszystkim <strong>Dolny Śląsk</strong> (Wrocław, Świdnica, Jelenia Góra, rejon DTR, Książ Śląski) oraz Wielkopolskę i Lubuskie (Leszno, Poznań, Zielona Góra, Sulechów, Lubań). Odnotowaliśmy też pojedyncze, ciepłe pozdrowienia ze Szczecina i Częstochowy.</p>
 
-    <h3>📉 Główne wnioski techniczne</h3>
+    <h3>📉 Co oznaczają wyniki? (Wnioski przyjaznym okiem)</h3>
     <ul>
-        <li><strong>Szybkość vs Zasięg:</strong> Użytkownicy, którzy utrzymali linki, ocenili prędkość na 8-10/10. Jednak zysk prędkości drastycznie obniżył czułość (spadek SNR o ok. 4-6 dB). Jak zauważył tester z Lubania: <em>„im na SF8 było niżej, tym na SF6 było jeszcze gorzej”</em>.</li>
-        <li><strong>Utrata połączeń:</strong> Test SF6 "wyciął" dalekie relacje między miastami. Straciliśmy kontakt z Wałbrzychem (Wielka Sowa), Trzebnicą oraz węzłem DTR_CIEMNA_GORA. Regiony odległe (Szczecin, Częstochowa) raportowały całkowitą izolację.</li>
-        <li><strong>Anomalie propagacyjne:</strong> We Wrocławiu siatka sąsiadów skurczyła się z 21 do zaledwie 4. Odnotowano jednak pojedyncze „skoki” dzięki propagacji (np. Leszno widzące Bielsko-Białą czy Sulechów widzący Stóg Izerski).</li>
+        <li><strong>Szybkość a odległość:</strong> Osoby, które miały stacje blisko siebie, odnotowały błyskawiczne przesyłanie wiadomości (ocena 8-10/10). Jednak ta szybkość zmniejszyła zasięg fal radiowych (spadek SNR o ok. 4-6 dB). Jak ładnie podsumował Marek z Lubania: <em>„tam gdzie na dotychczasowych ustawieniach ledwo rozmawialiśmy, przy szybszym trybie połączenie niestety zniknęło”</em>.</li>
+        <li><strong>Utrata odległych połączeń:</strong> Szybki tryb SF6 "wyciął" dalekie mosty między miastami. Straciliśmy kontakt z Wałbrzychem, Trzebnicą oraz odległymi sąsiadami. Odległe miasta raportowały chwilową, całkowitą izolację.</li>
+        <li><strong>Sąsiedzkie sieci:</strong> We Wrocławiu siatka widocznych stacji wokół nas skurczyła się z 21 do zaledwie 4. Zdarzały się jednak niezwykłe „skoki” fal w chmurach (np. Leszno nawiązało kontakt z Bielskiem-Białą, a Sulechów usłyszał Stóg Izerski).</li>
     </ul>
 
     <div class="callout callout-warn">
-        <strong>Uwaga techniczna:</strong> Pierwszego wieczora (sobota) wystąpiły podwyższone warunki propagacyjne, które mogły dawać złudne poczucie stabilności połączeń SF6.
+        <strong>Ciekawostka:</strong> Pierwszego wieczora (sobota) natura obdarzyła nas wyjątkowo dobrymi warunkami pogodowymi w powietrzu, co dawało złudne poczucie, że szybki tryb działa bez przeszkód na duże odległości.
     </div>
 
-    <h3>🛠️ Rekomendacje i propozycje zmian</h3>
+    <h3>🛠️ Co planujemy zmienić w przyszłości?</h3>
     <ul>
-        <li><strong>Infrastruktura:</strong> Sieć na Zachodzie jest obecnie zbyt rzadka na SF6. Większość testerów sugeruje <strong>SF7</strong> jako optymalny kompromis.</li>
-        <li><strong>Higiena sieci:</strong> Zamiast drastycznego cięcia zasięgu, należy poprawić optymalizację:
+        <li><strong>Standard fal:</strong> Nasza sieć jest jeszcze zbyt rzadka, by bez przeszkód rozmawiać w najszybszym trybie SF6. Większość sąsiadów sugeruje wybór trybu <strong>SF7</strong> jako idealnego kompromisu łączącego dobrą prędkość z dużym zasięgiem.</li>
+        <li><strong>Dbałość o porządek w eterze:</strong> Zamiast drastycznego obcinania czułości urządzeń, wolimy dbać o porządek i higienę sieci:
             <ul>
-                <li>Podział na logiczne <strong>Regiony/Filtry</strong>.</li>
-                <li>Ograniczenie liczby hopów (maks. 6–8).</li>
-                <li>Filtrowanie botów, floodu oraz spamu z zagranicy (np. Niemcy).</li>
+                <li>Używanie <strong>Regionów i Zasięgów</strong>, by lokalne sprawy nie zapychały innych miast.</li>
+                <li>Ograniczenie przeskakiwania wiadomości (maksymalnie 6–8 przeskoków).</li>
+                <li>Mądre filtrowanie botów i reklam.</li>
             </ul>
         </li>
-        <li><strong>Organizacja:</strong> Przyszłe testy powinny trwać dłużej (5-7 dni) i być ogłaszane z większym wyprzedzeniem (Discord, Forum).</li>
+        <li><strong>Organizacja:</strong> Kolejne testy zaplanujemy z większym wyprzedzeniem i damy na nie więcej czasu (5-7 dni), by każdy zdążył dołączyć wspólnie z rodziną.</li>
     </ul>
 
     <div class="footer-note" style="margin-top: 20px;">
-        📡 Pełna dyskusja na kanale #zachod
+        📡 Dołącz do przyjaznej dyskusji na kanale #zachod!
     </div>
 </div>
 
