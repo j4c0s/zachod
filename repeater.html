@@ -531,8 +531,8 @@
     <div class="container">
         <a href="index.html" class="nav-back">← Powrót do strony głównej</a>
 
-        <h1>Przekaźnik – Wzmacniacz Sygnału dla Sąsiadów</h1>
-        <div class="subtitle">Przystępny poradnik: Jak skonfigurować stację bazową (przekaźnik), która powiększy zasięg lokalnej, bezpłatnej sieci dla całej okolicy.</div>
+        <h1>Przekaźnik – Wzmacniacz Sygnału</h1>
+        <div class="subtitle">Przystępny poradnik: Jak skonfigurować przekaźnik, który powiększy zasięg lokalnej, bezpłatnej sieci dla całej okolicy.</div>
 
         <!-- Tab Switcher -->
         <div class="tab-container">
@@ -547,7 +547,7 @@
                 <strong>📅 Harmonogram wprowadzania regionów na Zachodzie:</strong><br>
                 Abyśmy mogli bezpiecznie i bez zakłóceń sprawdzić działanie systemu, wprowadzamy regiony stopniowo:
                 <ul style="margin: 8px 0 0 0; padding-left: 20px; color: inherit;">
-                    <li><strong>Do 31 sierpnia:</strong> Każdy właściciel stacji ustawia regiony w swoich przekaźnikach (repeaterach).</li>
+                    <li><strong>Do 31 sierpnia:</strong> Każdy właściciel przekaźnika ustawia regiony w swoich urządzeniach.</li>
                     <li><strong>Od 1 września:</strong> Zaczynamy aktywnie korzystać ze "scopes" (zasięgów regionalnych) na kanałach w telefonach.</li>
                 </ul>
                 Dzięki temu damy sobie czas, aby sprawdzić, które przekaźniki wymagają jeszcze poprawy konfiguracji przed pełnym startem!
@@ -568,25 +568,25 @@
 
             <h2>1. Zasilanie i przygotowanie fizyczne</h2>
             <ul>
-                <li><strong>Zasilanie i słońce:</strong> Nasz przekaźnik świetnie sprawdza się na zasilaniu solarnym! Upewnij się, że panel słoneczny i mały akumulator bez problemu utrzymają stację przy życiu w nocy i pochmurne dni.</li>
-                <li><strong>Szumy tła (Noise Floor):</strong> Czysty sygnał to podstawa. Jeśli montujesz stację blisko dużych anten telekomunikacyjnych i sygnał ma zakłócenia, świetnym, polecanym rozwiązaniem jest zastosowanie prostego filtra szczelinowego (cavity filter).</li>
-                <li><strong>Nazewnictwo:</strong> Unikajmy technicznych i chłodnych przedrostków takich jak "RPT". Wystarczy piękna, opisowa nazwa, która wskaże sąsiadom Twoją lokalizację i pomoże im ustawić antenę kierunkową (np. <code>Sulechow_Wsch</code> czy <code>Wroclaw_Krzyki_Zachod</code>).</li>
+                <li><strong>Zasilanie i słońce:</strong> Nasz przekaźnik świetnie sprawdza się na zasilaniu solarnym! Upewnij się, że panel słoneczny i mały akumulator bez problemu utrzymają urządzenie przy życiu w nocy i pochmurne dni.</li>
+                <li><strong>Szumy tła (Noise Floor):</strong> Czysty sygnał to podstawa. Jeśli montujesz przekaźnik blisko dużych anten telekomunikacyjnych i sygnał ma zakłócenia, świetnym, polecanym rozwiązaniem jest zastosowanie prostego filtra szczelinowego (cavity filter).</li>
+                <li><strong>Nazewnictwo:</strong> Unikajmy technicznych i chłodnych przedrostków takich jak "RPT". Wystarczy piękna, opisowa nazwa, która wskaże innym użytkownikom Twoją lokalizację i pomoże im ustawić antenę kierunkową (np. <code>Sulechow_Wsch</code> czy <code>Wroclaw_Krzyki_Zachod</code>).</li>
             </ul>
 
             <h2>2. Kim jesteś? (Tożsamość i kontakt)</h2>
-            <p>Wpisz swoje imię, pseudonim lub znak, aby sąsiedzi z okolicy wiedzieli, komu dziękować za świetny zasięg:</p>
+            <p>Wpisz swoje imię, pseudonim lub znak, aby inni użytkownicy z okolicy wiedzieli, do kogo należy urządzenie:</p>
             <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set owner.info "TWOJE_IMIE_LUB_NICK"</code></pre>
 
-            <h2>3. Wysyłanie statusu stacji (Adverty)</h2>
+            <h2>3. Wysyłanie statusu przekaźnika (Adverty)</h2>
             <div class="advert-grid">
                 <div class="advert-box">
                     <h4>📣 Ogłoszenie Lokalne</h4>
-                    <p>Jak często stacja ma mówić "jestem tu" bezpośrednim sąsiadom (zalecamy raz na 4 godziny, czyli 240 minut):</p>
+                    <p>Jak często przekaźnik ma mówić "jestem tu" bezpośrednim urządzeniom (zalecamy raz na 4 godziny, czyli 240 minut):</p>
                     <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set advert.interval 240</code></pre>
                 </div>
                 <div class="advert-box">
                     <h4>🌍 Ogłoszenie Globalne (Flood)</h4>
-                    <p>Jak często stacja ma wysyłać swój status dalej w Polskę (wystarczy raz na 23 godziny):</p>
+                    <p>Jak często przekaźnik ma wysyłać swój status dalej w Polskę (wystarczy raz na 23 godziny):</p>
                     <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set flood.advert.interval 23</code></pre>
                 </div>
             </div>
@@ -624,23 +624,23 @@
             </div>
 
             <div class="alert-callout alert-callout-info">
-                <strong>🌍 Złota zasada sąsiedzkich regionów:</strong><br>
-                Dodawaj do swojej stacji wyłącznie regiony, które odpowiadają Twojemu województwu, miastu oraz główne kanały krajowe (jak <code>pl</code> czy <code>zachod</code>).
+                <strong>🌍 Złota zasada doboru regionów:</strong><br>
+                Dodawaj do swojego przekaźnika wyłącznie regiony, które odpowiadają Twojemu województwu, miastu oraz główne kanały krajowe (jak <code>pl</code> czy <code>zachod</code>).
                 Wszystkie szczegóły znajdziesz na stronie <a href="regiony.html" style="font-weight: bold; color: var(--accent-primary);">Regiony i Scopes</a>.
             </div>
 
             <p>Oto proste komendy, którymi nauczysz swój przekaźnik nowych regionów:</p>
             <div style="display: flex; flex-direction: column; gap: 8px; margin: 16px 0;">
-                <div style="font-weight: bold; color: var(--text-main);"># Dodanie nowego regionu do stacji:</div>
+                <div style="font-weight: bold; color: var(--text-main);"># Dodanie nowego regionu do przekaźnika:</div>
                 <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put [nazwa_regionu]</code></pre>
 
                 <div style="font-weight: bold; color: var(--text-main);"># Pozwolenie na przekazywanie wiadomości z tego regionu:</div>
                 <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region allowf [nazwa_regionu]</code></pre>
 
-                <div style="font-weight: bold; color: var(--text-main);"># Przypisanie stacji do domyślnego regionu Twojej okolicy:</div>
+                <div style="font-weight: bold; color: var(--text-main);"># Przypisanie przekaźnika do domyślnego regionu Twojej okolicy:</div>
                 <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set default.region [nazwa_regionu]</code></pre>
 
-                <div style="font-weight: bold; color: var(--text-main);"># Trwałe zapisanie ustawień w stacji i ponowne uruchomienie:</div>
+                <div style="font-weight: bold; color: var(--text-main);"># Trwałe zapisanie ustawień w urządzeniu i ponowne uruchomienie:</div>
                 <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region save</code></pre>
                 <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>reboot</code></pre>
             </div>
@@ -648,7 +648,7 @@
             <h2>6. Optymalizacja i bezpieczeństwo (CLI)</h2>
             <ul>
                 <li style="margin-bottom: 20px;">
-                    <strong>Włączenie przesyłania (Repeat Mode):</strong> Mówi stacji, by chętnie przekazywała głosy sąsiadów dalej.
+                    <strong>Włączenie przesyłania (Repeat Mode):</strong> Mówi urządzeniu, by chętnie przekazywało komunikaty innych dalej.
                     <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set repeat.mode on</code></pre>
                 </li>
                 <li style="margin-bottom: 20px;">
@@ -664,7 +664,7 @@
                     <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set multi.acks 1</code></pre>
                 </li>
                 <li style="margin-bottom: 20px;">
-                    <strong>Otwartość dla sąsiadów:</strong> Pozostawiając hasło gościa puste, pozwalasz innym na bezpieczny podgląd tego, jak świetnie działa Twój przekaźnik.
+                    <strong>Otwarty podgląd:</strong> Pozostawiając hasło gościa puste, pozwalasz innym na bezpieczny podgląd tego, jak świetnie działa Twój przekaźnik.
                     <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set guest.password ""</code></pre>
                 </li>
             </ul>
@@ -677,14 +677,14 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Wysokość stacji</th>
+                        <th>Wysokość montażu</th>
                         <th>Gdzie się znajduje?</th>
                         <th>Zalecane opóźnienia komend</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>🌳 WYSOKI / MASZT</strong><br><small>Słyszy ponad 15 sąsiadów</small></td>
+                        <td><strong>🌳 WYSOKI / MASZT</strong><br><small>Słyszy ponad 15 urządzeń</small></td>
                         <td>Wysokie wieże, dachy wieżowców, wzgórza.</td>
                         <td>
                             <div style="display: flex; flex-direction: column; gap: 6px;">
@@ -695,8 +695,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><strong>🏠 DACH DOMU</strong><br><small>Słyszy 5 do 15 sąsiadów</small></td>
-                        <td>Dach domu jednorodzinnego, wysokie drzewo, strych.</td>
+                        <td><strong>🏠 DACH DOMU</strong><br><small>Słyszy 5 do 15 urządzeń</small></td>
+                        <td>Dach domu, wysokie drzewo, strych.</td>
                         <td>
                             <div style="display: flex; flex-direction: column; gap: 6px;">
                                 <pre style="margin: 0; padding: 8px;"><button class="btn-copy" style="padding: 2px 6px; font-size: 0.7rem;" onclick="copyCode(this)">kopiuj</button><code>set txdelay 0.8</code></pre>
@@ -706,7 +706,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><strong>🪴 DOM / BALKON</strong><br><small>Słyszy poniżej 5 sąsiadów</small></td>
+                        <td><strong>🪴 DOM / BALKON</strong><br><small>Słyszy poniżej 5 urządzeń</small></td>
                         <td>Balkon, parapet, wewnątrz pokoju.</td>
                         <td>
                             <div style="display: flex; flex-direction: column; gap: 6px;">
@@ -731,7 +731,7 @@
         <!-- Checklist View (Simplified commands view) -->
         <div id="checklist-view" style="display: none;">
             <div class="alert-callout alert-callout-info" style="margin-top: 0; margin-bottom: 24px;">
-                <strong>📋 Przyjazna Checklista:</strong> Klikaj po kolei przyciski "kopiuj", wprowadzaj je do swojej stacji, a system sam zaznaczy gotowe kroki kolorem zielonym!
+                <strong>📋 Przyjazna Checklista:</strong> Klikaj po kolei przyciski "kopiuj", wprowadzaj je do swojego przekaźnika, a system sam zaznaczy gotowe kroki kolorem zielonym!
             </div>
 
             <div class="checklist-container">
@@ -741,8 +741,8 @@
                         <input type="checkbox" class="checklist-checkbox" id="chk-owner" onclick="toggleItem('owner')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">1. Tożsamość sąsiedzka</div>
-                        <div class="checklist-desc">Ustaw swoje imię lub nick, by sąsiedzi znali właściciela przekaźnika.</div>
+                        <div class="checklist-title">1. Tożsamość przekaźnika</div>
+                        <div class="checklist-desc">Ustaw swoje imię lub nick, by inni użytkownicy znali właściciela przekaźnika.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'owner')">kopiuj</button><code>set owner.info "TWOJE_IMIE_LUB_NICK"</code></pre>
                         </div>
@@ -840,7 +840,7 @@
                     </div>
                     <div class="checklist-content">
                         <div class="checklist-title">8. Regiony: zachod</div>
-                        <div class="checklist-desc">Wprowadź makroregion Polski Zachodniej do pamięci stacji.</div>
+                        <div class="checklist-desc">Wprowadź makroregion Polski Zachodniej do pamięci urządzenia.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'region-zachod')">kopiuj</button><code>region put zachod</code></pre>
                         </div>
@@ -870,8 +870,8 @@
                         <input type="checkbox" class="checklist-checkbox" id="chk-region-default" onclick="toggleItem('region-default')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">10. Powiązanie domyślnego regionu stacji</div>
-                        <div class="checklist-desc">Ustaw domyślny region dla komunikatów własnych stacji (np. pl).</div>
+                        <div class="checklist-title">10. Powiązanie domyślnego regionu przekaźnika</div>
+                        <div class="checklist-desc">Ustaw domyślny region dla własnych komunikatów przekaźnika (np. pl).</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'region-default')">kopiuj</button><code>set default.region pl</code></pre>
                         </div>
@@ -885,14 +885,14 @@
                     </div>
                     <div class="checklist-content">
                         <div class="checklist-title">11. Trwały zapis regionów</div>
-                        <div class="checklist-desc">Zapisz bezpiecznie wszystkie dodane regiony w pamięci stacji.</div>
+                        <div class="checklist-desc">Zapisz bezpiecznie wszystkie dodane regiony w pamięci urządzenia.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'region-save')">kopiuj</button><code>region save</code></pre>
                         </div>
                     </div>
                 </div>
 
-                <!-- Krok 6c: Reboot stacji -->
+                <!-- Krok 6c: Reboot urządzenia -->
                 <div class="checklist-item" id="item-region-reboot">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-region-reboot" onclick="toggleItem('region-reboot')">
@@ -969,7 +969,7 @@
                     </div>
                     <div class="checklist-content">
                         <div class="checklist-title">17. Otwartość: Puste hasło gościa</div>
-                        <div class="checklist-desc">Pozostaw puste hasło gościa dla podglądu statusu przez sąsiadów.</div>
+                        <div class="checklist-desc">Pozostaw puste hasło gościa dla publicznego podglądu statusu przekaźnika.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'opt-guest')">kopiuj</button><code>set guest.password ""</code></pre>
                         </div>
@@ -983,7 +983,7 @@
                     </div>
                     <div class="checklist-content">
                         <div class="checklist-title">18. Opóźnienie nadawania (txdelay)</div>
-                        <div class="checklist-desc">Wybierz profil wysokości swojej stacji, by automatycznie dobrać komendę poniżej:</div>
+                        <div class="checklist-desc">Wybierz profil wysokości swojego przekaźnika, by automatycznie dobrać komendę poniżej:</div>
 
                         <div class="profile-selector">
                             <button id="prof-maszt" class="profile-btn active" onclick="setChecklistProfile('maszt')">🌳 WYSOKI / MASZT</button>
@@ -1018,7 +1018,7 @@
                     </div>
                     <div class="checklist-content">
                         <div class="checklist-title">20. Bezpieczna przerwa (rxdelay)</div>
-                        <div class="checklist-desc">Zapobiega wcinaniu się stacji w trwające jeszcze słuchanie sygnału.</div>
+                        <div class="checklist-desc">Zapobiega wcinaniu się przekaźnika w trwające jeszcze słuchanie sygnału.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'txdelay-rx')">kopiuj</button><code>set rxdelay 3</code></pre>
                         </div>

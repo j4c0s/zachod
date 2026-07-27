@@ -392,7 +392,7 @@
             <strong>📅 Harmonogram wprowadzania regionów na Zachodzie:</strong><br>
             Abyśmy mogli bezpiecznie i bez zakłóceń sprawdzić działanie systemu, wprowadzamy regiony stopniowo:
             <ul style="margin: 8px 0 0 0; padding-left: 20px; color: inherit;">
-                <li><strong>Do 31 sierpnia:</strong> Każdy właściciel stacji ustawia regiony w swoich przekaźnikach (repeaterach).</li>
+                <li><strong>Do 31 sierpnia:</strong> Każdy właściciel przekaźnika ustawia regiony w swoich urządzeniach.</li>
                 <li><strong>Od 1 września:</strong> Zaczynamy aktywnie korzystać ze "scopes" (zasięgów regionalnych) na kanałach w telefonach.</li>
             </ul>
             Dzięki temu damy sobie czas, aby sprawdzić, które przekaźniki wymagają jeszcze poprawy konfiguracji przed pełnym startem!
@@ -400,14 +400,14 @@
 
         <h2>Po co w ogóle tego używać?</h2>
         <p>
-            <strong>Dla solidarności sąsiedzkiej i czystego powietrza!</strong>
+            <strong>Dla optymalizacji i czystego powietrza w eterze!</strong>
         </p>
         <p>
             W klasycznych sieciach bezprzewodowych wiadomości krążą bez żadnych ograniczeń, odbijając się od każdego napotkanego urządzenia. Gdy użytkowników przybywa, sieć szybko się zapycha, co prowadzi do gubienia wiadomości.
         </p>
         <p>Wprowadzenie przyjaznego podziału na regiony i zasięgi w MeshCore pozwala nam mądrze i lokalnie kierować ruchem:
         <ul>
-            <li><strong>Lokalne sprawy zostają na miejscu:</strong> Jeśli rozmawiasz z rodziną we Wrocławiu o planach na niedzielny obiad, Twoja wiadomość nie musi bez celu lecieć na drugi koniec województwa lubuskiego i zapychać tamtejszych urządzeń.</li>
+            <li><strong>Lokalne sprawy zostają na miejscu:</strong> Jeśli nadajesz z Wrocławia w zasięgu lokalnym, Twoja wiadomość nie musi bez celu lecieć na drugi koniec województwa lubuskiego i zapychać tamtejszych urządzeń.</li>
             <li><strong>Ty decydujesz o zasięgu:</strong> To osoba wysyłająca wiadomość decyduje w aplikacji, do jak dużego obszaru chce się zwrócić (np. tylko do swojego miasta, województwa czy całego kraju).</li>
         </ul>
         </p>
@@ -441,7 +441,7 @@
             <!-- Level 2 -->
             <div class="hierarchy-node node-level-2">
                 <div class="node-title">Poziom 2: Kraj <span class="node-badge">pl</span></div>
-                <div class="node-desc">Łączność ogólnokrajowa. Pozwala rozmawiać z użytkownikami w całej Polsce; jest powtarzana przez stacje w całym kraju.</div>
+                <div class="node-desc">Łączność ogólnokrajowa. Pozwala rozmawiać z użytkownikami w całej Polsce; jest powtarzana przez przekaźniki w całym kraju.</div>
             </div>
 
             <!-- Level 3 -->
@@ -459,18 +459,18 @@
             <!-- Level 5 -->
             <div class="hierarchy-node node-level-5">
                 <div class="node-title">Poziom 5: Miasta i Aglomeracje <span class="node-badge">wro</span> / <span class="node-badge">poz</span></div>
-                <div class="node-desc">Szybka, gęsta komunikacja lokalna (np. Wrocław - wro, Poznań - poz). Idealna do codziennych rozmów z sąsiadami bez obciążania stacji w regionach nadrzędnych.</div>
+                <div class="node-desc">Szybka, gęsta komunikacja lokalna (np. Wrocław - wro, Poznań - poz). Idealna do codziennych rozmów lokalnych bez obciążania przekaźników w regionach nadrzędnych.</div>
             </div>
         </div>
 
         <div class="alert-callout alert-callout-warn">
-            <strong>🌍 Sąsiedzka porada:</strong><br>
-            Konfigurując przekaźnik, dodawaj tylko te regiony, w których stacja się znajduje. Pozwoli to zachować porządek w eterze i uratuje baterie urządzeń w sąsiednich województwach!
+            <strong>🌍 Ważna porada:</strong><br>
+            Konfigurując przekaźnik, dodawaj tylko te regiony, w których urządzenie się znajduje. Pozwoli to zachować porządek w eterze i uratuje baterie urządzeń w innych województwach!
         </div>
 
         <h2>Dodawanie regionów do konfiguracji przekaźnika</h2>
         <p>
-            Aby Twój przekaźnik prawidłowo pomagał sąsiadom i przesyłał lokalne rozmowy, musisz wprowadzić odpowiednie kody regionów do jego pamięci.
+            Aby Twój przekaźnik prawidłowo przesyłał lokalne rozmowy, musisz wprowadzić odpowiednie kody regionów do jego pamięci.
         </p>
 
         <!-- Wideo instrukcja smartfona -->
@@ -499,7 +499,7 @@
         </div>
 
         <p>
-            <strong>Domyślny region stacji (default.region):</strong><br>
+            <strong>Domyślny region przekaźnika (default.region):</strong><br>
             To przydatne ustawienie określa, jakim zasięgiem mają być podpisywane sygnały wysyłane automatycznie przez sam przekaźnik (np. jego własne ogłoszenia statusu). Najlepiej ustawić tu region krajowy <code>pl</code> lub makroregionalny <code>zachod</code>.
         </p>
 
@@ -522,14 +522,14 @@
             <div style="font-weight: bold; margin-top: 8px; color: var(--text-main);">Twoje miasto (np. Wrocław):</div>
             <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put wro</code></pre>
 
-            <div style="font-weight: bold; margin-top: 12px; color: var(--text-main);">Ustawienie domyślnego regionu dla stacji (np. pl):</div>
+            <div style="font-weight: bold; margin-top: 12px; color: var(--text-main);">Ustawienie domyślnego regionu dla przekaźnika (np. pl):</div>
             <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set default.region pl</code></pre>
 
             <div style="font-weight: bold; margin-top: 12px; color: var(--text-main);">Sprawdzenie zapisanych ustawień:</div>
             <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region</code></pre>
             <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region default</code></pre>
 
-            <div style="font-weight: bold; margin-top: 12px; color: var(--text-main);">Zapisanie zmian w pamięci stacji:</div>
+            <div style="font-weight: bold; margin-top: 12px; color: var(--text-main);">Zapisanie zmian w pamięci urządzenia:</div>
             <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region save</code></pre>
         </div>
 
