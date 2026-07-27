@@ -241,7 +241,7 @@
 
         <h2>Kim jest Obserwator?</h2>
         <p>
-            Obserwator to bezgłośny, mały, domowy pomocnik sieci. Nie nadaje wiadomości i nie zakłóca spokoju — zamiast tego "słucha" ruchu w eterze i pozwala innym użytkownikom oraz stacjom na diagnostykę stanu sieci. Bezpiecznie przekazuje informacje o jakości połączeń przez domowe Wi-Fi bezpośrednio do map i systemów telemetrycznych, dzięki czemu cała społeczność wie, czy sieć działa prawidłowo.
+            Obserwator to bezgłośny, mały, domowy pomocnik sieci. Nie nadaje wiadomości i nie zakłóca spokoju — zamiast tego "słucha" ruchu w eterze i pozwala innym użytkownikom oraz przekaźnikom na diagnostykę stanu sieci. Bezpiecznie przekazuje informacje o jakości połączeń przez domowe Wi-Fi bezpośrednio do map i systemów telemetrycznych, dzięki czemu cała społeczność wie, czy sieć działa prawidłowo.
         </p>
 
         <h2>1. Łatwa instalacja oprogramowania</h2>
@@ -257,7 +257,7 @@
         </ul>
 
         <h2>2. Podłączenie do domowego Wi-Fi</h2>
-        <p>Połącz się ze stacją przez wiersz poleceń (CLI) i wpisz poniższe komendy, by dać Obserwatorowi dostęp do Internetu oraz określić jego lokalizację:</p>
+        <p>Połącz się z obserwatorem przez wiersz poleceń (CLI) i wpisz poniższe komendy, by dać mu dostęp do Internetu oraz określić jego lokalizację:</p>
 
         <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set wifi.ssid "NAZWA_TWOJEGO_WIFI"</code></pre>
         <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set wifi.pwd "HASLO_DO_WIFI"</code></pre>
@@ -274,7 +274,7 @@
         <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>reboot</code></pre>
 
         <h2>3. Wsparcie dla lokalnego Analizatora (MQTT)</h2>
-        <p>Aby wspierać naszą polską społeczność oraz ułatwić lokalną diagnostykę sąsiadom, możesz skierować dane do serwera <code>meshcorekrk.cma.pl</code>:</p>
+        <p>Aby wspierać naszą polską społeczność oraz ułatwić lokalną diagnostykę, możesz skierować dane do serwera <code>meshcorekrk.cma.pl</code>:</p>
 
         <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set mqtt.server "mqtt.meshcorekrk.cma.pl"</code></pre>
         <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set mqtt.port 1883</code></pre>
@@ -282,7 +282,7 @@
         <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set mqtt.password "meshcore"</code></pre>
 
         <h2>4. Pełna lista przyjaznych komend odpytujących (GET)</h2>
-        <p>Gdy zechcesz sprawdzić status stacji lub zobaczyć jej parametry, możesz skorzystać z następujących poleceń diagnostycznych:</p>
+        <p>Gdy zechcesz sprawdzić status urządzenia lub zobaczyć jego parametry, możesz skorzystać z następujących poleceń diagnostycznych:</p>
 
         <table>
             <thead>
@@ -302,7 +302,7 @@
                 </tr>
                 <tr>
                     <td><code>get mqtt.status</code></td>
-                    <td>Sprawdza, czy stacja wysyła swój status sprawności (on/off).</td>
+                    <td>Sprawdza, czy urządzenie wysyła swój status sprawności (on/off).</td>
                 </tr>
                 <tr>
                     <td><code>get mqtt.packets</code></td>
@@ -318,7 +318,7 @@
                 </tr>
                 <tr>
                     <td><code>get mqtt.interval</code></td>
-                    <td>Zwraca czas (w milisekundach) pomiędzy wysyłaniem statusu stacji.</td>
+                    <td>Zwraca czas (w milisekundach) pomiędzy wysyłaniem statusu urządzenia.</td>
                 </tr>
                 <tr>
                     <td><code>get mqtt.server</code></td>
