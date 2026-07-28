@@ -1101,13 +1101,33 @@
                 checklistBtn.classList.remove('active');
                 detailedView.style.display = 'block';
                 checklistView.style.display = 'none';
+                if (window.location.hash === '#checklist') {
+                    history.pushState("", document.title, window.location.pathname + window.location.search);
+                }
             } else if (tab === 'checklist') {
                 checklistBtn.classList.add('active');
                 detailedBtn.classList.remove('active');
                 detailedView.style.display = 'none';
                 checklistView.style.display = 'block';
+                if (window.location.hash !== '#checklist') {
+                    history.pushState("", document.title, window.location.pathname + window.location.search + '#checklist');
+                }
             }
         }
+
+        // Handle hash on load and hashchange
+        function handleHash() {
+            if (window.location.hash === '#checklist') {
+                switchTab('checklist');
+            } else if (window.location.hash === '' || window.location.hash === '#detailed') {
+                switchTab('detailed');
+            }
+        }
+
+        window.addEventListener('hashchange', handleHash);
+        window.addEventListener('DOMContentLoaded', handleHash);
+        // Run immediately as script is at the bottom of the page
+        handleHash();
 
         // Toggle manual checklist items
         function toggleItem(id) {
