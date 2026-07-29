@@ -561,6 +561,7 @@
                     <label for="scope-select" class="scope-label">Zasięg Wiadomości (Scope)</label>
                     <select id="scope-select" onchange="updateSelectedScope()">
                         <option value="unscoped">Brak - Unscoped (Wiadomość po całej sieci)</option>
+                        <option value="unscoped-3hop">Brak - Unscoped (ograniczony do 3 hop)</option>
                         <option value="pl">pl (Ogólnokrajowy)</option>
                         <option value="zachod">zachod (Subregion Zachód)</option>
                         <option value="pl-ds">pl-ds (Dolnośląskie)</option>
@@ -602,7 +603,7 @@
             { id: "lub", name: "Lubań", x: 80, y: 370, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
             { id: "leg", name: "Legnica", x: 160, y: 350, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
             { id: "glog", name: "Głogów", x: 180, y: 300, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
-            { id: "olawa", name: "Oława", x: 340, y: 460, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
+            { id: "olawa", name: "Wrocław Oława", x: 340, y: 460, region: "pl-ds", codes: ["pl-ds", "pl", "zachod", "wro"] },
             { id: "trzeb", name: "Trzebnica", x: 300, y: 300, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
             { id: "oles", name: "Oleśnica", x: 340, y: 330, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
 
@@ -862,12 +863,12 @@
             txCount = 0;
             updateStatsUI();
 
-            // Broadcast from sender
-            broadcastFromNode(sender.id, packetUuid, selectedScope, null);
+            // Broadcast from sender with 0 hops initially
+            broadcastFromNode(sender.id, packetUuid, selectedScope, null, 0);
         }
 
         // Broadcast signal to neighbors
-        function broadcastFromNode(nodeId, packetUuid, scope, incomingNodeId) {
+        function broadcastFromNode(nodeId, packetUuid, scope, incomingNodeId, hopCount) {
             const node = nodes.find(n => n.id === nodeId);
             if (!node) return;
 
@@ -895,11 +896,12 @@
                     progress: 0,
                     speed: 0.05, // Swift traveling particles
                     packetUuid: packetUuid,
-                    scope: scope
+                    scope: scope,
+                    hopCount: hopCount + 1
                 });
 
                 // Highlight Link
-                highlightLink(nodeId, neighborId, scope === "unscoped" ? "congestion" : "transmission");
+                highlightLink(nodeId, neighborId, (scope === "unscoped" || scope === "unscoped-3hop") ? "congestion" : "transmission");
             });
 
             // Start/restart animation loop if needed
@@ -916,13 +918,14 @@
 
             const packetUuid = particle.packetUuid;
             const scope = particle.scope;
+            const hopCount = particle.hopCount;
 
             // Check if node already processed this packet
             const hasSeen = packetHistory[packetUuid].has(targetNode.id);
 
             // Check Regional Scope Restrictions
             let isAllowed = true;
-            if (scope !== "unscoped") {
+            if (scope !== "unscoped" && scope !== "unscoped-3hop") {
                 // Check if this target node supports the selected scope
                 isAllowed = targetNode.codes.includes(scope);
             }
@@ -943,11 +946,20 @@
             // Clean First-time Receive: STAYS green until reset
             setNodeVisualState(targetNode.id, "rx");
             packetHistory[packetUuid].add(targetNode.id);
-            createFloatingText(targetNode.x, targetNode.y - 12, "📥 Odebrano", "var(--accent-primary)");
+            createFloatingText(targetNode.x, targetNode.y - 12, `📥 Odebrano (H:${hopCount})`, "var(--accent-primary)");
+
+            // Check Hop limit for unscoped 3-hop
+            if (scope === "unscoped-3hop" && hopCount >= 3) {
+                // Do not forward further
+                setTimeout(() => {
+                    createFloatingText(targetNode.x, targetNode.y - 12, "🛑 Limit Hopów", "var(--accent-danger)");
+                }, 300);
+                return;
+            }
 
             // Schedule forward with fast 250ms delay
             setTimeout(() => {
-                broadcastFromNode(targetNode.id, packetUuid, scope, senderNode.id);
+                broadcastFromNode(targetNode.id, packetUuid, scope, senderNode.id, hopCount);
             }, 250);
         }
 
@@ -1049,7 +1061,7 @@
                 circle.setAttribute("r", 5);
 
                 let classes = "packet-particle";
-                if (p.scope === "unscoped") {
+                if (p.scope === "unscoped" || p.scope === "unscoped-3hop") {
                     classes += " congestion";
                 }
                 circle.setAttribute("class", classes);
