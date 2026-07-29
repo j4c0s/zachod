@@ -177,7 +177,7 @@
 
         @media (min-width: 900px) {
             .simulator-layout {
-                grid-template-columns: 280px 1fr;
+                grid-template-columns: 290px 1fr;
             }
         }
 
@@ -639,8 +639,12 @@
                 <div id="scope-selector-container" style="display: none; flex-direction: column; gap: 8px;">
                     <label style="font-size: 0.8rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Zasięg Wiadomości (Scope):</label>
                     <select id="scope-select" onchange="updateSelectedScope()" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border); background-color: var(--bg-page); color: var(--text-main); font-weight: 700;">
-                        <option value="pl-ds">pl-ds (Tylko Dolny Śląsk)</option>
-                        <option value="pl">pl (Ogólnokrajowy)</option>
+                        <option value="pl">pl (Ogólnokrajowy - cała sieć)</option>
+                        <option value="zachod">zachod (Subregion Polski Zachodniej)</option>
+                        <option value="pl-ds">pl-ds (Województwo Dolnośląskie)</option>
+                        <option value="pl-lb">pl-lb (Województwo Lubuskie)</option>
+                        <option value="wlkp">wlkp (Województwo Wielkopolskie)</option>
+                        <option value="wro">wro (Lokalny - miasto Wrocław)</option>
                     </select>
                 </div>
 
@@ -728,7 +732,7 @@
         <div class="explanation-card">
             <h3>💡 Co dokładnie widzimy na symulacji?</h3>
             <p>
-                Symulowana siatka składa się z 10 węzłów (przekaźników) rozlokowanych w trzech sąsiadujących ze sobą województwach. Każdy z przekaźników ma przypisane do pamięci regiony, które zadeklarował obsługiwać (np. Wrocław obsługuje <code>[pl-ds, pl, zachod, wro]</code>, a Poznań <code>[wlkp, pl, zachod, poz]</code>).
+                Symulowana siatka składa się z 11 węzłów (przekaźników) rozlokowanych w trzech sąsiadujących ze sobą województwach. Każdy z przekaźników ma przypisane do pamięci regiony, które zadeklarował obsługiwać (np. Wrocław obsługuje <code>[pl, zachod, pl-ds, wro]</code>, a Poznań obsługuje <code>[pl, zachod, wlkp, poz]</code>).
             </p>
             <p>
                 <strong>Scenariusz 1: Bez regionów (Unscoped)</strong><br>
@@ -736,15 +740,13 @@
             </p>
             <p>
                 <strong>Scenariusz 2: Z regionami (Scoped)</strong><br>
-                Gdy wyślesz lokalny pakiet z Wrocławia z ustawionym zasięgiem <code>pl-ds</code> (Dolny Śląsk):
+                Gdy wybierzesz zakres regionalny, wiadomości przekazywane są wyłącznie przez przekaźniki, które go obsługują:
                 <ul>
-                    <li>Przekaźniki na Dolnym Śląsku (Świdnica, Jelenia Góra, Lubań) widzą zasięg <code>pl-ds</code> w swojej konfiguracji, więc chętnie podają pakiet dalej.</li>
-                    <li>Gdy pakiet przechodzi przez mosty graniczne i trafia do sąsiedniego województwa Lubuskiego (Zielona Góra) lub Wielkopolskiego (Leszno), przekaźniki tam odbierają sygnał, sprawdzają jego nagłówek i widzą, że <code>pl-ds</code> nie pasuje do ich obszaru działania.</li>
-                    <li>Urządzenia te <strong>natychmiast odrzucają pakiet (szary krzyżyk X)</strong> i nie przekazują go dalej. Eter w Lubuskiem i Wielkopolsce pozostaje idealnie czysty i wolny dla innych rozmówców!</li>
+                    <li><strong>Wrocław lokalny (<code>wro</code>):</strong> Nadaj z Wrocławia. Pakiet jest przesyłany wyłącznie do Wrocław Psie Pole i tam zostaje. Sąsiednia Świdnica i Lubań odrzucają go, ponieważ nie obsługują zakresu <code>wro</code>. Eter w województwie pozostaje czysty!</li>
+                    <li><strong>Dolny Śląsk (<code>pl-ds</code>):</strong> Pakiet krąży i jest przekazywany dalej przez wszystkie dolnośląskie przekaźniki (Wrocław, Świdnica, Jelenia Góra, Lubań). Gdy dociera do mostu granicznego w Lubuskiem (Zielona Góra) lub Wielkopolsce (Leszno), zostaje odrzucony i nie obciąża tamtych regionów.</li>
+                    <li><strong>Subregion Zachód (<code>zachod</code>):</strong> Przekaźniki w całym regionie zachodnim (Dolnośląskie, Lubuskie, Wielkopolskie) obsługują ten zakres, więc przesyłają go dalej w obrębie całej naszej siatki.</li>
+                    <li><strong>Krajowy (<code>pl</code>):</strong> Wszystkie przekaźniki w kraju mają wgrany zakres ogólnopolski, co pozwala na pełne pokrycie całej sieci.</li>
                 </ul>
-            </p>
-            <p>
-                Jeśli natomiast wyślesz pakiet z ogólnym zasięgiem krajowym <code>pl</code>, przechodzi on gładko przez całą sieć, ponieważ każdy przekaźnik posiada zadeklarowaną obsługę regionu krajowego.
             </p>
         </div>
 
@@ -758,9 +760,10 @@
         // Nodes Data
         const nodes = [
             // Dolnośląskie
-            { id: "wro", name: "Wrocław", x: 280, y: 330, region: "pl-ds", codes: ["pl-ds", "pl", "zachod", "wro"], isTransmitter: true },
-            { id: "swid", name: "Świdnica", x: 190, y: 390, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
-            { id: "jelg", name: "Jelenia Góra", x: 110, y: 410, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
+            { id: "wro", name: "Wrocław", x: 280, y: 310, region: "pl-ds", codes: ["pl-ds", "pl", "zachod", "wro"], isTransmitter: true },
+            { id: "wro-pp", name: "Wrocław Psie Pole", x: 300, y: 400, region: "pl-ds", codes: ["pl-ds", "pl", "zachod", "wro"] },
+            { id: "swid", name: "Świdnica", x: 190, y: 380, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
+            { id: "jelg", name: "Jelenia Góra", x: 110, y: 420, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
             { id: "lub", name: "Lubań", x: 90, y: 320, region: "pl-ds", codes: ["pl-ds", "pl", "zachod", "luzyce"] },
 
             // Lubuskie
@@ -776,6 +779,7 @@
 
         // Network Connections (source id, target id)
         const links = [
+            { source: "wro", target: "wro-pp" },
             { source: "wro", target: "swid" },
             { source: "swid", target: "jelg" },
             { source: "jelg", target: "lub" },
@@ -792,7 +796,7 @@
 
         // Simulation State variables
         let selectedScenario = "unscoped"; // "unscoped" or "scoped"
-        let selectedScope = "pl-ds";       // "pl-ds" or "pl"
+        let selectedScope = "pl";       // Default to national 'pl'
 
         let txCount = 0;
         let dupCount = 0;
@@ -1019,11 +1023,13 @@
 
             // Adjust airwave load
             if (scope === "unscoped") {
-                airwaveLoad = Math.min(100, airwaveLoad + 14);
-            } else if (scope === "pl-ds") {
-                airwaveLoad = Math.min(100, airwaveLoad + 8);
-            } else { // pl scope
                 airwaveLoad = Math.min(100, airwaveLoad + 12);
+            } else if (scope === "wro") {
+                airwaveLoad = Math.min(100, airwaveLoad + 6);
+            } else if (scope.startsWith("pl-") || scope === "wlkp") {
+                airwaveLoad = Math.min(100, airwaveLoad + 8);
+            } else { // pl or zachod scope
+                airwaveLoad = Math.min(100, airwaveLoad + 10);
             }
             updateStatsUI();
 
@@ -1068,8 +1074,8 @@
 
             // Check Regional Scope Restrictions
             let isAllowed = true;
-            if (scope !== "unscoped" && scope !== "pl") {
-                // If it's a specific regional scope (like pl-ds), check if this node supports it
+            if (scope !== "unscoped") {
+                // Check if this target node supports the selected scope
                 isAllowed = targetNode.codes.includes(scope);
             }
 
@@ -1089,7 +1095,7 @@
 
                 // Airwave damage in unscoped mode
                 if (scope === "unscoped") {
-                    airwaveLoad = Math.min(100, airwaveLoad + 8);
+                    airwaveLoad = Math.min(100, airwaveLoad + 6);
                 }
                 updateStatsUI();
 
