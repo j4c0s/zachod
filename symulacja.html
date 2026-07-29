@@ -822,6 +822,8 @@
                     nodes.forEach(no => no.isTransmitter = false);
                     n.isTransmitter = true;
                     resetSimulation();
+                    // Automatically trigger packet transmission with selected scope on click
+                    startBroadcast();
                 };
 
                 // Node background circle for pulse effects
