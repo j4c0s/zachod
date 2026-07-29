@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Interaktywna Symulacja Ruchu Pakietów – MeshCore</title>
+    <style>
+        :root {
+            --bg-page: #f8fafc; /* High-contrast slate-50 for light mode */
+            --bg-card: rgba(255, 255, 255, 0.9);
+            --text-main: #0f172a; /* Slate-900 */
+            --text-muted: #475569; /* Slate-600 */
+            --border: #cbd5e1; /* Slate-300 */
+            --border-hover: #94a3b8;
+
+            --accent-primary: #15803d; /* Bold primary green */
+            --accent-primary-hover: #166534;
+            --accent-primary-glow: rgba(21, 128, 61, 0.15);
+
+            --accent-warn: #d97706; /* Warm high-contrast amber */
+            --accent-danger: #dc2626; /* Deep vibrant red */
+
+            --node-default: #475569; /* Solid slate-600 for visible idle nodes */
+            --node-stroke: #0f172a; /* Dark bold stroke */
+            --link-color: #64748b; /* Clearly visible paths */
+            --link-opacity: 0.45;
+
+            --shadow: 0 10px 25px rgba(15, 23, 42, 0.1), 0 4px 10px rgba(15, 23, 42, 0.05);
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-page: #0b0f19; /* Immersive dark deep slate background */
+                --bg-card: rgba(15, 23, 42, 0.85);
+                --text-main: #f8fafc; /* Slate-50 */
+                --text-muted: #94a3b8; /* Slate-400 */
+                --border: #334155; /* Slate-700 */
+                --border-hover: #475569;
+
+                --accent-primary: #22c55e; /* Bright glowing green */
+                --accent-primary-hover: #4ade80;
+                --accent-primary-glow: rgba(34, 197, 94, 0.2);
+
+                --accent-warn: #fb923c;
+                --accent-danger: #f87171;
+
+                --node-default: #1e293b; /* Dark slate nodes */
+                --node-stroke: #cbd5e1; /* Bright high-contrast borders */
+                --link-color: #475569; /* Glowing clean constellation paths */
+                --link-opacity: 0.65;
+
+                --shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 4px 10px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--bg-page);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Portrait Mobile Auto-Rotation Layout */
+        .app-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) and (orientation: portrait) {
+            .app-container {
+                width: 100vh;
+                height: 100vw;
+                transform: rotate(90deg);
+                transform-origin: center;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-top: -50vw;
+                margin-left: -50vh;
+            }
+        }
+
+        .map-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        svg#network-svg {
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            user-select: none;
+        }
+
+        /* Floating Beautiful High-Contrast Control Card relocated to bottom right and made more compact */
+        .floating-control-box {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            z-index: 100;
+            width: 290px;
+            background-color: var(--bg-card);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            padding: 14px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .control-header {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .btn-back {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        .btn-back:hover {
+            color: var(--accent-primary-hover);
+            text-decoration: underline;
+        }
+
+        .control-title {
+            font-size: 1.2rem;
+            font-weight: 900;
+            margin: 0;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+
+        .control-instruction {
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: var(--accent-primary);
+            margin-top: 1px;
+            letter-spacing: 0.02em;
+        }
+
+        .control-body {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .control-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .scope-label {
+            font-size: 0.68rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        select#scope-select {
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1.5px solid var(--border);
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            width: 100%;
+            transition: border-color 0.15s;
+        }
+
+        select#scope-select:focus, select#scope-select:hover {
+            border-color: var(--accent-primary);
+            outline: none;
+        }
+
+        .control-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-action {
+            flex-grow: 1;
+            background-color: var(--accent-primary);
+            color: #ffffff;
+            border: none;
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            box-shadow: 0 4px 10px var(--accent-primary-glow);
+            text-align: center;
+        }
+
+        .btn-action:hover {
+            background-color: var(--accent-primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1.5px solid var(--border);
+            padding: 8px 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border);
+        }
+
+        .control-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(100, 116, 139, 0.08);
+            border-radius: 8px;
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .stat-value {
+            font-size: 0.95rem;
+            font-weight: 900;
+            color: var(--accent-primary);
+        }
+
+        /* Compact scaling for rotated landscape viewports */
+        @media (max-height: 480px) {
+            .floating-control-box {
+                bottom: 10px;
+                right: 10px;
+                top: auto;
+                left: auto;
+                width: 240px;
+                padding: 8px;
+                gap: 6px;
+                border-radius: 12px;
+            }
+            .control-title {
+                font-size: 1rem;
+            }
+            .btn-back {
+                font-size: 0.7rem;
+            }
+            select#scope-select {
+                padding: 6px 8px;
+                font-size: 0.75rem;
+            }
+            .btn-action, .btn-secondary {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+            .control-stats {
+                padding: 6px 10px;
+            }
+            .stat-label {
+                font-size: 0.72rem;
+            }
+            .stat-value {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* SVG Vector & Label Colors and Legibility Shadows */
+        .region-bg {
+            fill: none;
+            stroke-width: 2.5;
+            transition: all 0.3s;
+        }
+
+        .region-bg.pl {
+            stroke: #64748b;
+            stroke-width: 3.5;
+            stroke-dasharray: 8 8;
+            fill: rgba(100, 116, 139, 0.02);
+        }
+
+        .region-bg.zachod {
+            stroke: var(--accent-primary);
+            stroke-width: 2.5;
+            stroke-dasharray: 6 6;
+            fill: rgba(34, 197, 94, 0.015);
+        }
+
+        .region-bg.ds {
+            stroke: #2563eb; /* Dolnośląskie Blue */
+            stroke-width: 2;
+            stroke-dasharray: 4 4;
+            fill: rgba(37, 99, 235, 0.01);
+        }
+
+        .region-bg.lb {
+            stroke: #7c3aed; /* Lubuskie Purple */
+            stroke-width: 2;
+            stroke-dasharray: 4 4;
+            fill: rgba(124, 58, 237, 0.01);
+        }
+
+        .region-bg.wkp {
+            stroke: #ea580c; /* Wielkopolskie Orange */
+            stroke-width: 2;
+            stroke-dasharray: 4 4;
+            fill: rgba(234, 88, 12, 0.01);
+        }
+
+        .region-bg.ld {
+            stroke: #db2777; /* Łódzkie Pink */
+            stroke-width: 2;
+            stroke-dasharray: 4 4;
+            fill: rgba(219, 39, 119, 0.01);
+        }
+
+        .region-bg.local-zone {
+            stroke: #ef4444; /* Local Red/Orange Highlight */
+            stroke-width: 1.8;
+            stroke-dasharray: 3 3;
+            fill: rgba(239, 68, 68, 0.01);
+        }
+
+        .region-label {
+            font-size: 0.72rem;
+            font-weight: 900;
+            fill: var(--text-main);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8), 0 0 1px rgba(0,0,0,0.8);
+        }
+        @media (prefers-color-scheme: light) {
+            .region-label {
+                text-shadow: 0 1px 2px rgba(255,255,255,0.9), 0 0 1px rgba(255,255,255,0.9);
+            }
+        }
+
+        .network-link {
+            stroke: var(--link-color);
+            stroke-opacity: var(--link-opacity);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            transition: stroke 0.2s, stroke-width 0.2s, stroke-opacity 0.2s;
+        }
+
+        .network-link.active-transmission {
+            stroke: var(--accent-primary);
+            stroke-opacity: 1;
+            stroke-width: 3.5;
+        }
+
+        .network-link.active-congestion {
+            stroke: #fb923c;
+            stroke-opacity: 1;
+            stroke-width: 3.5;
+        }
+
+        /* High-Contrast Interactive Node Circles */
+        .node-circle {
+            fill: var(--node-default);
+            stroke: var(--node-stroke);
+            stroke-width: 2.2;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        /* Selected Transmitter Ring */
+        .node-circle.transmitter {
+            stroke: var(--accent-primary);
+            stroke-width: 3.5;
+        }
+
+        /* White Active Transmitting Circle */
+        .node-circle.tx-active {
+            fill: #ffffff !important;
+            stroke: #ffffff;
+            stroke-width: 3.5;
+            filter: drop-shadow(0 0 10px #ffffff);
+        }
+
+        /* Green Received & Forwarding Circle (STAYS green until reset) */
+        .node-circle.rx-active {
+            fill: var(--accent-primary) !important;
+            stroke: var(--accent-primary);
+            stroke-width: 2.5;
+            filter: drop-shadow(0 0 8px var(--accent-primary));
+        }
+
+        /* Grey Dropped/Blocked Node (turns back to default after pulse) */
+        .node-circle.rx-drop {
+            fill: #64748b !important;
+            stroke: #475569;
+        }
+
+        .node-name {
+            font-size: 0.75rem;
+            font-weight: 800;
+            fill: var(--text-main);
+            text-anchor: middle;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+        }
+        @media (prefers-color-scheme: light) {
+            .node-name {
+                text-shadow: 0 1px 2px rgba(255,255,255,0.9);
+            }
+        }
+
+        .node-details {
+            font-size: 0.58rem;
+            font-weight: 700;
+            fill: var(--text-muted);
+            text-anchor: middle;
+            font-family: var(--font-mono);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+        }
+        @media (prefers-color-scheme: light) {
+            .node-details {
+                text-shadow: 0 1px 2px rgba(255,255,255,0.9);
+            }
+        }
+
+        .packet-particle {
+            fill: var(--accent-primary);
+            filter: drop-shadow(0 0 5px var(--accent-primary));
+        }
+
+        .packet-particle.congestion {
+            fill: #fb923c;
+            filter: drop-shadow(0 0 5px #fb923c);
+        }
+
+        /* Floating Indicator Texts */
+        .floating-text {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-anchor: middle;
+            animation: driftUp 0.8s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes driftUp {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-18px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+
+        <!-- Immersive Fullscreen Vector Map -->
+        <div class="map-wrapper">
+            <svg id="network-svg" viewBox="0 0 1100 600">
+                <!-- Polska Grand Box -->
+                <rect class="region-bg pl" x="10" y="10" width="1080" height="580" rx="20" />
+                <text class="region-label" x="30" y="30">POLSKA (pl)</text>
+
+                <!-- Zachód Region Box -->
+                <rect class="region-bg zachod" x="25" y="45" width="685" height="530" rx="16" />
+                <text class="region-label" x="40" y="65">SUBREGION ZACHÓD (zachod)</text>
+
+                <!-- Dolny Śląsk -->
+                <rect class="region-bg ds" x="40" y="270" width="320" height="290" rx="12" />
+                <text class="region-label" x="55" y="290">Dolnośląskie (pl-ds)</text>
+
+                <!-- Wrocław local zone highlight -->
+                <rect class="region-bg local-zone" x="255" y="340" width="95" height="135" rx="8" />
+                <text class="region-label" x="260" y="335">WROCŁAW (wro)</text>
+
+                <!-- Lubuskie -->
+                <rect class="region-bg lb" x="40" y="80" width="320" height="180" rx="12" />
+                <text class="region-label" x="55" y="100">Lubuskie (pl-lb)</text>
+
+                <!-- Zielona Góra local zone highlight -->
+                <rect class="region-bg local-zone" x="65" y="165" width="85" height="70" rx="8" />
+                <text class="region-label" x="70" y="160">ZIELONA GÓRA (zgora)</text>
+
+                <!-- Wielkopolska -->
+                <rect class="region-bg wkp" x="380" y="80" width="315" height="480" rx="12" />
+                <text class="region-label" x="395" y="100">Wielkopolskie (wlkp)</text>
+
+                <!-- Poznań local zone highlight -->
+                <rect class="region-bg local-zone" x="470" y="140" width="105" height="80" rx="8" />
+                <text class="region-label" x="475" y="135">POZNAŃ (poz)</text>
+
+                <!-- Neighboring Łódzkie -->
+                <rect class="region-bg ld" x="730" y="80" width="340" height="480" rx="12" />
+                <text class="region-label" x="745" y="100">Łódzkie (pl-ld)</text>
+
+                <!-- Network Connections (Lines) -->
+                <g id="svg-links"></g>
+
+                <!-- Dynamic Particles -->
+                <g id="svg-particles"></g>
+
+                <!-- Nodes (Circles & Labels) -->
+                <g id="svg-nodes"></g>
+
+                <!-- Floating Texts Overlay -->
+                <g id="svg-floating-texts"></g>
+            </svg>
+        </div>
+
+        <!-- Floating Control Card (Compact, Bottom Right) -->
+        <div class="floating-control-box">
+            <div class="control-header">
+                <a href="index.html" class="btn-back">← Wyjdź do portalu</a>
+                <h2 class="control-title">MeshCore Symulacja</h2>
+                <div class="control-instruction">Wskaż punkt na mapie.</div>
+            </div>
+
+            <div class="control-body">
+                <div class="control-item">
+                    <label for="scope-select" class="scope-label">Zasięg Wiadomości (Scope)</label>
+                    <select id="scope-select" onchange="updateSelectedScope()">
+                        <option value="unscoped">Brak - Unscoped (Wiadomość po całej sieci)</option>
+                        <option value="unscoped-3hop">Brak - Unscoped (ograniczony do 3 hop)</option>
+                        <option value="pl">pl (Ogólnokrajowy)</option>
+                        <option value="zachod">zachod (Subregion Zachód)</option>
+                        <option value="pl-ds">pl-ds (Dolnośląskie)</option>
+                        <option value="wlkp">wlkp (Wielkopolskie)</option>
+                        <option value="pl-lb">pl-lb (Lubuskie)</option>
+                        <option value="pl-ld">pl-ld (Łódzkie)</option>
+                        <option value="wro">wro (Lokalny Wrocław)</option>
+                        <option value="poz">poz (Lokalny Poznań)</option>
+                        <option value="zgora">zgora (Lokalna Zielona Góra)</option>
+                    </select>
+                </div>
+
+                <div class="control-actions">
+                    <button class="btn-action" id="btn-broadcast" onclick="startBroadcast()">
+                        📡 Wyślij
+                    </button>
+                    <button class="btn-secondary" onclick="resetSimulation()">
+                        🔄 Resetuj
+                    </button>
+                </div>
+
+                <div class="control-stats">
+                    <span class="stat-label">Liczba Retransmisji:</span>
+                    <span class="stat-value" id="stat-retransmissions">0</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Nodes Data (39 dense nodes geographically distributed across Western & Neighboring Poland)
+        const nodes = [
+            // Dolnośląskie (10 nodes)
+            { id: "wro", name: "Wrocław", x: 280, y: 360, region: "pl-ds", codes: ["pl-ds", "pl", "zachod", "wro"], isTransmitter: true },
+            { id: "wro-pp", name: "Wrocław Psie Pole", x: 320, y: 410, region: "pl-ds", codes: ["pl-ds", "pl", "zachod", "wro"] },
+            { id: "swid", name: "Świdnica", x: 190, y: 430, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
+            { id: "jelg", name: "Jelenia Góra", x: 100, y: 500, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
+            { id: "lub", name: "Lubań", x: 80, y: 370, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
+            { id: "leg", name: "Legnica", x: 160, y: 350, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
+            { id: "glog", name: "Głogów", x: 180, y: 300, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
+            { id: "olawa", name: "Wrocław Oława", x: 340, y: 460, region: "pl-ds", codes: ["pl-ds", "pl", "zachod", "wro"] },
+            { id: "trzeb", name: "Trzebnica", x: 300, y: 300, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
+            { id: "oles", name: "Oleśnica", x: 340, y: 330, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
+
+            // Lubuskie (8 nodes - with new local repeaters in Zielona Góra)
+            { id: "zgora", name: "Zielona Góra", x: 90, y: 200, region: "pl-lb", codes: ["pl-lb", "pl", "zachod", "zgora"] },
+            { id: "zgora-ch", name: "ZG Chynów", x: 125, y: 180, region: "pl-lb", codes: ["pl-lb", "pl", "zachod", "zgora"] },
+            { id: "zgora-br", name: "ZG Braniborska", x: 120, y: 215, region: "pl-lb", codes: ["pl-lb", "pl", "zachod", "zgora"] },
+            { id: "sule", name: "Sulechów", x: 170, y: 130, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
+            { id: "nsol", name: "Nowa Sól", x: 230, y: 230, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
+            { id: "gorz", name: "Gorzów Wlkp.", x: 90, y: 100, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
+            { id: "miedz", name: "Międzyrzecz", x: 160, y: 180, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
+            { id: "slub", name: "Słubice", x: 50, y: 140, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
+
+            // Wielkopolskie (11 nodes)
+            { id: "pozn", name: "Poznań", x: 530, y: 190, region: "wlkp", codes: ["wlkp", "pl", "zachod", "poz"] },
+            { id: "pozn-jez", name: "Poznań Jeżyce", x: 490, y: 160, region: "wlkp", codes: ["wlkp", "pl", "zachod", "poz"] },
+            { id: "lesz", name: "Leszno", x: 440, y: 310, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
+            { id: "gniez", name: "Gniezno", x: 640, y: 150, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
+            { id: "kal", name: "Kalisz", x: 580, y: 350, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
+            { id: "pil", name: "Piła", x: 450, y: 100, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
+            { id: "ostr", name: "Ostrów Wlkp.", x: 570, y: 440, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
+            { id: "raw", name: "Rawicz", x: 420, y: 370, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
+            { id: "konin", name: "Konin", x: 670, y: 260, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
+            { id: "wrzes", name: "Września", x: 600, y: 220, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
+            { id: "krot", name: "Krotoszyn", x: 500, y: 410, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
+
+            // Łódzkie (Neighboring, 10 nodes)
+            { id: "lodz", name: "Łódź", x: 860, y: 260, region: "pl-ld", codes: ["pl-ld", "pl"] },
+            { id: "lodz-wid", name: "Łódź Widzew", x: 910, y: 280, region: "pl-ld", codes: ["pl-ld", "pl"] },
+            { id: "pab", name: "Pabianice", x: 830, y: 330, region: "pl-ld", codes: ["pl-ld", "pl"] },
+            { id: "zgi", name: "Zgierz", x: 850, y: 200, region: "pl-ld", codes: ["pl-ld", "pl"] },
+            { id: "piotr", name: "Piotrków Tryb.", x: 920, y: 410, region: "pl-ld", codes: ["pl-ld", "pl"] },
+            { id: "sier", name: "Sieradz", x: 770, y: 350, region: "pl-ld", codes: ["pl-ld", "pl"] },
+            { id: "wielun", name: "Wieluń", x: 720, y: 430, region: "pl-ld", codes: ["pl-ld", "pl"] },
+            { id: "kutno", name: "Kutno", x: 810, y: 150, region: "pl-ld", codes: ["pl-ld", "pl"] },
+            { id: "lowicz", name: "Łowicz", x: 940, y: 160, region: "pl-ld", codes: ["pl-ld", "pl"] },
+            { id: "belch", name: "Bełchatów", x: 850, y: 420, region: "pl-ld", codes: ["pl-ld", "pl"] }
+        ];
+
+        // Network Connections (source id, target id)
+        const links = [
+            // Dolnośląskie internal mesh
+            { source: "wro", target: "wro-pp" },
+            { source: "wro", target: "swid" },
+            { source: "wro", target: "leg" },
+            { source: "wro", target: "glog" },
+            { source: "wro", target: "olawa" },
+            { source: "wro", target: "trzeb" },
+            { source: "wro", target: "oles" },
+            { source: "swid", target: "jelg" },
+            { source: "jelg", target: "lub" },
+            { source: "lub", target: "leg" },
+            { source: "leg", target: "glog" },
+            { source: "glog", target: "trzeb" },
+            { source: "olawa", target: "trzeb" },
+            { source: "oles", target: "trzeb" },
+
+            // Lubuskie internal mesh with new ZG local repeaters
+            { source: "zgora", target: "zgora-ch" },
+            { source: "zgora", target: "zgora-br" },
+            { source: "zgora-ch", target: "zgora-br" },
+            { source: "zgora-ch", target: "sule" },
+            { source: "zgora-br", target: "nsol" },
+            { source: "zgora", target: "gorz" },
+            { source: "zgora", target: "miedz" },
+            { source: "zgora", target: "slub" },
+            { source: "sule", target: "gorz" },
+            { source: "miedz", target: "gorz" },
+            { source: "slub", target: "gorz" },
+
+            // Wielkopolskie internal mesh
+            { source: "pozn", target: "pozn-jez" },
+            { source: "pozn", target: "lesz" },
+            { source: "pozn", target: "gniez" },
+            { source: "pozn", target: "kal" },
+            { source: "pozn", target: "pil" },
+            { source: "pozn", target: "wrzes" },
+            { source: "pozn-jez", target: "pil" },
+            { source: "lesz", target: "raw" },
+            { source: "raw", target: "krot" },
+            { source: "krot", target: "ostr" },
+            { source: "kal", target: "ostr" },
+            { source: "gniez", target: "konin" },
+            { source: "wrzes", target: "konin" },
+
+            // Łódzkie internal mesh
+            { source: "lodz", target: "lodz-wid" },
+            { source: "lodz", target: "pab" },
+            { source: "lodz", target: "zgi" },
+            { source: "lodz", target: "piotr" },
+            { source: "lodz", target: "sier" },
+            { source: "lodz", target: "kutno" },
+            { source: "lodz", target: "belch" },
+            { source: "sier", target: "wielun" },
+            { source: "piotr", target: "wielun" },
+            { source: "piotr", target: "belch" },
+            { source: "kutno", target: "zgi" },
+            { source: "kutno", target: "lowicz" },
+            { source: "zgi", target: "lowicz" },
+
+            // Inter-provincial within Subregion Zachód
+            { source: "lub", target: "zgora" },
+            { source: "glog", target: "nsol" },
+            { source: "nsol", target: "lesz" },
+            { source: "miedz", target: "pil" },
+            { source: "glog", target: "lesz" },
+            { source: "trzeb", target: "lesz" },
+            { source: "wro", target: "raw" },
+            { source: "olawa", target: "ostr" },
+
+            // Subregion Zachód <=> Łódzkie (Connecting links)
+            { source: "ostr", target: "wielun" },
+            { source: "kal", target: "sier" },
+            { source: "konin", target: "pab" },
+            { source: "konin", target: "kutno" },
+            { source: "olawa", target: "wielun" },
+            { source: "oles", target: "wielun" }
+        ];
+
+        // Simulation State variables
+        let selectedScope = "unscoped"; // Default to unscoped
+
+        let txCount = 0;
+        let activeParticles = [];
+        let nodeStates = {}; // id -> { state: "idle" | "tx" | "rx" | "drop", timestamp: number }
+        let packetHistory = {}; // packetUuid -> Set of node ids that already retransmitted
+        let animationFrameId = null;
+
+        // Elements
+        const svgLinks = document.getElementById("svg-links");
+        const svgParticles = document.getElementById("svg-particles");
+        const svgNodes = document.getElementById("svg-nodes");
+        const svgFloatingTexts = document.getElementById("svg-floating-texts");
+
+        // Update selected scope
+        function updateSelectedScope() {
+            selectedScope = document.getElementById("scope-select").value;
+            resetSimulation();
+        }
+
+        // Reset Simulation
+        function resetSimulation() {
+            // Cancel animation
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+
+            // Clear arrays
+            activeParticles = [];
+            nodeStates = {};
+            packetHistory = {};
+
+            // Reset stats
+            txCount = 0;
+            updateStatsUI();
+
+            // Re-render
+            renderNetwork();
+        }
+
+        // Update Stats UI (Showing only "Retransmissions: Math.max(0, txCount - 1)")
+        function updateStatsUI() {
+            const retransmissions = Math.max(0, txCount - 1);
+            document.getElementById("stat-retransmissions").innerText = retransmissions;
+        }
+
+        // Initialize and Render network skeleton
+        function renderNetwork() {
+            // Render Links
+            svgLinks.innerHTML = "";
+            links.forEach(l => {
+                const sNode = nodes.find(n => n.id === l.source);
+                const tNode = nodes.find(n => n.id === l.target);
+
+                const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                line.setAttribute("x1", sNode.x);
+                line.setAttribute("y1", sNode.y);
+                line.setAttribute("x2", tNode.x);
+                line.setAttribute("y2", tNode.y);
+                line.setAttribute("id", `link-${l.source}-${l.target}`);
+                line.setAttribute("class", "network-link");
+                svgLinks.appendChild(line);
+            });
+
+            // Render Nodes
+            svgNodes.innerHTML = "";
+            nodes.forEach(n => {
+                const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+                g.setAttribute("transform", `translate(${n.x}, ${n.y})`);
+                g.style.cursor = "pointer";
+                g.onclick = () => {
+                    // Allow choosing transmitter
+                    nodes.forEach(no => no.isTransmitter = false);
+                    n.isTransmitter = true;
+                    resetSimulation();
+                };
+
+                // Node background circle for pulse effects
+                const pulseCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                pulseCircle.setAttribute("r", 15);
+                pulseCircle.setAttribute("id", `pulse-${n.id}`);
+                pulseCircle.setAttribute("fill", "transparent");
+                pulseCircle.setAttribute("stroke", "transparent");
+                pulseCircle.setAttribute("stroke-width", 2);
+                g.appendChild(pulseCircle);
+
+                // Main Node circle
+                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute("r", 9);
+                circle.setAttribute("id", `node-${n.id}`);
+
+                let classes = "node-circle";
+                if (n.isTransmitter) classes += " transmitter";
+                circle.setAttribute("class", classes);
+                g.appendChild(circle);
+
+                // Name label
+                const nameText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                nameText.setAttribute("y", 20);
+                nameText.setAttribute("class", "node-name");
+                nameText.innerText = n.name + (n.isTransmitter ? " (TX)" : "");
+                g.appendChild(nameText);
+
+                // Configured scopes label
+                const scopesText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                scopesText.setAttribute("y", 29);
+                scopesText.setAttribute("class", "node-details");
+                scopesText.innerText = `[${n.codes.join(", ")}]`;
+                g.appendChild(scopesText);
+
+                // Add to svg
+                svgNodes.appendChild(g);
+            });
+
+            // Clear dynamic elements
+            svgParticles.innerHTML = "";
+            svgFloatingTexts.innerHTML = "";
+        }
+
+        // Trigger message transmission
+        function startBroadcast() {
+            // Find current transmitter
+            const sender = nodes.find(n => n.isTransmitter);
+            if (!sender) return;
+
+            // Generate unique packet UUID
+            const packetUuid = "pkt_" + Math.random().toString(36).substr(2, 9);
+            // Initialize packet history and mark transmitter as having processed it
+            packetHistory[packetUuid] = new Set();
+            packetHistory[packetUuid].add(sender.id);
+
+            // Clear active particles
+            activeParticles = [];
+
+            // Reset load counters for this run
+            txCount = 0;
+            updateStatsUI();
+
+            // Broadcast from sender with 0 hops initially
+            broadcastFromNode(sender.id, packetUuid, selectedScope, null, 0);
+        }
+
+        // Broadcast signal to neighbors
+        function broadcastFromNode(nodeId, packetUuid, scope, incomingNodeId, hopCount) {
+            const node = nodes.find(n => n.id === nodeId);
+            if (!node) return;
+
+            // Mark node state as TX (actively transmitting - white indicator)
+            setNodeVisualState(nodeId, "tx");
+            txCount++;
+            updateStatsUI();
+
+            // Float transmit indicator
+            createFloatingText(node.x, node.y - 12, "⚡ Nadawanie", "var(--accent-primary)");
+
+            // Send particles to all neighbors (except where it came from)
+            const neighbors = links.filter(l => l.source === nodeId || l.target === nodeId);
+
+            neighbors.forEach(l => {
+                const neighborId = l.source === nodeId ? l.target : l.source;
+                if (neighborId === incomingNodeId) return; // Don't bounce back
+
+                // Create Particle (fast speed)
+                const particleUuid = "part_" + Math.random().toString(36).substr(2, 9);
+                activeParticles.push({
+                    id: particleUuid,
+                    from: nodeId,
+                    to: neighborId,
+                    progress: 0,
+                    speed: 0.05, // Swift traveling particles
+                    packetUuid: packetUuid,
+                    scope: scope,
+                    hopCount: hopCount + 1
+                });
+
+                // Highlight Link
+                highlightLink(nodeId, neighborId, (scope === "unscoped" || scope === "unscoped-3hop") ? "congestion" : "transmission");
+            });
+
+            // Start/restart animation loop if needed
+            if (!animationFrameId) {
+                animationFrameId = requestAnimationFrame(animationLoop);
+            }
+        }
+
+        // Handle particle arrival
+        function onParticleArrival(particle) {
+            const targetNode = nodes.find(n => n.id === particle.to);
+            const senderNode = nodes.find(n => n.id === particle.from);
+            if (!targetNode) return;
+
+            const packetUuid = particle.packetUuid;
+            const scope = particle.scope;
+            const hopCount = particle.hopCount;
+
+            // Check if node already processed this packet
+            const hasSeen = packetHistory[packetUuid].has(targetNode.id);
+
+            // Check Regional Scope Restrictions
+            let isAllowed = true;
+            if (scope !== "unscoped" && scope !== "unscoped-3hop") {
+                // Check if this target node supports the selected scope
+                isAllowed = targetNode.codes.includes(scope);
+            }
+
+            if (!isAllowed) {
+                // Blocked by scopes - turns grey briefly then fades back to default dark state
+                setNodeVisualState(targetNode.id, "drop");
+                createFloatingText(targetNode.x, targetNode.y - 12, "❌ Blokada", "var(--text-muted)");
+                return;
+            }
+
+            if (hasSeen) {
+                // Duplicate message suppression - suppresses redundant forwarding
+                createFloatingText(targetNode.x, targetNode.y - 12, "📥 Duplikat", "var(--accent-warn)");
+                return;
+            }
+
+            // Clean First-time Receive: STAYS green until reset
+            setNodeVisualState(targetNode.id, "rx");
+            packetHistory[packetUuid].add(targetNode.id);
+            createFloatingText(targetNode.x, targetNode.y - 12, `📥 Odebrano (H:${hopCount})`, "var(--accent-primary)");
+
+            // Check Hop limit for unscoped 3-hop
+            if (scope === "unscoped-3hop" && hopCount >= 3) {
+                // Do not forward further
+                setTimeout(() => {
+                    createFloatingText(targetNode.x, targetNode.y - 12, "🛑 Limit Hopów", "var(--accent-danger)");
+                }, 300);
+                return;
+            }
+
+            // Schedule forward with fast 250ms delay
+            setTimeout(() => {
+                broadcastFromNode(targetNode.id, packetUuid, scope, senderNode.id, hopCount);
+            }, 250);
+        }
+
+        // Set Node Visual State
+        function setNodeVisualState(nodeId, state) {
+            if (!nodeStates[nodeId]) {
+                nodeStates[nodeId] = {};
+            }
+            nodeStates[nodeId].state = state;
+            nodeStates[nodeId].timestamp = Date.now();
+
+            const circle = document.getElementById(`node-${nodeId}`);
+            const pulse = document.getElementById(`pulse-${nodeId}`);
+            if (!circle) return;
+
+            // Clear old dynamic styles
+            circle.setAttribute("class", "node-circle");
+            if (nodes.find(n => n.id === nodeId).isTransmitter) {
+                circle.classList.add("transmitter");
+            }
+
+            // Apply specific custom state colors
+            if (state === "tx") {
+                circle.classList.add("tx-active"); // WHITE ACTIVE TRANSMITTER
+                pulse.setAttribute("stroke", "#ffffff");
+                pulse.setAttribute("r", 12);
+                pulse.setAttribute("opacity", 1);
+            } else if (state === "rx") {
+                circle.classList.add("rx-active"); // GREEN RECEIVED & STAY GREEN
+                pulse.setAttribute("stroke", "var(--accent-primary)");
+                pulse.setAttribute("r", 12);
+                pulse.setAttribute("opacity", 1);
+            } else if (state === "drop") {
+                circle.classList.add("rx-drop"); // GREY BLOCKED
+            }
+        }
+
+        // Highlight Link during propagation
+        function highlightLink(fromId, toId, type) {
+            let linkEl = document.getElementById(`link-${fromId}-${toId}`);
+            if (!linkEl) {
+                linkEl = document.getElementById(`link-${toId}-${fromId}`);
+            }
+
+            if (linkEl) {
+                linkEl.setAttribute("class", "network-link");
+                if (type === "transmission") {
+                    linkEl.classList.add("active-transmission");
+                } else if (type === "congestion") {
+                    linkEl.classList.add("active-congestion");
+                }
+
+                // Reset link to default styling after propagation completes
+                setTimeout(() => {
+                    linkEl.setAttribute("class", "network-link");
+                }, 500);
+            }
+        }
+
+        // Create drift up floating text
+        function createFloatingText(x, y, text, color) {
+            const textEl = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            textEl.setAttribute("x", x);
+            textEl.setAttribute("y", y);
+            textEl.setAttribute("class", "floating-text");
+            textEl.setAttribute("fill", color);
+            textEl.innerText = text;
+            svgFloatingTexts.appendChild(textEl);
+
+            setTimeout(() => {
+                textEl.remove();
+            }, 800);
+        }
+
+        // Main Animation Render Loop
+        function animationLoop() {
+            // Update active particles positions
+            svgParticles.innerHTML = "";
+
+            for (let i = activeParticles.length - 1; i >= 0; i--) {
+                const p = activeParticles[i];
+                p.progress += p.speed;
+
+                if (p.progress >= 1) {
+                    onParticleArrival(p);
+                    activeParticles.splice(i, 1);
+                    continue;
+                }
+
+                const sNode = nodes.find(n => n.id === p.from);
+                const tNode = nodes.find(n => n.id === p.to);
+
+                const currentX = sNode.x + (tNode.x - sNode.x) * p.progress;
+                const currentY = sNode.y + (tNode.y - sNode.y) * p.progress;
+
+                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute("cx", currentX);
+                circle.setAttribute("cy", currentY);
+                circle.setAttribute("r", 5);
+
+                let classes = "packet-particle";
+                if (p.scope === "unscoped" || p.scope === "unscoped-3hop") {
+                    classes += " congestion";
+                }
+                circle.setAttribute("class", classes);
+                svgParticles.appendChild(circle);
+            }
+
+            // Update pulse circles animation
+            nodes.forEach(n => {
+                const stateObj = nodeStates[n.id];
+                const pulse = document.getElementById(`pulse-${n.id}`);
+                const circle = document.getElementById(`node-${n.id}`);
+
+                if (stateObj && pulse) {
+                    const elapsed = Date.now() - stateObj.timestamp;
+                    if (elapsed < 500) {
+                        const ratio = elapsed / 500;
+                        pulse.setAttribute("r", 9 + ratio * 14);
+                        pulse.setAttribute("opacity", 1 - ratio);
+                    } else {
+                        pulse.setAttribute("stroke", "transparent");
+                        pulse.setAttribute("opacity", 0);
+
+                        // TRANSITION TX TO RX (GREEN) SO IT STAYS GREEN!
+                        if (stateObj.state === "tx") {
+                            setNodeVisualState(n.id, "rx");
+                        } else if (stateObj.state === "drop") {
+                            stateObj.state = "idle";
+                            if (circle) {
+                                circle.setAttribute("class", "node-circle");
+                                if (n.isTransmitter) circle.classList.add("transmitter");
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Keep animating if particles are in flight or if any pulses are still running
+            let activePulseCount = 0;
+            nodes.forEach(n => {
+                const stateObj = nodeStates[n.id];
+                if (stateObj && (stateObj.state === "tx" || stateObj.state === "drop")) {
+                    const elapsed = Date.now() - stateObj.timestamp;
+                    if (elapsed < 500) {
+                        activePulseCount++;
+                    }
+                }
+            });
+
+            if (activeParticles.length > 0 || activePulseCount > 0) {
+                animationFrameId = requestAnimationFrame(animationLoop);
+            } else {
+                animationFrameId = null;
+            }
+        }
+
+        // Initialize view
+        renderNetwork();
+    </script>
+</body>
+</html>
