@@ -114,90 +114,52 @@
             user-select: none;
         }
 
-        /* Floating Beautiful High-Contrast Control Card relocated to bottom right and made more compact */
-        .floating-control-box {
+        /* Flat Bottom Control Bar positioned at the bottom of the screen with larger text */
+        .bottom-control-bar {
             position: absolute;
-            bottom: 24px;
-            right: 24px;
+            bottom: 0;
+            left: 0;
+            right: 0;
             z-index: 100;
-            width: 290px;
             background-color: var(--bg-card);
-            border: 1.5px solid var(--border);
-            border-radius: 16px;
-            padding: 14px;
+            border-top: 1.5px solid var(--border);
+            padding: 12px 24px;
             box-shadow: var(--shadow);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .control-header {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .btn-back {
-            font-size: 0.8rem;
-            font-weight: 800;
-            color: var(--accent-primary);
-            text-decoration: none;
-            transition: color 0.15s ease;
-        }
-
-        .btn-back:hover {
-            color: var(--accent-primary-hover);
-            text-decoration: underline;
-        }
-
-        .control-title {
-            font-size: 1.2rem;
-            font-weight: 900;
-            margin: 0;
-            color: var(--text-main);
-            letter-spacing: -0.02em;
-        }
-
-        .control-instruction {
-            font-size: 0.72rem;
-            font-weight: 800;
-            color: var(--accent-primary);
-            margin-top: 1px;
-            letter-spacing: 0.02em;
-        }
-
-        .control-body {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
         }
 
         .control-item {
             display: flex;
-            flex-direction: column;
-            gap: 4px;
+            flex-direction: row;
+            align-items: center;
+            gap: 12px;
         }
 
         .scope-label {
-            font-size: 0.68rem;
+            font-size: 0.85rem;
             font-weight: 800;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            white-space: nowrap;
         }
 
         select#scope-select {
-            padding: 8px 10px;
+            padding: 8px 12px;
             border-radius: 8px;
             border: 1.5px solid var(--border);
             background-color: var(--bg-page);
             color: var(--text-main);
             font-weight: 700;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             cursor: pointer;
-            width: 100%;
+            min-width: 280px;
             transition: border-color 0.15s;
         }
 
@@ -206,103 +168,52 @@
             outline: none;
         }
 
-        .control-actions {
-            display: flex;
-            gap: 6px;
-        }
-
-        .btn-action {
-            flex-grow: 1;
-            background-color: var(--accent-primary);
-            color: #ffffff;
-            border: none;
-            padding: 8px 12px;
-            font-size: 0.8rem;
-            font-weight: 800;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            box-shadow: 0 4px 10px var(--accent-primary-glow);
-            text-align: center;
-        }
-
-        .btn-action:hover {
-            background-color: var(--accent-primary-hover);
-            transform: translateY(-1px);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--text-main);
-            border: 1.5px solid var(--border);
-            padding: 8px 10px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.15s ease;
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--border);
-        }
-
         .control-stats {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            background-color: rgba(100, 116, 139, 0.08);
+            gap: 10px;
+            background-color: rgba(100, 116, 139, 0.06);
             border-radius: 8px;
-            padding: 6px 10px;
+            padding: 6px 16px;
             border: 1px solid var(--border);
         }
 
         .stat-label {
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             font-weight: 700;
             color: var(--text-muted);
+            white-space: nowrap;
         }
 
         .stat-value {
-            font-size: 0.95rem;
+            font-size: 1.1rem;
             font-weight: 900;
             color: var(--accent-primary);
         }
 
         /* Compact scaling for rotated landscape viewports */
-        @media (max-height: 480px) {
-            .floating-control-box {
-                bottom: 10px;
-                right: 10px;
-                top: auto;
-                left: auto;
-                width: 240px;
-                padding: 8px;
-                gap: 6px;
-                border-radius: 12px;
+        @media (max-width: 768px) {
+            .bottom-control-bar {
+                padding: 8px 16px;
+                gap: 12px;
             }
-            .control-title {
-                font-size: 1rem;
-            }
-            .btn-back {
-                font-size: 0.7rem;
+            .scope-label {
+                font-size: 0.75rem;
             }
             select#scope-select {
-                padding: 6px 8px;
-                font-size: 0.75rem;
-            }
-            .btn-action, .btn-secondary {
                 padding: 6px 10px;
-                font-size: 0.75rem;
+                font-size: 0.8rem;
+                min-width: 200px;
             }
             .control-stats {
-                padding: 6px 10px;
+                padding: 4px 10px;
+                gap: 6px;
             }
             .stat-label {
-                font-size: 0.72rem;
+                font-size: 0.75rem;
             }
             .stat-value {
-                font-size: 0.85rem;
+                font-size: 0.95rem;
             }
         }
 
@@ -548,45 +459,28 @@
             </svg>
         </div>
 
-        <!-- Floating Control Card (Compact, Bottom Right) -->
-        <div class="floating-control-box">
-            <div class="control-header">
-                <a href="index.html" class="btn-back">← Wyjdź do portalu</a>
-                <h2 class="control-title">MeshCore Symulacja</h2>
-                <div class="control-instruction">Wskaż punkt na mapie.</div>
+        <!-- Flat Bottom Control Bar -->
+        <div class="bottom-control-bar" id="control-card">
+            <div class="control-item">
+                <label for="scope-select" class="scope-label">Zasięg (Scope):</label>
+                <select id="scope-select" onchange="updateSelectedScope()">
+                    <option value="unscoped">Brak - Unscoped (Wiadomość po całej sieci)</option>
+                    <option value="unscoped-3hop">Brak - Unscoped (ograniczony do 3 hop)</option>
+                    <option value="pl">pl (Ogólnokrajowy)</option>
+                    <option value="zachod">zachod (Subregion Zachód)</option>
+                    <option value="pl-ds">pl-ds (Dolnośląskie)</option>
+                    <option value="wlkp">wlkp (Wielkopolskie)</option>
+                    <option value="pl-lb">pl-lb (Lubuskie)</option>
+                    <option value="pl-ld">pl-ld (Łódzkie)</option>
+                    <option value="wro">wro (Lokalny Wrocław)</option>
+                    <option value="poz">poz (Lokalny Poznań)</option>
+                    <option value="zgora">zgora (Lokalna Zielona Góra)</option>
+                </select>
             </div>
 
-            <div class="control-body">
-                <div class="control-item">
-                    <label for="scope-select" class="scope-label">Zasięg Wiadomości (Scope)</label>
-                    <select id="scope-select" onchange="updateSelectedScope()">
-                        <option value="unscoped">Brak - Unscoped (Wiadomość po całej sieci)</option>
-                        <option value="unscoped-3hop">Brak - Unscoped (ograniczony do 3 hop)</option>
-                        <option value="pl">pl (Ogólnokrajowy)</option>
-                        <option value="zachod">zachod (Subregion Zachód)</option>
-                        <option value="pl-ds">pl-ds (Dolnośląskie)</option>
-                        <option value="wlkp">wlkp (Wielkopolskie)</option>
-                        <option value="pl-lb">pl-lb (Lubuskie)</option>
-                        <option value="pl-ld">pl-ld (Łódzkie)</option>
-                        <option value="wro">wro (Lokalny Wrocław)</option>
-                        <option value="poz">poz (Lokalny Poznań)</option>
-                        <option value="zgora">zgora (Lokalna Zielona Góra)</option>
-                    </select>
-                </div>
-
-                <div class="control-actions">
-                    <button class="btn-action" id="btn-broadcast" onclick="startBroadcast()">
-                        📡 Wyślij
-                    </button>
-                    <button class="btn-secondary" onclick="resetSimulation()">
-                        🔄 Resetuj
-                    </button>
-                </div>
-
-                <div class="control-stats">
-                    <span class="stat-label">Liczba Retransmisji:</span>
-                    <span class="stat-value" id="stat-retransmissions">0</span>
-                </div>
+            <div class="control-stats">
+                <span class="stat-label">Retransmisje:</span>
+                <span class="stat-value" id="stat-retransmissions">0</span>
             </div>
         </div>
 
@@ -800,6 +694,8 @@
                     nodes.forEach(no => no.isTransmitter = false);
                     n.isTransmitter = true;
                     resetSimulation();
+                    // Automatically trigger packet transmission with selected scope on click
+                    startBroadcast();
                 };
 
                 // Node background circle for pulse effects
