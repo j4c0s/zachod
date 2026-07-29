@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Symulacja Ruchu Pakietów – MeshCore #zachod</title>
+    <title>Interaktywna Symulacja Ruchu Pakietów – MeshCore</title>
     <style>
         :root {
             --bg-page: #fbfbf9;
@@ -203,55 +203,6 @@
             padding-bottom: 8px;
         }
 
-        .radio-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .radio-option {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 10px 12px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s;
-            background-color: var(--bg-page);
-        }
-
-        .radio-option:hover {
-            border-color: var(--accent-primary);
-        }
-
-        .radio-option.active {
-            border-color: var(--accent-primary);
-            background-color: var(--accent-primary-glow);
-        }
-
-        .radio-option input {
-            margin-top: 3px;
-            accent-color: var(--accent-primary);
-        }
-
-        .radio-label-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .radio-label {
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--text-main);
-        }
-
-        .radio-desc {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-
         .btn-action {
             background-color: var(--accent-primary);
             color: #ffffff;
@@ -442,9 +393,16 @@
             stroke: rgba(224, 122, 95, 0.3);
         }
 
-        .region-bg.mp {
+        .region-bg.ld {
             fill: rgba(139, 92, 246, 0.015);
             stroke: rgba(139, 92, 246, 0.3);
+        }
+
+        .region-bg.local-zone {
+            stroke: var(--accent-warn);
+            stroke-width: 1.2;
+            stroke-dasharray: 3 3;
+            fill: none;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -460,7 +418,7 @@
                 fill: rgba(243, 146, 116, 0.03);
                 stroke: rgba(243, 146, 116, 0.4);
             }
-            .region-bg.mp {
+            .region-bg.ld {
                 fill: rgba(139, 92, 246, 0.03);
                 stroke: rgba(139, 92, 246, 0.4);
             }
@@ -476,27 +434,27 @@
 
         .network-link {
             stroke: var(--border);
-            stroke-width: 2.5;
+            stroke-width: 2.2;
             stroke-linecap: round;
-            transition: stroke 0.3s, stroke-width 0.3s;
+            transition: stroke 0.2s, stroke-width 0.2s;
         }
 
         .network-link.active-transmission {
             stroke: var(--accent-primary);
-            stroke-width: 3.5;
+            stroke-width: 3.2;
         }
 
         .network-link.active-congestion {
             stroke: var(--accent-warn);
-            stroke-width: 4;
+            stroke-width: 3.5;
         }
 
         .node-circle {
             fill: var(--bg-card);
             stroke: var(--text-muted);
-            stroke-width: 2.5;
+            stroke-width: 2.2;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.15s ease;
         }
 
         .node-circle.transmitter {
@@ -508,13 +466,13 @@
         .node-circle.tx-active {
             fill: var(--accent-primary);
             stroke: var(--accent-primary);
-            filter: drop-shadow(0 0 8px var(--accent-primary));
+            filter: drop-shadow(0 0 6px var(--accent-primary));
         }
 
         .node-circle.rx-active {
             fill: #f59e0b;
             stroke: #d97706;
-            filter: drop-shadow(0 0 8px #f59e0b);
+            filter: drop-shadow(0 0 6px #f59e0b);
         }
 
         .node-circle.rx-drop {
@@ -526,18 +484,18 @@
         .node-circle.rx-dup {
             fill: var(--accent-warn);
             stroke: #b91c1c;
-            filter: drop-shadow(0 0 8px var(--accent-warn));
+            filter: drop-shadow(0 0 6px var(--accent-warn));
         }
 
         .node-name {
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             font-weight: 800;
             fill: var(--text-main);
             text-anchor: middle;
         }
 
         .node-details {
-            font-size: 0.6rem;
+            font-size: 0.58rem;
             fill: var(--text-muted);
             text-anchor: middle;
             font-family: var(--font-mono);
@@ -555,10 +513,10 @@
 
         /* Floating Indicator Texts */
         .floating-text {
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             font-weight: 800;
             text-anchor: middle;
-            animation: driftUp 1.2s ease-out forwards;
+            animation: driftUp 0.9s ease-out forwards;
             pointer-events: none;
         }
 
@@ -568,38 +526,9 @@
                 opacity: 1;
             }
             100% {
-                transform: translateY(-25px);
+                transform: translateY(-20px);
                 opacity: 0;
             }
-        }
-
-        /* Explanation Box */
-        .explanation-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: var(--shadow);
-            margin-bottom: 40px;
-        }
-
-        .explanation-card h3 {
-            margin-top: 0;
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 12px;
-        }
-
-        .explanation-card p {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-        }
-
-        .explanation-card p:last-child {
-            margin-bottom: 0;
         }
 
         footer {
@@ -632,7 +561,7 @@
         <a href="index.html" class="nav-back">← Powrót do strony głównej</a>
 
         <h1>Interaktywna Symulacja Ruchu Pakietów</h1>
-        <div class="subtitle">Przekonaj się osobiście, jak mądry podział na regiony (Scopes) chroni naszą sieć przed zatłoczeniem, kolizjami i rozładowaniem akumulatorów! Klikaj na dowolne węzły na mapie, aby ustawić je jako nadajniki.</div>
+        <div class="subtitle">Przekonaj się osobiście, jak mądry podział na regiony (Scopes) chroni naszą sieć przed zatłoczeniem i kolizjami! Klikaj na dowolne węzły na mapie, aby ustawić je jako nadajniki.</div>
 
         <div class="simulator-layout">
 
@@ -640,36 +569,19 @@
             <div class="panel-card">
                 <h3 class="panel-title">⚙️ Ustawienia Symulacji</h3>
 
-                <div class="radio-group">
-                    <div id="opt-unscoped" class="radio-option active" onclick="setScenario('unscoped')">
-                        <input type="radio" id="radio-unscoped" name="scenario" value="unscoped" checked>
-                        <div class="radio-label-container">
-                            <span class="radio-label">Bez regionów (Unscoped)</span>
-                            <span class="radio-desc">Wiadomość rozchodzi się chaotycznie po całej sieci</span>
-                        </div>
-                    </div>
-
-                    <div id="opt-scoped" class="radio-option" onclick="setScenario('scoped')">
-                        <input type="radio" id="radio-scoped" name="scenario" value="scoped">
-                        <div class="radio-label-container">
-                            <span class="radio-label">Z regionami (Scoped)</span>
-                            <span class="radio-desc">Wiadomość porusza się tylko w określonych granicach</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Scope Selection (conditional) -->
-                <div id="scope-selector-container" style="display: none; flex-direction: column; gap: 8px;">
+                <!-- Single Unified Scope Selector -->
+                <div style="display: flex; flex-direction: column; gap: 8px;">
                     <label style="font-size: 0.8rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Zasięg Wiadomości (Scope):</label>
-                    <select id="scope-select" onchange="updateSelectedScope()" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border); background-color: var(--bg-page); color: var(--text-main); font-weight: 700;">
-                        <option value="pl">pl (Ogólnokrajowy - cała sieć)</option>
-                        <option value="zachod">zachod (Subregion Polski Zachodniej)</option>
-                        <option value="pl-ds">pl-ds (Województwo Dolnośląskie)</option>
-                        <option value="pl-lb">pl-lb (Województwo Lubuskie)</option>
-                        <option value="wlkp">wlkp (Województwo Wielkopolskie)</option>
-                        <option value="pl-mp">pl-mp (Województwo Małopolskie)</option>
-                        <option value="wro">wro (Lokalny - miasto Wrocław)</option>
-                        <option value="krakow">krakow (Lokalny - miasto Kraków)</option>
+                    <select id="scope-select" onchange="updateSelectedScope()" style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--border); background-color: var(--bg-page); color: var(--text-main); font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: border-color 0.2s;">
+                        <option value="unscoped">Brak - Unscoped (Wiadomość po całej sieci)</option>
+                        <option value="pl">pl (Ogólnokrajowy)</option>
+                        <option value="zachod">zachod (Subregion Zachód)</option>
+                        <option value="pl-ds">pl-ds (Dolnośląskie)</option>
+                        <option value="wlkp">wlkp (Wielkopolskie)</option>
+                        <option value="pl-lb">pl-lb (Lubuskie)</option>
+                        <option value="pl-ld">pl-ld (Łódzkie)</option>
+                        <option value="wro">wro (Lokalny Wrocław)</option>
+                        <option value="poz">poz (Lokalny Poznań)</option>
                     </select>
                 </div>
 
@@ -717,7 +629,7 @@
             <!-- RIGHT VISUALIZATION BLOCK -->
             <div class="visualization-card">
                 <div class="vis-header">
-                    <span class="vis-title">🗺️ Wizualizacja Sieci krajowej MeshCore PL</span>
+                    <span class="vis-title">🗺️ Wizualizacja Sieci Krajowej MeshCore PL</span>
                     <span class="badge-status" id="airwave-status">Eter jest wolny 🍃</span>
                 </div>
 
@@ -728,28 +640,32 @@
                         <text class="region-label" x="30" y="30" style="fill: var(--text-main); font-size: 0.85rem;">POLSKA (pl)</text>
 
                         <!-- Zachód Region Box -->
-                        <rect class="region-bg zachod" x="25" y="45" width="705" height="530" rx="16" />
+                        <rect class="region-bg zachod" x="25" y="45" width="685" height="530" rx="16" />
                         <text class="region-label" x="40" y="65" style="fill: var(--accent-primary); font-size: 0.75rem;">SUBREGION ZACHÓD (zachod)</text>
 
                         <!-- Dolny Śląsk -->
-                        <rect class="region-bg ds" x="40" y="270" width="300" height="290" rx="12" />
+                        <rect class="region-bg ds" x="40" y="270" width="320" height="290" rx="12" />
                         <text class="region-label" x="55" y="290">Dolnośląskie (pl-ds)</text>
 
+                        <!-- Wrocław local zone highlight -->
+                        <rect class="region-bg local-zone" x="255" y="340" width="95" height="135" rx="8" />
+                        <text class="region-label" x="260" y="335" style="fill: var(--accent-warn); font-size: 0.6rem; font-weight: 900;">WROCŁAW (wro)</text>
+
                         <!-- Lubuskie -->
-                        <rect class="region-bg lb" x="40" y="80" width="300" height="180" rx="12" />
+                        <rect class="region-bg lb" x="40" y="80" width="320" height="180" rx="12" />
                         <text class="region-label" x="55" y="100">Lubuskie (pl-lb)</text>
 
                         <!-- Wielkopolska -->
-                        <rect class="region-bg wkp" x="360" y="80" width="350" height="480" rx="12" />
-                        <text class="region-label" x="375" y="100">Wielkopolskie (wlkp)</text>
+                        <rect class="region-bg wkp" x="380" y="80" width="315" height="480" rx="12" />
+                        <text class="region-label" x="395" y="100">Wielkopolskie (wlkp)</text>
 
-                        <!-- Małopolska -->
-                        <rect class="region-bg mp" x="880" y="80" width="190" height="480" rx="12" />
-                        <text class="region-label" x="895" y="100">Małopolskie (pl-mp)</text>
+                        <!-- Poznań local zone highlight -->
+                        <rect class="region-bg local-zone" x="470" y="140" width="105" height="80" rx="8" />
+                        <text class="region-label" x="475" y="135" style="fill: var(--accent-warn); font-size: 0.6rem; font-weight: 900;">POZNAŃ (poz)</text>
 
-                        <!-- Bridge indicators -->
-                        <text class="region-label" x="780" y="320" style="font-size: 0.65rem; text-anchor: middle;">Mosty Radiowe</text>
-                        <path d="M 750 340 L 810 340" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="2 2" />
+                        <!-- Neighboring Łódzkie -->
+                        <rect class="region-bg ld" x="730" y="80" width="340" height="480" rx="12" />
+                        <text class="region-label" x="745" y="100">Łódzkie (pl-ld)</text>
 
                         <!-- Network Connections (Lines) -->
                         <g id="svg-links"></g>
@@ -768,34 +684,6 @@
 
         </div>
 
-        <!-- DETAILED EXPLANATION -->
-        <div class="explanation-card">
-            <h3>💡 Co dokładnie widzimy na symulacji?</h3>
-            <p>
-                Przedstawiona mapa to zaawansowana symulacja krajowej sieci MeshCore, składająca się z <strong>23 węzłów radiowych</strong>. Sieć obejmuje Subregion Zachodni (Dolnośląskie, Lubuskie, Wielkopolskie) oraz Małopolskę. Są one połączone węzłami szkieletowymi w Opolu i Katowicach, pełniącymi funkcję mostów radiowych.
-            </p>
-            <p>
-                <strong>Zasada działania przekaźników i pętli:</strong><br>
-                Każdy przekaźnik po odebraniu prawidłowego pakietu retransmituje go dalej (robi flood w swojej okolicy). Aby uniknąć nieskończonych pętli i zapchań, węzły realizują <strong>algorytm unikania pętli</strong>: jeśli dany węzeł już raz przesłał dany pakiet (jest on zapisany w jego tymczasowej pamięci), każda kolejna kopia tego samego pakietu jest natychmiast ignorowana (widoczne jako duplikat).
-            </p>
-            <p>
-                <strong>Scenariusz 1: Bez regionów (Unscoped)</strong><br>
-                Wysłanie wiadomości bez zdefiniowanego regionu powoduje chaos i <strong>zalanie całej mapy Polski</strong>. Każdy węzeł w Lubuskiem, Wielkopolsce, na Dolnym Śląsku, w Opolu, Katowicach i Krakowie retransmituje pakiet. Powstają setki duplikatów (reprezentowanych przez pomarańczowe i czerwone punkty kolizji), co drastycznie obciąża eter w miejscach całkowicie niezwiązanych z nadawcą.
-            </p>
-            <p>
-                <strong>Scenariusz 2: Z regionami (Scoped)</strong><br>
-                Zastosowanie mechanizmu <strong>regional scopes</strong> ogranicza propagację fal radiowych do wybranego obszaru:
-                <ul>
-                    <li><strong>Wrocław lokalny (<code>wro</code>):</strong> Pakiet krąży wyłącznie między Wrocławiem a Wrocławiem Psie Pole. Pozostałe węzły na Dolnym Śląsku go odrzucają na poziomie wejściowym.</li>
-                    <li><strong>Kraków lokalny (<code>krakow</code>):</strong> Pakiet dociera do Podgórza i wygasa, nie opuszczając aglomeracji krakowskiej.</li>
-                    <li><strong>Dolny Śląsk (<code>pl-ds</code>):</strong> Pakiet rozchodzi się po 7 dolnośląskich przekaźnikach, ale nie przechodzi do Lubuskiego (Zielona Góra), Wielkopolski (Leszno) ani Opola.</li>
-                    <li><strong>Subregion Zachód (<code>zachod</code>):</strong> Obejmuje wszystkie 17 węzłów w zachodniej Polsce. Gdy dociera do mostu Opole (które nie obsługuje zakresu <code>zachod</code>), zostaje zablokowany. Małopolska ma czysty eter!</li>
-                    <li><strong>Małopolskie (<code>pl-mp</code>):</strong> Wiadomość z Krakowa dociera do Tarnowa i Nowego Sącza. Zatrzymuje się na węźle w Katowicach, chroniąc Zachód.</li>
-                    <li><strong>Ogólnokrajowy (<code>pl</code>):</strong> Pełne pokrycie. Pakiet przechodzi przez całą siatkę, w tym mosty Opole i Katowice, łącząc odległe regiony w jedną spójną całość.</li>
-                </ul>
-            </p>
-        </div>
-
     </div>
 
     <footer>
@@ -803,92 +691,118 @@
     </footer>
 
     <script>
-        // Nodes Data (23 nodes geographically distributed)
+        // Nodes Data (32 dense nodes geographically distributed across Western & Neighboring Poland)
         const nodes = [
-            // Dolnośląskie (7 nodes)
+            // Dolnośląskie (9 nodes)
             { id: "wro", name: "Wrocław", x: 280, y: 360, region: "pl-ds", codes: ["pl-ds", "pl", "zachod", "wro"], isTransmitter: true },
-            { id: "wro-pp", name: "Wrocław Psie Pole", x: 300, y: 440, region: "pl-ds", codes: ["pl-ds", "pl", "zachod", "wro"] },
+            { id: "wro-pp", name: "Wrocław Psie Pole", x: 320, y: 410, region: "pl-ds", codes: ["pl-ds", "pl", "zachod", "wro"] },
             { id: "swid", name: "Świdnica", x: 190, y: 430, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
             { id: "jelg", name: "Jelenia Góra", x: 100, y: 500, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
-            { id: "lub", name: "Lubań", x: 80, y: 370, region: "pl-ds", codes: ["pl-ds", "pl", "zachod", "luzyce"] },
+            { id: "lub", name: "Lubań", x: 80, y: 370, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
             { id: "leg", name: "Legnica", x: 160, y: 350, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
             { id: "glog", name: "Głogów", x: 180, y: 300, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
+            { id: "olawa", name: "Oława", x: 340, y: 460, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
+            { id: "trzeb", name: "Trzebnica", x: 300, y: 300, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
 
-            // Lubuskie (4 nodes)
+            // Lubuskie (5 nodes)
             { id: "zgora", name: "Zielona Góra", x: 90, y: 200, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
             { id: "sule", name: "Sulechów", x: 170, y: 130, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
             { id: "nsol", name: "Nowa Sól", x: 230, y: 230, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
-            { id: "gorz", name: "Gorzów Wlkp.", x: 90, y: 120, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
+            { id: "gorz", name: "Gorzów Wlkp.", x: 90, y: 100, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
+            { id: "miedz", name: "Międzyrzecz", x: 160, y: 180, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
 
-            // Wielkopolskie (6 nodes)
+            // Wielkopolskie (10 nodes)
             { id: "pozn", name: "Poznań", x: 530, y: 190, region: "wlkp", codes: ["wlkp", "pl", "zachod", "poz"] },
+            { id: "pozn-jez", name: "Poznań Jeżyce", x: 490, y: 160, region: "wlkp", codes: ["wlkp", "pl", "zachod", "poz"] },
             { id: "lesz", name: "Leszno", x: 440, y: 310, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
             { id: "gniez", name: "Gniezno", x: 640, y: 150, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
             { id: "kal", name: "Kalisz", x: 580, y: 350, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
-            { id: "pil", name: "Piła", x: 450, y: 120, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
+            { id: "pil", name: "Piła", x: 450, y: 100, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
             { id: "ostr", name: "Ostrów Wlkp.", x: 570, y: 440, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
+            { id: "raw", name: "Rawicz", x: 420, y: 370, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
+            { id: "konin", name: "Konin", x: 670, y: 260, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
+            { id: "wrzes", name: "Września", x: 600, y: 220, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
 
-            // Bridge backbone nodes (2 nodes)
-            { id: "opo", name: "Opole", x: 760, y: 380, region: "pl", codes: ["pl"] },
-            { id: "kat", name: "Katowice", x: 840, y: 420, region: "pl", codes: ["pl"] },
-
-            // Małopolskie (4 nodes)
-            { id: "krak", name: "Kraków", x: 940, y: 290, region: "pl-mp", codes: ["pl-mp", "pl", "krakow"] },
-            { id: "krak-pg", name: "Kraków Podgórze", x: 940, y: 360, region: "pl-mp", codes: ["pl-mp", "pl", "krakow"] },
-            { id: "tarn", name: "Tarnów", x: 1030, y: 270, region: "pl-mp", codes: ["pl-mp", "pl"] },
-            { id: "nsacz", name: "Nowy Sącz", x: 1000, y: 480, region: "pl-mp", codes: ["pl-mp", "pl"] }
+            // Łódzkie (Neighboring, 8 nodes)
+            { id: "lodz", name: "Łódź", x: 860, y: 260, region: "pl-ld", codes: ["pl-ld", "pl"] },
+            { id: "lodz-wid", name: "Łódź Widzew", x: 910, y: 280, region: "pl-ld", codes: ["pl-ld", "pl"] },
+            { id: "pab", name: "Pabianice", x: 830, y: 330, region: "pl-ld", codes: ["pl-ld", "pl"] },
+            { id: "zgi", name: "Zgierz", x: 850, y: 200, region: "pl-ld", codes: ["pl-ld", "pl"] },
+            { id: "piotr", name: "Piotrków Tryb.", x: 920, y: 410, region: "pl-ld", codes: ["pl-ld", "pl"] },
+            { id: "sier", name: "Sieradz", x: 770, y: 350, region: "pl-ld", codes: ["pl-ld", "pl"] },
+            { id: "wielun", name: "Wieluń", x: 720, y: 430, region: "pl-ld", codes: ["pl-ld", "pl"] },
+            { id: "kutno", name: "Kutno", x: 810, y: 150, region: "pl-ld", codes: ["pl-ld", "pl"] }
         ];
 
         // Network Connections (source id, target id)
         const links = [
-            // Dolnośląskie internal
+            // Dolnośląskie internal mesh
             { source: "wro", target: "wro-pp" },
             { source: "wro", target: "swid" },
+            { source: "wro", target: "leg" },
+            { source: "wro", target: "glog" },
+            { source: "wro", target: "olawa" },
+            { source: "wro", target: "trzeb" },
             { source: "swid", target: "jelg" },
             { source: "jelg", target: "lub" },
             { source: "lub", target: "leg" },
             { source: "leg", target: "glog" },
-            { source: "glog", target: "wro" },
-            { source: "leg", target: "wro" },
+            { source: "glog", target: "trzeb" },
+            { source: "olawa", target: "trzeb" },
 
-            // Lubuskie internal
+            // Lubuskie internal mesh
             { source: "zgora", target: "sule" },
             { source: "zgora", target: "nsol" },
             { source: "zgora", target: "gorz" },
+            { source: "zgora", target: "miedz" },
             { source: "sule", target: "gorz" },
+            { source: "miedz", target: "gorz" },
 
-            // Wielkopolskie internal
+            // Wielkopolskie internal mesh
+            { source: "pozn", target: "pozn-jez" },
             { source: "pozn", target: "lesz" },
             { source: "pozn", target: "gniez" },
             { source: "pozn", target: "kal" },
             { source: "pozn", target: "pil" },
+            { source: "pozn", target: "wrzes" },
+            { source: "pozn-jez", target: "pil" },
+            { source: "lesz", target: "raw" },
+            { source: "raw", target: "ostr" },
             { source: "kal", target: "ostr" },
-            { source: "lesz", target: "ostr" },
+            { source: "gniez", target: "konin" },
+            { source: "wrzes", target: "konin" },
 
-            // Inter-provincial within Zachód
+            // Łódzkie internal mesh
+            { source: "lodz", target: "lodz-wid" },
+            { source: "lodz", target: "pab" },
+            { source: "lodz", target: "zgi" },
+            { source: "lodz", target: "piotr" },
+            { source: "lodz", target: "sier" },
+            { source: "lodz", target: "kutno" },
+            { source: "sier", target: "wielun" },
+            { source: "piotr", target: "wielun" },
+            { source: "kutno", target: "zgi" },
+
+            // Inter-provincial within Subregion Zachód
             { source: "lub", target: "zgora" },
             { source: "glog", target: "nsol" },
             { source: "nsol", target: "lesz" },
+            { source: "miedz", target: "pil" },
             { source: "glog", target: "lesz" },
-            { source: "wro", target: "lesz" },
-            { source: "wro", target: "ostr" },
+            { source: "trzeb", target: "lesz" },
+            { source: "wro", target: "raw" },
+            { source: "olawa", target: "ostr" },
 
-            // Bridge backbone paths
-            { source: "wro", target: "opo" },
-            { source: "ostr", target: "opo" },
-            { source: "opo", target: "kat" },
-            { source: "kat", target: "krak" },
-
-            // Małopolskie internal
-            { source: "krak", target: "krak-pg" },
-            { source: "krak", target: "tarn" },
-            { source: "krak", target: "nsacz" },
-            { source: "tarn", target: "nsacz" }
+            // Subregion Zachód <=> Łódzkie (Connecting links)
+            { source: "ostr", target: "wielun" },
+            { source: "kal", target: "sier" },
+            { source: "konin", target: "pab" },
+            { source: "konin", target: "kutno" },
+            { source: "olawa", target: "wielun" }
         ];
 
         // Simulation State variables
-        let selectedScenario = "unscoped"; // "unscoped" or "scoped"
-        let selectedScope = "pl";       // Default to national 'pl'
+        let selectedScope = "unscoped"; // Default to unscoped
 
         let txCount = 0;
         let dupCount = 0;
@@ -905,28 +819,6 @@
         const svgParticles = document.getElementById("svg-particles");
         const svgNodes = document.getElementById("svg-nodes");
         const svgFloatingTexts = document.getElementById("svg-floating-texts");
-
-        // Set Scenario
-        function setScenario(scenario) {
-            selectedScenario = scenario;
-
-            document.getElementById("opt-unscoped").classList.remove("active");
-            document.getElementById("radio-unscoped").checked = false;
-            document.getElementById("opt-scoped").classList.remove("active");
-            document.getElementById("radio-scoped").checked = false;
-
-            if (scenario === "unscoped") {
-                document.getElementById("opt-unscoped").classList.add("active");
-                document.getElementById("radio-unscoped").checked = true;
-                document.getElementById("scope-selector-container").style.display = "none";
-            } else {
-                document.getElementById("opt-scoped").classList.add("active");
-                document.getElementById("radio-scoped").checked = true;
-                document.getElementById("scope-selector-container").style.display = "flex";
-            }
-
-            resetSimulation();
-        }
 
         // Update selected scope
         function updateSelectedScope() {
@@ -1098,7 +990,7 @@
             updateStatsUI();
 
             // Broadcast from sender
-            broadcastFromNode(sender.id, packetUuid, selectedScenario === "scoped" ? selectedScope : "unscoped", null);
+            broadcastFromNode(sender.id, packetUuid, selectedScope, null);
         }
 
         // Broadcast signal to neighbors
@@ -1112,13 +1004,13 @@
 
             // Adjust airwave load based on scope
             if (scope === "unscoped") {
-                airwaveLoad = Math.min(100, airwaveLoad + 6);
-            } else if (scope === "wro" || scope === "krakow") {
-                airwaveLoad = Math.min(100, airwaveLoad + 2);
-            } else if (scope.startsWith("pl-") || scope === "wlkp") {
                 airwaveLoad = Math.min(100, airwaveLoad + 4);
+            } else if (scope === "wro" || scope === "poz") {
+                airwaveLoad = Math.min(100, airwaveLoad + 1.5);
+            } else if (scope.startsWith("pl-") || scope === "wlkp") {
+                airwaveLoad = Math.min(100, airwaveLoad + 2.5);
             } else { // pl or zachod scope
-                airwaveLoad = Math.min(100, airwaveLoad + 5);
+                airwaveLoad = Math.min(100, airwaveLoad + 3.5);
             }
             updateStatsUI();
 
@@ -1132,14 +1024,14 @@
                 const neighborId = l.source === nodeId ? l.target : l.source;
                 if (neighborId === incomingNodeId) return; // Don't bounce back
 
-                // Create Particle
+                // Create Particle (faster movement requested)
                 const particleUuid = "part_" + Math.random().toString(36).substr(2, 9);
                 activeParticles.push({
                     id: particleUuid,
                     from: nodeId,
                     to: neighborId,
                     progress: 0,
-                    speed: 0.02, // Speed of traveling dots
+                    speed: 0.05, // Much faster traveling dots as requested
                     packetUuid: packetUuid,
                     scope: scope
                 });
@@ -1189,7 +1081,7 @@
 
                 // Airwave damage in unscoped mode
                 if (scope === "unscoped") {
-                    airwaveLoad = Math.min(100, airwaveLoad + 3);
+                    airwaveLoad = Math.min(100, airwaveLoad + 2);
                 }
                 updateStatsUI();
 
@@ -1202,10 +1094,10 @@
             packetHistory[packetUuid].add(targetNode.id);
             createFloatingText(targetNode.x, targetNode.y - 12, "📥 Odebrano", "#f59e0b");
 
-            // Schedule forward with slight technical delay to look like processing
+            // Schedule forward with slight technical delay to look like processing (faster 250ms forward)
             setTimeout(() => {
                 broadcastFromNode(targetNode.id, packetUuid, scope, senderNode.id);
-            }, 500);
+            }, 250);
         }
 
         // Set Node Visual State
@@ -1262,10 +1154,10 @@
                     linkEl.classList.add("active-congestion");
                 }
 
-                // Reset back to normal after some time
+                // Reset back to normal after some time (faster recovery)
                 setTimeout(() => {
                     linkEl.setAttribute("class", "network-link");
-                }, 1000);
+                }, 600);
             }
         }
 
@@ -1282,7 +1174,7 @@
             // Remove from DOM after animation completes
             setTimeout(() => {
                 textEl.remove();
-            }, 1200);
+            }, 900);
         }
 
         // Main Animation Render Loop
@@ -1329,9 +1221,9 @@
 
                 if (stateObj && pulse) {
                     const elapsed = Date.now() - stateObj.timestamp;
-                    if (elapsed < 700) {
-                        const ratio = elapsed / 700;
-                        pulse.setAttribute("r", 10 + ratio * 16);
+                    if (elapsed < 500) {
+                        const ratio = elapsed / 500;
+                        pulse.setAttribute("r", 10 + ratio * 14);
                         pulse.setAttribute("opacity", 1 - ratio);
                     } else {
                         pulse.setAttribute("stroke", "transparent");
@@ -1355,7 +1247,7 @@
                 const stateObj = nodeStates[n.id];
                 if (stateObj && stateObj.state !== "idle" && stateObj.state !== "drop") {
                     const elapsed = Date.now() - stateObj.timestamp;
-                    if (elapsed < 700) {
+                    if (elapsed < 500) {
                         activePulseCount++;
                     }
                 }
