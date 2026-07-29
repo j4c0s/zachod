@@ -117,30 +117,34 @@
         /* Floating Beautiful High-Contrast Control Card relocated to bottom right and made more compact */
         .floating-control-box {
             position: absolute;
-            bottom: 24px;
-            right: 24px;
+            bottom: 16px;
+            right: 16px;
             z-index: 100;
-            width: 290px;
+            width: 210px;
             background-color: var(--bg-card);
             border: 1.5px solid var(--border);
-            border-radius: 16px;
-            padding: 14px;
+            border-radius: 12px;
+            padding: 10px;
             box-shadow: var(--shadow);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
+            transition: all 0.2s ease-in-out;
         }
 
         .control-header {
             display: flex;
-            flex-direction: column;
-            gap: 2px;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 6px;
         }
 
         .btn-back {
-            font-size: 0.8rem;
+            font-size: 0.72rem;
             font-weight: 800;
             color: var(--accent-primary);
             text-decoration: none;
@@ -152,36 +156,41 @@
             text-decoration: underline;
         }
 
-        .control-title {
-            font-size: 1.2rem;
-            font-weight: 900;
-            margin: 0;
-            color: var(--text-main);
-            letter-spacing: -0.02em;
+        .btn-toggle {
+            background-color: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            cursor: pointer;
+            transition: all 0.15s;
         }
 
-        .control-instruction {
-            font-size: 0.72rem;
-            font-weight: 800;
-            color: var(--accent-primary);
-            margin-top: 1px;
-            letter-spacing: 0.02em;
+        .btn-toggle:hover {
+            background-color: var(--border);
+            color: var(--text-main);
         }
 
         .control-body {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
+        }
+
+        .control-body.collapsed {
+            display: none;
         }
 
         .control-item {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 2px;
         }
 
         .scope-label {
-            font-size: 0.68rem;
+            font-size: 0.62rem;
             font-weight: 800;
             color: var(--text-muted);
             text-transform: uppercase;
@@ -189,13 +198,13 @@
         }
 
         select#scope-select {
-            padding: 8px 10px;
-            border-radius: 8px;
+            padding: 5px 6px;
+            border-radius: 6px;
             border: 1.5px solid var(--border);
             background-color: var(--bg-page);
             color: var(--text-main);
             font-weight: 700;
-            font-size: 0.8rem;
+            font-size: 0.72rem;
             cursor: pointer;
             width: 100%;
             transition: border-color 0.15s;
@@ -208,7 +217,7 @@
 
         .control-actions {
             display: flex;
-            gap: 6px;
+            gap: 4px;
         }
 
         .btn-action {
@@ -216,13 +225,13 @@
             background-color: var(--accent-primary);
             color: #ffffff;
             border: none;
-            padding: 8px 12px;
-            font-size: 0.8rem;
+            padding: 6px 10px;
+            font-size: 0.72rem;
             font-weight: 800;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
             transition: all 0.15s ease;
-            box-shadow: 0 4px 10px var(--accent-primary-glow);
+            box-shadow: 0 2px 6px var(--accent-primary-glow);
             text-align: center;
         }
 
@@ -235,10 +244,10 @@
             background-color: transparent;
             color: var(--text-main);
             border: 1.5px solid var(--border);
-            padding: 8px 10px;
-            font-size: 0.8rem;
+            padding: 6px 8px;
+            font-size: 0.72rem;
             font-weight: 700;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
             transition: all 0.15s ease;
         }
@@ -251,20 +260,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(100, 116, 139, 0.08);
-            border-radius: 8px;
-            padding: 6px 10px;
+            background-color: rgba(100, 116, 139, 0.06);
+            border-radius: 6px;
+            padding: 4px 8px;
             border: 1px solid var(--border);
         }
 
         .stat-label {
-            font-size: 0.75rem;
+            font-size: 0.68rem;
             font-weight: 700;
             color: var(--text-muted);
         }
 
         .stat-value {
-            font-size: 0.95rem;
+            font-size: 0.8rem;
             font-weight: 900;
             color: var(--accent-primary);
         }
@@ -272,37 +281,38 @@
         /* Compact scaling for rotated landscape viewports */
         @media (max-height: 480px) {
             .floating-control-box {
-                bottom: 10px;
-                right: 10px;
+                bottom: 8px;
+                right: 8px;
                 top: auto;
                 left: auto;
-                width: 240px;
-                padding: 8px;
-                gap: 6px;
-                border-radius: 12px;
-            }
-            .control-title {
-                font-size: 1rem;
+                width: 180px;
+                padding: 6px;
+                gap: 4px;
+                border-radius: 8px;
             }
             .btn-back {
-                font-size: 0.7rem;
+                font-size: 0.65rem;
+            }
+            .btn-toggle {
+                font-size: 0.6rem;
+                padding: 1px 4px;
             }
             select#scope-select {
-                padding: 6px 8px;
-                font-size: 0.75rem;
+                padding: 4px 6px;
+                font-size: 0.68rem;
             }
             .btn-action, .btn-secondary {
-                padding: 6px 10px;
-                font-size: 0.75rem;
+                padding: 4px 8px;
+                font-size: 0.68rem;
             }
             .control-stats {
-                padding: 6px 10px;
+                padding: 4px 6px;
             }
             .stat-label {
-                font-size: 0.72rem;
+                font-size: 0.65rem;
             }
             .stat-value {
-                font-size: 0.85rem;
+                font-size: 0.75rem;
             }
         }
 
@@ -549,16 +559,15 @@
         </div>
 
         <!-- Floating Control Card (Compact, Bottom Right) -->
-        <div class="floating-control-box">
+        <div class="floating-control-box" id="control-card">
             <div class="control-header">
-                <a href="index.html" class="btn-back">← Wyjdź do portalu</a>
-                <h2 class="control-title">MeshCore Symulacja</h2>
-                <div class="control-instruction">Wskaż punkt na mapie.</div>
+                <a href="index.html" class="btn-back">← Wyjdź</a>
+                <button class="btn-toggle" id="btn-toggle-menu" onclick="toggleMenu()">Zwiń ▴</button>
             </div>
 
-            <div class="control-body">
+            <div class="control-body" id="control-body">
                 <div class="control-item">
-                    <label for="scope-select" class="scope-label">Zasięg Wiadomości (Scope)</label>
+                    <label for="scope-select" class="scope-label">Zasięg (Scope)</label>
                     <select id="scope-select" onchange="updateSelectedScope()">
                         <option value="unscoped">Brak - Unscoped (Wiadomość po całej sieci)</option>
                         <option value="unscoped-3hop">Brak - Unscoped (ograniczony do 3 hop)</option>
@@ -579,12 +588,12 @@
                         📡 Wyślij
                     </button>
                     <button class="btn-secondary" onclick="resetSimulation()">
-                        🔄 Resetuj
+                        🔄 Reset
                     </button>
                 </div>
 
                 <div class="control-stats">
-                    <span class="stat-label">Liczba Retransmisji:</span>
+                    <span class="stat-label">Retransmisje:</span>
                     <span class="stat-value" id="stat-retransmissions">0</span>
                 </div>
             </div>
@@ -737,6 +746,19 @@
         const svgParticles = document.getElementById("svg-particles");
         const svgNodes = document.getElementById("svg-nodes");
         const svgFloatingTexts = document.getElementById("svg-floating-texts");
+
+        // Menu Toggle function
+        function toggleMenu() {
+            const body = document.getElementById("control-body");
+            const btn = document.getElementById("btn-toggle-menu");
+            if (body.classList.contains("collapsed")) {
+                body.classList.remove("collapsed");
+                btn.innerHTML = "Zwiń ▴";
+            } else {
+                body.classList.add("collapsed");
+                btn.innerHTML = "Rozwiń ▾";
+            }
+        }
 
         // Update selected scope
         function updateSelectedScope() {
