@@ -16,7 +16,8 @@ def generate_screenshots():
             "roomserver": "roomserver.html",
             "regiony": "regiony.html",
             "kanaly": "kanaly.html",
-            "sf6": "sf6-testy.html"
+            "sf6": "sf6-testy.html",
+            "symulacja": "symulacja.html"
         }
 
         for name, filename in pages.items():
