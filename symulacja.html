@@ -114,29 +114,29 @@
             user-select: none;
         }
 
-        /* Floating Beautiful High-Contrast Control Card */
+        /* Floating Beautiful High-Contrast Control Card relocated to bottom right and made more compact */
         .floating-control-box {
             position: absolute;
-            top: 24px;
-            left: 24px;
+            bottom: 24px;
+            right: 24px;
             z-index: 100;
-            width: 340px;
+            width: 290px;
             background-color: var(--bg-card);
             border: 1.5px solid var(--border);
             border-radius: 16px;
-            padding: 18px;
+            padding: 14px;
             box-shadow: var(--shadow);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 10px;
         }
 
         .control-header {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 2px;
         }
 
         .btn-back {
@@ -153,27 +153,35 @@
         }
 
         .control-title {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 900;
             margin: 0;
             color: var(--text-main);
             letter-spacing: -0.02em;
         }
 
+        .control-instruction {
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: var(--accent-primary);
+            margin-top: 1px;
+            letter-spacing: 0.02em;
+        }
+
         .control-body {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         .control-item {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
         }
 
         .scope-label {
-            font-size: 0.72rem;
+            font-size: 0.68rem;
             font-weight: 800;
             color: var(--text-muted);
             text-transform: uppercase;
@@ -181,13 +189,13 @@
         }
 
         select#scope-select {
-            padding: 10px 12px;
+            padding: 8px 10px;
             border-radius: 8px;
             border: 1.5px solid var(--border);
             background-color: var(--bg-page);
             color: var(--text-main);
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             cursor: pointer;
             width: 100%;
             transition: border-color 0.15s;
@@ -200,7 +208,7 @@
 
         .control-actions {
             display: flex;
-            gap: 8px;
+            gap: 6px;
         }
 
         .btn-action {
@@ -208,8 +216,8 @@
             background-color: var(--accent-primary);
             color: #ffffff;
             border: none;
-            padding: 10px 14px;
-            font-size: 0.85rem;
+            padding: 8px 12px;
+            font-size: 0.8rem;
             font-weight: 800;
             border-radius: 8px;
             cursor: pointer;
@@ -227,8 +235,8 @@
             background-color: transparent;
             color: var(--text-main);
             border: 1.5px solid var(--border);
-            padding: 10px 12px;
-            font-size: 0.85rem;
+            padding: 8px 10px;
+            font-size: 0.8rem;
             font-weight: 700;
             border-radius: 8px;
             cursor: pointer;
@@ -245,18 +253,18 @@
             align-items: center;
             background-color: rgba(100, 116, 139, 0.08);
             border-radius: 8px;
-            padding: 8px 12px;
+            padding: 6px 10px;
             border: 1px solid var(--border);
         }
 
         .stat-label {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 700;
             color: var(--text-muted);
         }
 
         .stat-value {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 900;
             color: var(--accent-primary);
         }
@@ -264,11 +272,13 @@
         /* Compact scaling for rotated landscape viewports */
         @media (max-height: 480px) {
             .floating-control-box {
-                top: 10px;
-                left: 10px;
-                width: 260px;
-                padding: 10px;
-                gap: 8px;
+                bottom: 10px;
+                right: 10px;
+                top: auto;
+                left: auto;
+                width: 240px;
+                padding: 8px;
+                gap: 6px;
                 border-radius: 12px;
             }
             .control-title {
@@ -508,6 +518,10 @@
                 <rect class="region-bg lb" x="40" y="80" width="320" height="180" rx="12" />
                 <text class="region-label" x="55" y="100">Lubuskie (pl-lb)</text>
 
+                <!-- Zielona Góra local zone highlight -->
+                <rect class="region-bg local-zone" x="65" y="165" width="85" height="70" rx="8" />
+                <text class="region-label" x="70" y="160">ZIELONA GÓRA (zgora)</text>
+
                 <!-- Wielkopolska -->
                 <rect class="region-bg wkp" x="380" y="80" width="315" height="480" rx="12" />
                 <text class="region-label" x="395" y="100">Wielkopolskie (wlkp)</text>
@@ -534,11 +548,12 @@
             </svg>
         </div>
 
-        <!-- Floating Control Card -->
+        <!-- Floating Control Card (Compact, Bottom Right) -->
         <div class="floating-control-box">
             <div class="control-header">
                 <a href="index.html" class="btn-back">← Wyjdź do portalu</a>
                 <h2 class="control-title">MeshCore Symulacja</h2>
+                <div class="control-instruction">Wskaż punkt na mapie.</div>
             </div>
 
             <div class="control-body">
@@ -554,6 +569,7 @@
                         <option value="pl-ld">pl-ld (Łódzkie)</option>
                         <option value="wro">wro (Lokalny Wrocław)</option>
                         <option value="poz">poz (Lokalny Poznań)</option>
+                        <option value="zgora">zgora (Lokalna Zielona Góra)</option>
                     </select>
                 </div>
 
@@ -576,7 +592,7 @@
     </div>
 
     <script>
-        // Nodes Data (37 dense nodes geographically distributed across Western & Neighboring Poland)
+        // Nodes Data (39 dense nodes geographically distributed across Western & Neighboring Poland)
         const nodes = [
             // Dolnośląskie (10 nodes)
             { id: "wro", name: "Wrocław", x: 280, y: 360, region: "pl-ds", codes: ["pl-ds", "pl", "zachod", "wro"], isTransmitter: true },
@@ -590,8 +606,10 @@
             { id: "trzeb", name: "Trzebnica", x: 300, y: 300, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
             { id: "oles", name: "Oleśnica", x: 340, y: 330, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
 
-            // Lubuskie (6 nodes)
-            { id: "zgora", name: "Zielona Góra", x: 90, y: 200, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
+            // Lubuskie (8 nodes - with new local repeaters in Zielona Góra)
+            { id: "zgora", name: "Zielona Góra", x: 90, y: 200, region: "pl-lb", codes: ["pl-lb", "pl", "zachod", "zgora"] },
+            { id: "zgora-ch", name: "ZG Chynów", x: 125, y: 180, region: "pl-lb", codes: ["pl-lb", "pl", "zachod", "zgora"] },
+            { id: "zgora-br", name: "ZG Braniborska", x: 120, y: 215, region: "pl-lb", codes: ["pl-lb", "pl", "zachod", "zgora"] },
             { id: "sule", name: "Sulechów", x: 170, y: 130, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
             { id: "nsol", name: "Nowa Sól", x: 230, y: 230, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
             { id: "gorz", name: "Gorzów Wlkp.", x: 90, y: 100, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
@@ -642,9 +660,12 @@
             { source: "olawa", target: "trzeb" },
             { source: "oles", target: "trzeb" },
 
-            // Lubuskie internal mesh
-            { source: "zgora", target: "sule" },
-            { source: "zgora", target: "nsol" },
+            // Lubuskie internal mesh with new ZG local repeaters
+            { source: "zgora", target: "zgora-ch" },
+            { source: "zgora", target: "zgora-br" },
+            { source: "zgora-ch", target: "zgora-br" },
+            { source: "zgora-ch", target: "sule" },
+            { source: "zgora-br", target: "nsol" },
             { source: "zgora", target: "gorz" },
             { source: "zgora", target: "miedz" },
             { source: "zgora", target: "slub" },
