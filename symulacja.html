@@ -135,13 +135,13 @@
         .container {
             max-width: 1240px;
             margin: 0 auto;
-            padding: 32px 24px;
+            padding: 24px;
             width: 100%;
         }
 
         .nav-back {
             display: inline-block;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             color: var(--accent-primary);
             text-decoration: none;
             font-weight: 700;
@@ -153,36 +153,22 @@
         }
 
         h1 {
-            font-size: 2.25rem;
+            font-size: 2rem;
             font-weight: 900;
             letter-spacing: -0.03em;
-            margin: 0 0 12px 0;
+            margin: 0 0 6px 0;
             color: var(--text-main);
         }
 
         .subtitle {
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             color: var(--text-muted);
-            margin-bottom: 32px;
-            line-height: 1.55;
+            margin-bottom: 24px;
+            line-height: 1.5;
         }
 
-        /* Simulator Layout */
-        .simulator-layout {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
-            margin-bottom: 32px;
-        }
-
-        @media (min-width: 950px) {
-            .simulator-layout {
-                grid-template-columns: 310px 1fr;
-            }
-        }
-
-        /* Control Panel */
-        .panel-card {
+        /* Redesigned Compact Main Visualization Container */
+        .visualization-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 16px;
@@ -191,34 +177,69 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
-            height: fit-content;
+            position: relative;
         }
 
-        .panel-title {
-            font-size: 1.1rem;
+        /* Top Horizontal Control Row */
+        .compact-control-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            background-color: var(--bg-page);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 18px;
+        }
+
+        .control-group-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            flex-grow: 1;
+        }
+
+        .scope-label {
+            font-size: 0.85rem;
             font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        select#scope-select {
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background-color: var(--bg-card);
             color: var(--text-main);
-            margin: 0;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: border-color 0.2s;
+            min-width: 280px;
+        }
+
+        select#scope-select:hover {
+            border-color: var(--border-hover);
         }
 
         .btn-action {
             background-color: var(--accent-primary);
             color: #ffffff;
             border: none;
-            padding: 12px 20px;
-            font-size: 0.95rem;
+            padding: 10px 20px;
+            font-size: 0.9rem;
             font-weight: 700;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 4px 12px var(--accent-primary-glow);
+            box-shadow: 0 3px 8px var(--accent-primary-glow);
             transition: all 0.2s ease;
-            text-align: center;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .btn-action:hover {
@@ -226,114 +247,20 @@
             transform: translateY(-1px);
         }
 
-        .btn-action:active {
-            transform: scale(0.98);
-        }
-
         .btn-secondary {
-            background-color: var(--bg-page);
+            background-color: var(--bg-card);
             color: var(--text-main);
             border: 1px solid var(--border);
-            box-shadow: var(--shadow);
+            padding: 10px 16px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
         }
 
         .btn-secondary:hover {
             background-color: var(--border);
-        }
-
-        /* Stats Card */
-        .stats-box {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            background-color: var(--bg-page);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 14px;
-        }
-
-        .stat-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-        }
-
-        .stat-name {
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .stat-value {
-            font-weight: 800;
-            color: var(--text-main);
-        }
-
-        /* Airwave Load Bar */
-        .load-bar-container {
-            width: 100%;
-            height: 8px;
-            background-color: var(--border);
-            border-radius: 999px;
-            overflow: hidden;
-            margin-top: 4px;
-        }
-
-        .load-bar {
-            height: 100%;
-            width: 0%;
-            background-color: var(--accent-primary);
-            transition: width 0.3s ease, background-color 0.3s ease;
-        }
-
-        /* Simulation Canvas/SVG Wrapper */
-        .visualization-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 16px;
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            position: relative;
-            min-height: 640px;
-        }
-
-        .vis-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .vis-title {
-            font-weight: 800;
-            font-size: 1.15rem;
-            color: var(--text-main);
-        }
-
-        .badge-status {
-            font-size: 0.75rem;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 9999px;
-            background-color: var(--bg-success);
-            color: var(--accent-success);
-            border: 1px solid var(--border-success);
-            text-transform: uppercase;
-        }
-
-        .badge-status.warn {
-            background-color: var(--bg-warn);
-            color: var(--accent-warn);
-            border-color: var(--border-warn);
-        }
-
-        .badge-status.danger {
-            background-color: var(--bg-danger);
-            color: var(--accent-danger);
-            border-color: var(--border-danger);
         }
 
         .canvas-container {
@@ -353,6 +280,83 @@
             width: 100%;
             height: 100%;
             user-select: none;
+        }
+
+        /* Bottom Compact Statistics Bar */
+        .bottom-stats-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            background-color: var(--bg-page);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 20px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .bottom-load-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 250px;
+            flex-grow: 1;
+            justify-content: flex-end;
+        }
+
+        .load-bar-container {
+            width: 120px;
+            height: 8px;
+            background-color: var(--border);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .load-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--accent-primary);
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+
+        .badge-status {
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            background-color: var(--bg-success);
+            color: var(--accent-success);
+            border: 1px solid var(--border-success);
+            text-transform: uppercase;
+        }
+
+        .badge-status.warn {
+            background-color: var(--bg-warn);
+            color: var(--accent-warn);
+            border-color: var(--border-warn);
+        }
+
+        .badge-status.danger {
+            background-color: var(--bg-danger);
+            color: var(--accent-danger);
+            border-color: var(--border-danger);
         }
 
         /* SVG Styles */
@@ -379,23 +383,23 @@
         }
 
         .region-bg.ds {
-            fill: rgba(45, 125, 70, 0.015);
-            stroke: rgba(45, 125, 70, 0.3);
+            fill: rgba(45, 125, 70, 0.012);
+            stroke: rgba(45, 125, 70, 0.25);
         }
 
         .region-bg.lb {
-            fill: rgba(59, 130, 246, 0.015);
-            stroke: rgba(59, 130, 246, 0.3);
+            fill: rgba(59, 130, 246, 0.012);
+            stroke: rgba(59, 130, 246, 0.25);
         }
 
         .region-bg.wkp {
-            fill: rgba(224, 122, 95, 0.015);
-            stroke: rgba(224, 122, 95, 0.3);
+            fill: rgba(224, 122, 95, 0.012);
+            stroke: rgba(224, 122, 95, 0.25);
         }
 
         .region-bg.ld {
-            fill: rgba(139, 92, 246, 0.015);
-            stroke: rgba(139, 92, 246, 0.3);
+            fill: rgba(139, 92, 246, 0.012);
+            stroke: rgba(139, 92, 246, 0.25);
         }
 
         .region-bg.local-zone {
@@ -407,20 +411,20 @@
 
         @media (prefers-color-scheme: dark) {
             .region-bg.ds {
-                fill: rgba(82, 183, 116, 0.03);
-                stroke: rgba(82, 183, 116, 0.4);
+                fill: rgba(82, 183, 116, 0.02);
+                stroke: rgba(82, 183, 116, 0.3);
             }
             .region-bg.lb {
-                fill: rgba(59, 130, 246, 0.03);
-                stroke: rgba(59, 130, 246, 0.4);
+                fill: rgba(59, 130, 246, 0.02);
+                stroke: rgba(59, 130, 246, 0.3);
             }
             .region-bg.wkp {
-                fill: rgba(243, 146, 116, 0.03);
-                stroke: rgba(243, 146, 116, 0.4);
+                fill: rgba(243, 146, 116, 0.02);
+                stroke: rgba(243, 146, 116, 0.3);
             }
             .region-bg.ld {
-                fill: rgba(139, 92, 246, 0.03);
-                stroke: rgba(139, 92, 246, 0.4);
+                fill: rgba(139, 92, 246, 0.02);
+                stroke: rgba(139, 92, 246, 0.3);
             }
         }
 
@@ -434,68 +438,74 @@
 
         .network-link {
             stroke: var(--border);
-            stroke-width: 2.2;
+            stroke-width: 2;
             stroke-linecap: round;
             transition: stroke 0.2s, stroke-width 0.2s;
         }
 
         .network-link.active-transmission {
             stroke: var(--accent-primary);
-            stroke-width: 3.2;
+            stroke-width: 3;
         }
 
         .network-link.active-congestion {
             stroke: var(--accent-warn);
-            stroke-width: 3.5;
+            stroke-width: 3.2;
         }
 
+        /* Updated Node Circle Styles per specification */
         .node-circle {
-            fill: var(--bg-card);
-            stroke: var(--text-muted);
-            stroke-width: 2.2;
+            fill: #1c2d1e; /* Default dark blackish node circles */
+            stroke: var(--border-hover);
+            stroke-width: 1.8;
             cursor: pointer;
             transition: all 0.15s ease;
         }
 
-        .node-circle.transmitter {
-            fill: var(--accent-primary-glow);
-            stroke: var(--accent-primary);
-            stroke-dasharray: none;
+        @media (prefers-color-scheme: dark) {
+            .node-circle {
+                fill: #0c120d;
+                stroke: var(--border);
+            }
         }
 
-        .node-circle.tx-active {
-            fill: var(--accent-primary);
+        /* Transmitter base highlight */
+        .node-circle.transmitter {
             stroke: var(--accent-primary);
+            stroke-width: 2.5;
+        }
+
+        /* White Active Transmitting Circle */
+        .node-circle.tx-active {
+            fill: #ffffff !important;
+            stroke: var(--accent-primary);
+            stroke-width: 3;
             filter: drop-shadow(0 0 6px var(--accent-primary));
         }
 
+        /* Green Received & Forwarding Circle (STAYS green until reset) */
         .node-circle.rx-active {
-            fill: #f59e0b;
-            stroke: #d97706;
-            filter: drop-shadow(0 0 6px #f59e0b);
+            fill: var(--accent-primary) !important;
+            stroke: var(--accent-primary);
+            stroke-width: 2;
+            filter: drop-shadow(0 0 6px var(--accent-primary));
         }
 
+        /* Grey Dropped/Blocked Node (turns back to black after timeout) */
         .node-circle.rx-drop {
-            fill: #94a3b8;
+            fill: #94a3b8 !important;
             stroke: #64748b;
-            stroke-dasharray: 2 2;
-        }
-
-        .node-circle.rx-dup {
-            fill: var(--accent-warn);
-            stroke: #b91c1c;
-            filter: drop-shadow(0 0 6px var(--accent-warn));
         }
 
         .node-name {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-weight: 800;
             fill: var(--text-main);
             text-anchor: middle;
         }
 
         .node-details {
-            font-size: 0.58rem;
+            font-size: 0.56rem;
             fill: var(--text-muted);
             text-anchor: middle;
             font-family: var(--font-mono);
@@ -513,10 +523,10 @@
 
         /* Floating Indicator Texts */
         .floating-text {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-weight: 800;
             text-anchor: middle;
-            animation: driftUp 0.9s ease-out forwards;
+            animation: driftUp 0.8s ease-out forwards;
             pointer-events: none;
         }
 
@@ -526,14 +536,14 @@
                 opacity: 1;
             }
             100% {
-                transform: translateY(-20px);
+                transform: translateY(-18px);
                 opacity: 0;
             }
         }
 
         footer {
             border-top: 1px solid var(--border);
-            padding: 24px;
+            padding: 20px;
             text-align: center;
             font-size: 0.85rem;
             color: var(--text-muted);
@@ -563,16 +573,14 @@
         <h1>Interaktywna Symulacja Ruchu Pakietów</h1>
         <div class="subtitle">Przekonaj się osobiście, jak mądry podział na regiony (Scopes) chroni naszą sieć przed zatłoczeniem i kolizjami! Klikaj na dowolne węzły na mapie, aby ustawić je jako nadajniki.</div>
 
-        <div class="simulator-layout">
+        <!-- NEW COMPACT HORIZONTAL LAYOUT -->
+        <div class="visualization-card">
 
-            <!-- LEFT CONTROL PANEL -->
-            <div class="panel-card">
-                <h3 class="panel-title">⚙️ Ustawienia Symulacji</h3>
-
-                <!-- Single Unified Scope Selector -->
-                <div style="display: flex; flex-direction: column; gap: 8px;">
-                    <label style="font-size: 0.8rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Zasięg Wiadomości (Scope):</label>
-                    <select id="scope-select" onchange="updateSelectedScope()" style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--border); background-color: var(--bg-page); color: var(--text-main); font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: border-color 0.2s;">
+            <!-- Compact Horizontal Control Row Directly Above Map -->
+            <div class="compact-control-row">
+                <div class="control-group-left">
+                    <span class="scope-label">Zasięg Wiadomości (Scope):</span>
+                    <select id="scope-select" onchange="updateSelectedScope()">
                         <option value="unscoped">Brak - Unscoped (Wiadomość po całej sieci)</option>
                         <option value="pl">pl (Ogólnokrajowy)</option>
                         <option value="zachod">zachod (Subregion Zachód)</option>
@@ -583,102 +591,90 @@
                         <option value="wro">wro (Lokalny Wrocław)</option>
                         <option value="poz">poz (Lokalny Poznań)</option>
                     </select>
+
+                    <button class="btn-action" id="btn-broadcast" onclick="startBroadcast()">
+                        <span>📡 Wyślij Wiadomość</span>
+                    </button>
                 </div>
 
-                <!-- Simulation Trigger -->
-                <button class="btn-action" id="btn-broadcast" onclick="startBroadcast()">
-                    <span>📡 Wyślij Wiadomość</span>
-                </button>
-
-                <!-- Live stats box -->
-                <div class="stats-box">
-                    <div style="font-weight: 800; font-size: 0.85rem; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 6px; color: var(--text-main);">📊 Statystyki na żywo:</div>
-
-                    <div class="stat-row">
-                        <span class="stat-name">Łączna liczba przesyłów:</span>
-                        <span class="stat-value" id="stat-tx">0</span>
-                    </div>
-
-                    <div class="stat-row">
-                        <span class="stat-name">Odebrane duplikaty:</span>
-                        <span class="stat-value" id="stat-dup">0</span>
-                    </div>
-
-                    <div class="stat-row">
-                        <span class="stat-name">Zablokowany zbędny ruch:</span>
-                        <span class="stat-value" id="stat-blocked">0</span>
-                    </div>
-
-                    <div style="margin-top: 6px;">
-                        <div class="stat-row">
-                            <span class="stat-name">Obciążenie eteru:</span>
-                            <span class="stat-value" id="stat-load">0%</span>
-                        </div>
-                        <div class="load-bar-container">
-                            <div class="load-bar" id="load-bar"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Reset Button -->
-                <button class="btn-action btn-secondary" onclick="resetSimulation()" style="padding: 8px; font-size: 0.85rem;">
-                    🔄 Resetuj Symulację
+                <button class="btn-secondary" onclick="resetSimulation()">
+                    🔄 Resetuj
                 </button>
             </div>
 
-            <!-- RIGHT VISUALIZATION BLOCK -->
-            <div class="visualization-card">
-                <div class="vis-header">
-                    <span class="vis-title">🗺️ Wizualizacja Sieci Krajowej MeshCore PL</span>
-                    <span class="badge-status" id="airwave-status">Eter jest wolny 🍃</span>
+            <!-- Map container -->
+            <div class="canvas-container">
+                <svg id="network-svg" viewBox="0 0 1100 600">
+                    <!-- Polska Grand Box -->
+                    <rect class="region-bg pl" x="10" y="10" width="1080" height="580" rx="20" />
+                    <text class="region-label" x="30" y="30" style="fill: var(--text-main); font-size: 0.85rem;">POLSKA (pl)</text>
+
+                    <!-- Zachód Region Box -->
+                    <rect class="region-bg zachod" x="25" y="45" width="685" height="530" rx="16" />
+                    <text class="region-label" x="40" y="65" style="fill: var(--accent-primary); font-size: 0.75rem;">SUBREGION ZACHÓD (zachod)</text>
+
+                    <!-- Dolny Śląsk -->
+                    <rect class="region-bg ds" x="40" y="270" width="320" height="290" rx="12" />
+                    <text class="region-label" x="55" y="290">Dolnośląskie (pl-ds)</text>
+
+                    <!-- Wrocław local zone highlight -->
+                    <rect class="region-bg local-zone" x="255" y="340" width="95" height="135" rx="8" />
+                    <text class="region-label" x="260" y="335" style="fill: var(--accent-warn); font-size: 0.6rem; font-weight: 900;">WROCŁAW (wro)</text>
+
+                    <!-- Lubuskie -->
+                    <rect class="region-bg lb" x="40" y="80" width="320" height="180" rx="12" />
+                    <text class="region-label" x="55" y="100">Lubuskie (pl-lb)</text>
+
+                    <!-- Wielkopolska -->
+                    <rect class="region-bg wkp" x="380" y="80" width="315" height="480" rx="12" />
+                    <text class="region-label" x="395" y="100">Wielkopolskie (wlkp)</text>
+
+                    <!-- Poznań local zone highlight -->
+                    <rect class="region-bg local-zone" x="470" y="140" width="105" height="80" rx="8" />
+                    <text class="region-label" x="475" y="135" style="fill: var(--accent-warn); font-size: 0.6rem; font-weight: 900;">POZNAŃ (poz)</text>
+
+                    <!-- Neighboring Łódzkie -->
+                    <rect class="region-bg ld" x="730" y="80" width="340" height="480" rx="12" />
+                    <text class="region-label" x="745" y="100">Łódzkie (pl-ld)</text>
+
+                    <!-- Network Connections (Lines) -->
+                    <g id="svg-links"></g>
+
+                    <!-- Dynamic Particles -->
+                    <g id="svg-particles"></g>
+
+                    <!-- Nodes (Circles & Labels) -->
+                    <g id="svg-nodes"></g>
+
+                    <!-- Floating Texts Overlay -->
+                    <g id="svg-floating-texts"></g>
+                </svg>
+            </div>
+
+            <!-- Compact Statistics Directly Below Map -->
+            <div class="bottom-stats-row">
+                <div class="stat-item">
+                    <span class="stat-label">Łączna liczba przesyłów:</span>
+                    <span class="stat-value" id="stat-tx">0</span>
                 </div>
 
-                <div class="canvas-container">
-                    <svg id="network-svg" viewBox="0 0 1100 600">
-                        <!-- Polska Grand Box -->
-                        <rect class="region-bg pl" x="10" y="10" width="1080" height="580" rx="20" />
-                        <text class="region-label" x="30" y="30" style="fill: var(--text-main); font-size: 0.85rem;">POLSKA (pl)</text>
+                <div class="stat-item">
+                    <span class="stat-label">Odebrane duplikaty (Supresja):</span>
+                    <span class="stat-value" id="stat-dup">0</span>
+                </div>
 
-                        <!-- Zachód Region Box -->
-                        <rect class="region-bg zachod" x="25" y="45" width="685" height="530" rx="16" />
-                        <text class="region-label" x="40" y="65" style="fill: var(--accent-primary); font-size: 0.75rem;">SUBREGION ZACHÓD (zachod)</text>
+                <div class="stat-item">
+                    <span class="stat-label">Zablokowany ruch regionalny:</span>
+                    <span class="stat-value" id="stat-blocked">0</span>
+                </div>
 
-                        <!-- Dolny Śląsk -->
-                        <rect class="region-bg ds" x="40" y="270" width="320" height="290" rx="12" />
-                        <text class="region-label" x="55" y="290">Dolnośląskie (pl-ds)</text>
-
-                        <!-- Wrocław local zone highlight -->
-                        <rect class="region-bg local-zone" x="255" y="340" width="95" height="135" rx="8" />
-                        <text class="region-label" x="260" y="335" style="fill: var(--accent-warn); font-size: 0.6rem; font-weight: 900;">WROCŁAW (wro)</text>
-
-                        <!-- Lubuskie -->
-                        <rect class="region-bg lb" x="40" y="80" width="320" height="180" rx="12" />
-                        <text class="region-label" x="55" y="100">Lubuskie (pl-lb)</text>
-
-                        <!-- Wielkopolska -->
-                        <rect class="region-bg wkp" x="380" y="80" width="315" height="480" rx="12" />
-                        <text class="region-label" x="395" y="100">Wielkopolskie (wlkp)</text>
-
-                        <!-- Poznań local zone highlight -->
-                        <rect class="region-bg local-zone" x="470" y="140" width="105" height="80" rx="8" />
-                        <text class="region-label" x="475" y="135" style="fill: var(--accent-warn); font-size: 0.6rem; font-weight: 900;">POZNAŃ (poz)</text>
-
-                        <!-- Neighboring Łódzkie -->
-                        <rect class="region-bg ld" x="730" y="80" width="340" height="480" rx="12" />
-                        <text class="region-label" x="745" y="100">Łódzkie (pl-ld)</text>
-
-                        <!-- Network Connections (Lines) -->
-                        <g id="svg-links"></g>
-
-                        <!-- Dynamic Particles -->
-                        <g id="svg-particles"></g>
-
-                        <!-- Nodes (Circles & Labels) -->
-                        <g id="svg-nodes"></g>
-
-                        <!-- Floating Texts Overlay -->
-                        <g id="svg-floating-texts"></g>
-                    </svg>
+                <div class="bottom-load-container">
+                    <span class="stat-label">Obciążenie eteru:</span>
+                    <span class="stat-value" id="stat-load">0%</span>
+                    <div class="load-bar-container">
+                        <div class="load-bar" id="load-bar"></div>
+                    </div>
+                    <span class="badge-status" id="airwave-status">Eter jest wolny 🍃</span>
                 </div>
             </div>
 
@@ -691,9 +687,9 @@
     </footer>
 
     <script>
-        // Nodes Data (32 dense nodes geographically distributed across Western & Neighboring Poland)
+        // Nodes Data (37 dense nodes geographically distributed across Western & Neighboring Poland)
         const nodes = [
-            // Dolnośląskie (9 nodes)
+            // Dolnośląskie (10 nodes)
             { id: "wro", name: "Wrocław", x: 280, y: 360, region: "pl-ds", codes: ["pl-ds", "pl", "zachod", "wro"], isTransmitter: true },
             { id: "wro-pp", name: "Wrocław Psie Pole", x: 320, y: 410, region: "pl-ds", codes: ["pl-ds", "pl", "zachod", "wro"] },
             { id: "swid", name: "Świdnica", x: 190, y: 430, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
@@ -703,15 +699,17 @@
             { id: "glog", name: "Głogów", x: 180, y: 300, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
             { id: "olawa", name: "Oława", x: 340, y: 460, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
             { id: "trzeb", name: "Trzebnica", x: 300, y: 300, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
+            { id: "oles", name: "Oleśnica", x: 340, y: 330, region: "pl-ds", codes: ["pl-ds", "pl", "zachod"] },
 
-            // Lubuskie (5 nodes)
+            // Lubuskie (6 nodes)
             { id: "zgora", name: "Zielona Góra", x: 90, y: 200, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
             { id: "sule", name: "Sulechów", x: 170, y: 130, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
             { id: "nsol", name: "Nowa Sól", x: 230, y: 230, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
             { id: "gorz", name: "Gorzów Wlkp.", x: 90, y: 100, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
             { id: "miedz", name: "Międzyrzecz", x: 160, y: 180, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
+            { id: "slub", name: "Słubice", x: 50, y: 140, region: "pl-lb", codes: ["pl-lb", "pl", "zachod"] },
 
-            // Wielkopolskie (10 nodes)
+            // Wielkopolskie (11 nodes)
             { id: "pozn", name: "Poznań", x: 530, y: 190, region: "wlkp", codes: ["wlkp", "pl", "zachod", "poz"] },
             { id: "pozn-jez", name: "Poznań Jeżyce", x: 490, y: 160, region: "wlkp", codes: ["wlkp", "pl", "zachod", "poz"] },
             { id: "lesz", name: "Leszno", x: 440, y: 310, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
@@ -722,8 +720,9 @@
             { id: "raw", name: "Rawicz", x: 420, y: 370, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
             { id: "konin", name: "Konin", x: 670, y: 260, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
             { id: "wrzes", name: "Września", x: 600, y: 220, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
+            { id: "krot", name: "Krotoszyn", x: 500, y: 410, region: "wlkp", codes: ["wlkp", "pl", "zachod"] },
 
-            // Łódzkie (Neighboring, 8 nodes)
+            // Łódzkie (Neighboring, 10 nodes)
             { id: "lodz", name: "Łódź", x: 860, y: 260, region: "pl-ld", codes: ["pl-ld", "pl"] },
             { id: "lodz-wid", name: "Łódź Widzew", x: 910, y: 280, region: "pl-ld", codes: ["pl-ld", "pl"] },
             { id: "pab", name: "Pabianice", x: 830, y: 330, region: "pl-ld", codes: ["pl-ld", "pl"] },
@@ -731,7 +730,9 @@
             { id: "piotr", name: "Piotrków Tryb.", x: 920, y: 410, region: "pl-ld", codes: ["pl-ld", "pl"] },
             { id: "sier", name: "Sieradz", x: 770, y: 350, region: "pl-ld", codes: ["pl-ld", "pl"] },
             { id: "wielun", name: "Wieluń", x: 720, y: 430, region: "pl-ld", codes: ["pl-ld", "pl"] },
-            { id: "kutno", name: "Kutno", x: 810, y: 150, region: "pl-ld", codes: ["pl-ld", "pl"] }
+            { id: "kutno", name: "Kutno", x: 810, y: 150, region: "pl-ld", codes: ["pl-ld", "pl"] },
+            { id: "lowicz", name: "Łowicz", x: 940, y: 160, region: "pl-ld", codes: ["pl-ld", "pl"] },
+            { id: "belch", name: "Bełchatów", x: 850, y: 420, region: "pl-ld", codes: ["pl-ld", "pl"] }
         ];
 
         // Network Connections (source id, target id)
@@ -743,20 +744,24 @@
             { source: "wro", target: "glog" },
             { source: "wro", target: "olawa" },
             { source: "wro", target: "trzeb" },
+            { source: "wro", target: "oles" },
             { source: "swid", target: "jelg" },
             { source: "jelg", target: "lub" },
             { source: "lub", target: "leg" },
             { source: "leg", target: "glog" },
             { source: "glog", target: "trzeb" },
             { source: "olawa", target: "trzeb" },
+            { source: "oles", target: "trzeb" },
 
             // Lubuskie internal mesh
             { source: "zgora", target: "sule" },
             { source: "zgora", target: "nsol" },
             { source: "zgora", target: "gorz" },
             { source: "zgora", target: "miedz" },
+            { source: "zgora", target: "slub" },
             { source: "sule", target: "gorz" },
             { source: "miedz", target: "gorz" },
+            { source: "slub", target: "gorz" },
 
             // Wielkopolskie internal mesh
             { source: "pozn", target: "pozn-jez" },
@@ -767,7 +772,8 @@
             { source: "pozn", target: "wrzes" },
             { source: "pozn-jez", target: "pil" },
             { source: "lesz", target: "raw" },
-            { source: "raw", target: "ostr" },
+            { source: "raw", target: "krot" },
+            { source: "krot", target: "ostr" },
             { source: "kal", target: "ostr" },
             { source: "gniez", target: "konin" },
             { source: "wrzes", target: "konin" },
@@ -779,9 +785,13 @@
             { source: "lodz", target: "piotr" },
             { source: "lodz", target: "sier" },
             { source: "lodz", target: "kutno" },
+            { source: "lodz", target: "belch" },
             { source: "sier", target: "wielun" },
             { source: "piotr", target: "wielun" },
+            { source: "piotr", target: "belch" },
             { source: "kutno", target: "zgi" },
+            { source: "kutno", target: "lowicz" },
+            { source: "zgi", target: "lowicz" },
 
             // Inter-provincial within Subregion Zachód
             { source: "lub", target: "zgora" },
@@ -798,7 +808,8 @@
             { source: "kal", target: "sier" },
             { source: "konin", target: "pab" },
             { source: "konin", target: "kutno" },
-            { source: "olawa", target: "wielun" }
+            { source: "olawa", target: "wielun" },
+            { source: "oles", target: "wielun" }
         ];
 
         // Simulation State variables
@@ -810,7 +821,7 @@
         let airwaveLoad = 0;
 
         let activeParticles = [];
-        let nodeStates = {}; // id -> { state: "idle" | "tx" | "rx" | "drop" | "dup", timestamp: number }
+        let nodeStates = {}; // id -> { state: "idle" | "tx" | "rx" | "drop", timestamp: number }
         let packetHistory = {}; // packetUuid -> Set of node ids that already retransmitted
         let animationFrameId = null;
 
@@ -936,7 +947,7 @@
 
                 // Main Node circle
                 const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                circle.setAttribute("r", 10);
+                circle.setAttribute("r", 9);
                 circle.setAttribute("id", `node-${n.id}`);
 
                 let classes = "node-circle";
@@ -946,14 +957,14 @@
 
                 // Name label
                 const nameText = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                nameText.setAttribute("y", 22);
+                nameText.setAttribute("y", 20);
                 nameText.setAttribute("class", "node-name");
                 nameText.innerText = n.name + (n.isTransmitter ? " (TX)" : "");
                 g.appendChild(nameText);
 
                 // Configured scopes label
                 const scopesText = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                scopesText.setAttribute("y", 32);
+                scopesText.setAttribute("y", 29);
                 scopesText.setAttribute("class", "node-details");
                 scopesText.innerText = `[${n.codes.join(", ")}]`;
                 g.appendChild(scopesText);
@@ -998,19 +1009,19 @@
             const node = nodes.find(n => n.id === nodeId);
             if (!node) return;
 
-            // Mark node state as TX
+            // Mark node state as TX (actively transmitting - white indicator)
             setNodeVisualState(nodeId, "tx");
             txCount++;
 
             // Adjust airwave load based on scope
             if (scope === "unscoped") {
-                airwaveLoad = Math.min(100, airwaveLoad + 4);
-            } else if (scope === "wro" || scope === "poz") {
-                airwaveLoad = Math.min(100, airwaveLoad + 1.5);
-            } else if (scope.startsWith("pl-") || scope === "wlkp") {
-                airwaveLoad = Math.min(100, airwaveLoad + 2.5);
-            } else { // pl or zachod scope
                 airwaveLoad = Math.min(100, airwaveLoad + 3.5);
+            } else if (scope === "wro" || scope === "poz") {
+                airwaveLoad = Math.min(100, airwaveLoad + 1.2);
+            } else if (scope.startsWith("pl-") || scope === "wlkp") {
+                airwaveLoad = Math.min(100, airwaveLoad + 2.2);
+            } else { // pl or zachod scope
+                airwaveLoad = Math.min(100, airwaveLoad + 3);
             }
             updateStatsUI();
 
@@ -1024,14 +1035,14 @@
                 const neighborId = l.source === nodeId ? l.target : l.source;
                 if (neighborId === incomingNodeId) return; // Don't bounce back
 
-                // Create Particle (faster movement requested)
+                // Create Particle (fast speed)
                 const particleUuid = "part_" + Math.random().toString(36).substr(2, 9);
                 activeParticles.push({
                     id: particleUuid,
                     from: nodeId,
                     to: neighborId,
                     progress: 0,
-                    speed: 0.05, // Much faster traveling dots as requested
+                    speed: 0.05, // Swift traveling particles
                     packetUuid: packetUuid,
                     scope: scope
                 });
@@ -1066,35 +1077,33 @@
             }
 
             if (!isAllowed) {
-                // Blocked by scopes! Perfect optimization!
+                // Blocked by scopes - turns grey briefly then fades back to default dark state
                 setNodeVisualState(targetNode.id, "drop");
                 blockedCount++;
                 updateStatsUI();
-                createFloatingText(targetNode.x, targetNode.y - 12, "❌ Blokada (Eter czysty)", "var(--accent-warn)");
+                createFloatingText(targetNode.x, targetNode.y - 12, "❌ Blokada (Eter czysty)", "var(--text-muted)");
                 return;
             }
 
             if (hasSeen) {
-                // Duplicate message collision! Loop detected and suppressed!
-                setNodeVisualState(targetNode.id, "dup");
+                // Duplicate message suppression - suppresses redundant forwarding
                 dupCount++;
 
-                // Airwave damage in unscoped mode
                 if (scope === "unscoped") {
-                    airwaveLoad = Math.min(100, airwaveLoad + 2);
+                    airwaveLoad = Math.min(100, airwaveLoad + 1.5);
                 }
                 updateStatsUI();
 
-                createFloatingText(targetNode.x, targetNode.y - 12, "💥 Ignoruj (Duplikat)", "var(--accent-warn)");
+                createFloatingText(targetNode.x, targetNode.y - 12, "📥 Duplikat (Ignoruj)", "var(--accent-warn)");
                 return;
             }
 
-            // Clean First-time Receive
+            // Clean First-time Receive: STAYS green until reset
             setNodeVisualState(targetNode.id, "rx");
             packetHistory[packetUuid].add(targetNode.id);
             createFloatingText(targetNode.x, targetNode.y - 12, "📥 Odebrano", "#f59e0b");
 
-            // Schedule forward with slight technical delay to look like processing (faster 250ms forward)
+            // Schedule forward with fast 250ms delay
             setTimeout(() => {
                 broadcastFromNode(targetNode.id, packetUuid, scope, senderNode.id);
             }, 250);
@@ -1102,45 +1111,40 @@
 
         // Set Node Visual State
         function setNodeVisualState(nodeId, state) {
-            nodeStates[nodeId] = {
-                state: state,
-                timestamp: Date.now()
-            };
+            if (!nodeStates[nodeId]) {
+                nodeStates[nodeId] = {};
+            }
+            nodeStates[nodeId].state = state;
+            nodeStates[nodeId].timestamp = Date.now();
 
             const circle = document.getElementById(`node-${nodeId}`);
             const pulse = document.getElementById(`pulse-${nodeId}`);
             if (!circle) return;
 
-            // Clear old classes
+            // Clear old dynamic styles
             circle.setAttribute("class", "node-circle");
             if (nodes.find(n => n.id === nodeId).isTransmitter) {
                 circle.classList.add("transmitter");
             }
 
-            // Apply new state styling
+            // Apply specific custom state colors
             if (state === "tx") {
-                circle.classList.add("tx-active");
+                circle.classList.add("tx-active"); // WHITE ACTIVE TRANSMITTER
                 pulse.setAttribute("stroke", "var(--accent-primary)");
                 pulse.setAttribute("r", 12);
                 pulse.setAttribute("opacity", 1);
             } else if (state === "rx") {
-                circle.classList.add("rx-active");
+                circle.classList.add("rx-active"); // GREEN RECEIVED & STAY GREEN
                 pulse.setAttribute("stroke", "#f59e0b");
                 pulse.setAttribute("r", 12);
                 pulse.setAttribute("opacity", 1);
-            } else if (state === "dup") {
-                circle.classList.add("rx-dup");
-                pulse.setAttribute("stroke", "#b91c1c");
-                pulse.setAttribute("r", 12);
-                pulse.setAttribute("opacity", 1);
             } else if (state === "drop") {
-                circle.classList.add("rx-drop");
+                circle.classList.add("rx-drop"); // GREY BLOCKED
             }
         }
 
         // Highlight Link during propagation
         function highlightLink(fromId, toId, type) {
-            // Find link element
             let linkEl = document.getElementById(`link-${fromId}-${toId}`);
             if (!linkEl) {
                 linkEl = document.getElementById(`link-${toId}-${fromId}`);
@@ -1154,10 +1158,10 @@
                     linkEl.classList.add("active-congestion");
                 }
 
-                // Reset back to normal after some time (faster recovery)
+                // Reset link to default styling after propagation completes
                 setTimeout(() => {
                     linkEl.setAttribute("class", "network-link");
-                }, 600);
+                }, 500);
             }
         }
 
@@ -1171,15 +1175,14 @@
             textEl.innerText = text;
             svgFloatingTexts.appendChild(textEl);
 
-            // Remove from DOM after animation completes
             setTimeout(() => {
                 textEl.remove();
-            }, 900);
+            }, 800);
         }
 
         // Main Animation Render Loop
         function animationLoop() {
-            // Update particles
+            // Update active particles positions
             svgParticles.innerHTML = "";
 
             for (let i = activeParticles.length - 1; i >= 0; i--) {
@@ -1187,13 +1190,11 @@
                 p.progress += p.speed;
 
                 if (p.progress >= 1) {
-                    // Reached destination
                     onParticleArrival(p);
                     activeParticles.splice(i, 1);
                     continue;
                 }
 
-                // Render current position of particle
                 const sNode = nodes.find(n => n.id === p.from);
                 const tNode = nodes.find(n => n.id === p.to);
 
@@ -1223,15 +1224,15 @@
                     const elapsed = Date.now() - stateObj.timestamp;
                     if (elapsed < 500) {
                         const ratio = elapsed / 500;
-                        pulse.setAttribute("r", 10 + ratio * 14);
+                        pulse.setAttribute("r", 9 + ratio * 14);
                         pulse.setAttribute("opacity", 1 - ratio);
                     } else {
                         pulse.setAttribute("stroke", "transparent");
                         pulse.setAttribute("opacity", 0);
 
-                        // Revert node visually to idle after action, except drop
-                        if (stateObj.state !== "idle" && stateObj.state !== "drop") {
-                            nodeStates[n.id].state = "idle";
+                        // TX and DROP states should eventually turn back to idle, RX stays green.
+                        if (stateObj.state === "tx" || stateObj.state === "drop") {
+                            stateObj.state = "idle";
                             if (circle) {
                                 circle.setAttribute("class", "node-circle");
                                 if (n.isTransmitter) circle.classList.add("transmitter");
@@ -1241,11 +1242,11 @@
                 }
             });
 
-            // Keep animating if there is active traffic or if any pulses/fades are still running
+            // Keep animating if particles are in flight or if any pulses are still running
             let activePulseCount = 0;
             nodes.forEach(n => {
                 const stateObj = nodeStates[n.id];
-                if (stateObj && stateObj.state !== "idle" && stateObj.state !== "drop") {
+                if (stateObj && (stateObj.state === "tx" || stateObj.state === "drop")) {
                     const elapsed = Date.now() - stateObj.timestamp;
                     if (elapsed < 500) {
                         activePulseCount++;
