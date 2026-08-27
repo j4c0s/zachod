@@ -744,12 +744,12 @@
                         <div class="checklist-title">1. Tożsamość przekaźnika</div>
                         <div class="checklist-desc">Ustaw swoje imię lub nick, by inni użytkownicy znali właściciela przekaźnika.</div>
                         <div class="checklist-commands">
-                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'owner')">kopiuj</button><code>set owner.info "TWOJE_IMIE_LUB_NICK"</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'owner')">kopiuj</button><code>set owner.info TWOJE_IMIE_LUB_NICK</code></pre>
                         </div>
                     </div>
                 </div>
 
-                <!-- Krok 2a: Advert lokalny -->
+                <!-- Krok 2: Advert lokalny -->
                 <div class="checklist-item" id="item-advert-local">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-advert-local" onclick="toggleItem('advert-local')">
@@ -763,7 +763,7 @@
                     </div>
                 </div>
 
-                <!-- Krok 2b: Advert globalny -->
+                <!-- Krok 3: Advert globalny -->
                 <div class="checklist-item" id="item-advert-global">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-advert-global" onclick="toggleItem('advert-global')">
@@ -777,7 +777,7 @@
                     </div>
                 </div>
 
-                <!-- Krok 3a: Synchronizacja czasu -->
+                <!-- Krok 4: Synchronizacja czasu -->
                 <div class="checklist-item" id="item-time-sync">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-time-sync" onclick="toggleItem('time-sync')">
@@ -788,30 +788,21 @@
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'time-sync')">kopiuj</button><code>clock sync</code></pre>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Krok 3b: Restart zegara -->
-                <div class="checklist-item" id="item-time-reboot">
-                    <div class="checklist-checkbox-wrapper">
-                        <input type="checkbox" class="checklist-checkbox" id="chk-time-reboot" onclick="toggleItem('time-reboot')">
-                    </div>
-                    <div class="checklist-content">
-                        <div class="checklist-title">5. Reset czasu (w razie kłopotów)</div>
-                        <div class="checklist-desc">Komenda restartująca wewnętrzny zegar, jeśli się zgubił.</div>
+                        <div class="checklist-title">4b. Reset czasu (w razie kłopotów)</div>
+                        <div class="checklist-desc">Komenda restartująca wewnętrzny zegar, jeśli nie można go cofnąć.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'time-reboot')">kopiuj</button><code>clkreboot</code></pre>
                         </div>
                     </div>
                 </div>
 
-                <!-- Krok 4a: Region Europe -->
+                <!-- Krok 5: Region Europe -->
                 <div class="checklist-item" id="item-region-europe">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-region-europe" onclick="toggleItem('region-europe')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">6. Regiony: europe</div>
+                        <div class="checklist-title">5. Regiony: europe</div>
                         <div class="checklist-desc">Wprowadź ogólnoeuropejski obszar łączności.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'region-europe')">kopiuj</button><code>region put europe</code></pre>
@@ -819,13 +810,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 4b: Region Polska -->
+                <!-- Krok 6: Region Polska -->
                 <div class="checklist-item" id="item-region-pl">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-region-pl" onclick="toggleItem('region-pl')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">7. Regiony: pl</div>
+                        <div class="checklist-title">6. Regiony: pl</div>
                         <div class="checklist-desc">Wprowadź ogólnopolski obszar łączności.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'region-pl')">kopiuj</button><code>region put pl</code></pre>
@@ -833,13 +824,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 4c: Region Zachód -->
+                <!-- Krok 7: Region Zachód -->
                 <div class="checklist-item" id="item-region-zachod">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-region-zachod" onclick="toggleItem('region-zachod')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">8. Regiony: zachod</div>
+                        <div class="checklist-title">7. Regiony: zachod</div>
                         <div class="checklist-desc">Wprowadź makroregion Polski Zachodniej do pamięci urządzenia.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'region-zachod')">kopiuj</button><code>region put zachod</code></pre>
@@ -847,13 +838,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 5: Regiony regionalne (ZGRUPOWANE) -->
+                <!-- Krok 8: Regiony regionalne (ZGRUPOWANE) -->
                 <div class="checklist-item" id="item-regions-local">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-regions-local" onclick="toggleItem('regions-local')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">9. Dodaj region swojego województwa i miasta</div>
+                        <div class="checklist-title">8. Dodaj region swojego województwa i miasta</div>
                         <div class="checklist-desc">Dodaj region odpowiedni dla Twojego województwa (np. pl-ds dla Dolnego Śląska, pl-lb dla Lubuskiego lub wlkp dla Wielkopolski) oraz miasta (np. wro dla Wrocławia). Wszystkie szczegóły są na stronie <a href="regiony.html" style="font-weight: 700; color: var(--accent-primary);">Regiony i Scopes</a>.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'regions-local')">kopiuj</button><code>region put pl-ds</code></pre>
@@ -864,27 +855,27 @@
                     </div>
                 </div>
 
-                <!-- Krok 6a: Domyślny region -->
+                <!-- Krok 9: Domyślny region -->
                 <div class="checklist-item" id="item-region-default">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-region-default" onclick="toggleItem('region-default')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">10. Powiązanie domyślnego regionu przekaźnika</div>
-                        <div class="checklist-desc">Ustaw domyślny region dla własnych komunikatów przekaźnika (np. pl).</div>
+                        <div class="checklist-title">9. Powiązanie domyślnego regionu przekaźnika</div>
+                        <div class="checklist-desc">Ustaw domyślny region dla własnych komunikatów przekaźnika (np. zachod lub pl).</div>
                         <div class="checklist-commands">
-                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'region-default')">kopiuj</button><code>set default.region pl</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'region-default')">kopiuj</button><code>default region zachod</code></pre>
                         </div>
                     </div>
                 </div>
 
-                <!-- Krok 6b: Zapisanie regionów -->
+                <!-- Krok 10: Zapisanie regionów -->
                 <div class="checklist-item" id="item-region-save">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-region-save" onclick="toggleItem('region-save')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">11. Trwały zapis regionów</div>
+                        <div class="checklist-title">10. Trwały zapis regionów</div>
                         <div class="checklist-desc">Zapisz bezpiecznie wszystkie dodane regiony w pamięci urządzenia.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'region-save')">kopiuj</button><code>region save</code></pre>
@@ -892,13 +883,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 6c: Reboot urządzenia -->
+                <!-- Krok 11: Reboot urządzenia -->
                 <div class="checklist-item" id="item-region-reboot">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-region-reboot" onclick="toggleItem('region-reboot')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">12. Ponowne uruchomienie</div>
+                        <div class="checklist-title">11. Ponowne uruchomienie</div>
                         <div class="checklist-desc">Zrestartuj przekaźnik, by wdrożyć całą nową konfigurację.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'region-reboot')">kopiuj</button><code>reboot</code></pre>
@@ -906,27 +897,27 @@
                     </div>
                 </div>
 
-                <!-- Krok 7a: Repeat Mode -->
+                <!-- Krok 12: Repeat Mode -->
                 <div class="checklist-item" id="item-opt-repeat">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-opt-repeat" onclick="toggleItem('opt-repeat')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">13. Przesyłanie głosów: Repeat Mode</div>
+                        <div class="checklist-title">12. Przesyłanie głosów: Repeat Mode</div>
                         <div class="checklist-desc">Włącz tryb powtarzania rozmów w eterze.</div>
                         <div class="checklist-commands">
-                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'opt-repeat')">kopiuj</button><code>set repeat.mode on</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'opt-repeat')">kopiuj</button><code>set repeat on</code></pre>
                         </div>
                     </div>
                 </div>
 
-                <!-- Krok 7b: Duty Cycle -->
+                <!-- Krok 13: Duty Cycle -->
                 <div class="checklist-item" id="item-opt-dutycycle">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-opt-dutycycle" onclick="toggleItem('opt-dutycycle')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">14. Dobre maniery: Duty Cycle</div>
+                        <div class="checklist-title">13. Dobre maniery: Duty Cycle</div>
                         <div class="checklist-desc">Ograniczenie czasu nadawania do bezpiecznych 10% w zgodzie z normami europejskimi.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'opt-dutycycle')">kopiuj</button><code>set dutycycle 10</code></pre>
@@ -934,13 +925,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 7c: Loop Detect -->
+                <!-- Krok 14: Loop Detect -->
                 <div class="checklist-item" id="item-opt-loop">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-opt-loop" onclick="toggleItem('opt-loop')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">15. Bezpieczeństwo sieci: Loop Detect</div>
+                        <div class="checklist-title">14 . Bezpieczeństwo sieci: Loop Detect</div>
                         <div class="checklist-desc">Włącz wykrywanie pętli, by uchronić sieć przed burzami pakietów.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'opt-loop')">kopiuj</button><code>set loop.detect minimal</code></pre>
@@ -948,13 +939,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 7d: Multiple ACKs -->
+                <!-- Krok 15: Multiple ACKs -->
                 <div class="checklist-item" id="item-opt-acks">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-opt-acks" onclick="toggleItem('opt-acks')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">16. Stabilność zasięgu: Multiple ACKs</div>
+                        <div class="checklist-title">15. Potierdzenia otrzymania wiadomości: Multiple ACKs</div>
                         <div class="checklist-desc">Włącz podwójne potwierdzenia dla lepszego zasięgu na granicach sieci.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'opt-acks')">kopiuj</button><code>set multi.acks 1</code></pre>
@@ -962,13 +953,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 7e: Hasło gościa -->
+                <!-- Krok 16: Hasło gościa -->
                 <div class="checklist-item" id="item-opt-guest">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-opt-guest" onclick="toggleItem('opt-guest')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">17. Otwartość: Puste hasło gościa</div>
+                        <div class="checklist-title">16. Otwartość: Puste hasło gościa</div>
                         <div class="checklist-desc">Pozostaw puste hasło gościa dla publicznego podglądu statusu przekaźnika.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'opt-guest')">kopiuj</button><code>set guest.password ""</code></pre>
@@ -976,13 +967,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 8a: txdelay -->
+                <!-- Krok 17: txdelay -->
                 <div class="checklist-item" id="item-txdelay-main">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-txdelay-main" onclick="toggleItem('txdelay-main')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">18. Opóźnienie nadawania (txdelay)</div>
+                        <div class="checklist-title">17. Opóźnienie nadawania (txdelay)</div>
                         <div class="checklist-desc">Wybierz profil wysokości swojego przekaźnika, by automatycznie dobrać komendę poniżej:</div>
 
                         <div class="profile-selector">
@@ -997,13 +988,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 8b: direct.txdelay -->
+                <!-- Krok 18: direct.txdelay -->
                 <div class="checklist-item" id="item-txdelay-direct">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-txdelay-direct" onclick="toggleItem('txdelay-direct')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">19. Opóźnienie bezpośrednie (direct.txdelay)</div>
+                        <div class="checklist-title">18. Opóźnienie bezpośrednie (direct.txdelay)</div>
                         <div class="checklist-desc">Ustawienie opóźnienia dla sygnałów wysyłanych bezpośrednio.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'txdelay-direct')">kopiuj</button><code id="code-dtxdelay">set direct.txdelay 1.0</code></pre>
@@ -1011,13 +1002,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 8c: rxdelay -->
+                <!-- Krok 19: rxdelay -->
                 <div class="checklist-item" id="item-txdelay-rx">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-txdelay-rx" onclick="toggleItem('txdelay-rx')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">20. Bezpieczna przerwa (rxdelay)</div>
+                        <div class="checklist-title">19. Bezpieczna przerwa (rxdelay)</div>
                         <div class="checklist-desc">Zapobiega wcinaniu się przekaźnika w trwające jeszcze słuchanie sygnału.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'txdelay-rx')">kopiuj</button><code>set rxdelay 3</code></pre>
@@ -1025,13 +1016,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 9a: path.hash.mode -->
+                <!-- Krok 20: path.hash.mode -->
                 <div class="checklist-item" id="item-others-hash">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-others-hash" onclick="toggleItem('others-hash')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">21. Układanie tras: Hash Mode</div>
+                        <div class="checklist-title">20. Układanie tras: Hash Mode</div>
                         <div class="checklist-desc">Ustaw zalecany i nowoczesny sposób podpisywania tras pakietów (tryb 2).</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'others-hash')">kopiuj</button><code>set path.hash.mode 2</code></pre>
@@ -1039,13 +1030,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 9b: flood.max -->
+                <!-- Krok 21: flood.max -->
                 <div class="checklist-item" id="item-others-max">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-others-max" onclick="toggleItem('others-max')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">22. Maksymalne przekazywanie globalne</div>
+                        <div class="checklist-title">21. Przekazywanie pakietów flood</div>
                         <div class="checklist-desc">Ograniczenie maksymalnej drogi sygnałów w całej sieci.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'others-max')">kopiuj</button><code>set flood.max 64</code></pre>
@@ -1053,27 +1044,27 @@
                     </div>
                 </div>
 
-                <!-- Krok 9c: flood.max.unscoped -->
+                <!-- Krok 22: flood.max.unscoped -->
                 <div class="checklist-item" id="item-others-unscoped">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-others-unscoped" onclick="toggleItem('others-unscoped')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">23. Ograniczenie ruchu bez regionu</div>
+                        <div class="checklist-title">22. Ograniczenie ruchu bez regionu</div>
                         <div class="checklist-desc">Limitowanie przekazywania sygnałów, które nie mają wybranego regionu.</div>
                         <div class="checklist-commands">
-                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'others-unscoped')">kopiuj</button><code>set flood.max.unscoped 8</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'others-unscoped')">kopiuj</button><code>set flood.max.unscoped 5</code></pre>
                         </div>
                     </div>
                 </div>
 
-                <!-- Krok 9d: powersaving -->
+                <!-- Krok 23: powersaving -->
                 <div class="checklist-item" id="item-others-powersaving">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-others-powersaving" onclick="toggleItem('others-powersaving')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">24. Przyjazne oszczędzanie energii</div>
+                        <div class="checklist-title">23. Oszczędzanie energii</div>
                         <div class="checklist-desc">Włącz tryb oszczędzania energii, niezwykle ważny na zasilaniu bateryjnym i solarnym.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'others-powersaving')">kopiuj</button><code>powersaving on</code></pre>
