@@ -1039,7 +1039,7 @@
                         <div class="checklist-title">21. Przekazywanie pakietów flood</div>
                         <div class="checklist-desc">Ograniczenie maksymalnej drogi sygnałów w całej sieci.</div>
                         <div class="checklist-commands">
-                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'others-max')">kopiuj</button><code>set flood.max 64</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'others-max')">kopiuj</button><code>set flood.max 12</code></pre>
                         </div>
                     </div>
                 </div>
@@ -1058,13 +1058,27 @@
                     </div>
                 </div>
 
-                <!-- Krok 23: powersaving -->
+                <!-- Krok 23: flood.max.advert -->
+                <div class="checklist-item" id="item-others-advert">
+                    <div class="checklist-checkbox-wrapper">
+                        <input type="checkbox" class="checklist-checkbox" id="chk-others-advert" onclick="toggleItem('others-advert')">
+                    </div>
+                    <div class="checklist-content">
+                        <div class="checklist-title">23. Ograniczenie ruchu advertów</div>
+                        <div class="checklist-desc">Limitowanie przekazywania advertów.</div>
+                        <div class="checklist-commands">
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'others-advert')">kopiuj</button><code>set flood.max.advert 3</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Krok 24: powersaving -->
                 <div class="checklist-item" id="item-others-powersaving">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-others-powersaving" onclick="toggleItem('others-powersaving')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">23. Oszczędzanie energii</div>
+                        <div class="checklist-title">24. Oszczędzanie energii</div>
                         <div class="checklist-desc">Włącz tryb oszczędzania energii, niezwykle ważny na zasilaniu bateryjnym i solarnym.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'others-powersaving')">kopiuj</button><code>powersaving on</code></pre>
