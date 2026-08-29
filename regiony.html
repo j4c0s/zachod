@@ -385,7 +385,7 @@
         <a href="index.html" class="nav-back">← Powrót do strony głównej</a>
 
         <h1>Regiony i Zasięgi</h1>
-        <div class="subtitle">Zasada działania Regionów i zasięgów terytorialnych (Scopes) – czyli jak dbamy o czystość fal radiowych.</div>
+        <div class="subtitle">Zasada działania Regionów i zakresów regionu (Scopes) – czyli jak dbamy o porządek w sieci.</div>
 
         <!-- Regional scopes schedule notice -->
         <div class="alert-callout alert-callout-warn">
@@ -393,58 +393,59 @@
             Abyśmy mogli bezpiecznie i bez zakłóceń sprawdzić działanie systemu, wprowadzamy regiony stopniowo:
             <ul style="margin: 8px 0 0 0; padding-left: 20px; color: inherit;">
                 <li><strong>Do 31 sierpnia:</strong> Każdy właściciel przekaźnika ustawia regiony w swoich urządzeniach.</li>
-                <li><strong>Od 1 września:</strong> Zaczynamy aktywnie korzystać ze "scopes" (zasięgów regionalnych) na kanałach w telefonach.</li>
+                <li><strong>Od 1 września:</strong> Zaczynamy aktywnie korzystać ze "scopes" (zakresów regionu) w kanałach.</li>
             </ul>
             Dzięki temu damy sobie czas, aby sprawdzić, które przekaźniki wymagają jeszcze poprawy konfiguracji przed pełnym startem!
         </div>
 
         <h2>Po co w ogóle tego używać?</h2>
 
-        <div class="alert-callout alert-callout-info" style="margin-top: 16px; margin-bottom: 24px; border-left: 5px solid var(--accent-primary);">
+        <p>
+            <strong>Dla optymalizacji i czystego powietrza w eterze!</strong>
+        </p>
+        <p>
+            W klasycznych sieciach mesh wiadomości krążą bez żadnych ograniczeń, odbijając się od każdego napotkanego urządzenia. Gdy użytkowników przybywa, sieć szybko się zapycha, co prowadzi do gubienia wiadomości.
+        </p>
+        <p>Wprowadzenie podziału na regiony i używanie zakresów regionu (Scopes) w MeshCore pozwala mądrze i lokalnie kierować ruchem:
+        <ul>
+            <li><strong>Lokalne sprawy zostają na miejscu:</strong> Jeśli nadajesz z Wrocławia w zasięgu lokalnym, Twoja wiadomość nie musi bez celu lecieć na drugi koniec województwa lubuskiego i obciążać tamtejszych urządzeń.</li>
+            <li><strong>Ty decydujesz o zasięgu:</strong> To osoba wysyłająca wiadomość decyduje w aplikacji, do jak dużego obszaru chce się zwrócić (np. tylko do swojego miasta, województwa czy całego kraju).</li>
+        </ul>
+        </p>
+        <p>
+            Wszystko to sprawia, że wspólna sieć działa płynnie, urządzenia zużywają mniej baterii, a rozmowy zawsze docierają do celu.
+        </p>
+
+        <h2>Jak to działa? Prosta analogia</h2>
+
+        <p>
+            Wyobraź sobie, że wysyłasz list. Zakres (Scope) to adres napisany na kopercie (np. "Wrocław" albo "Polska"). Przekaźniki to przyjaźni listonosze, którzy patrzą na adres i przekazują list dalej tylko wtedy, gdy obsługują dany rejon.
+        </p>
+               <div class="alert-callout alert-callout-info" style="margin-top: 16px; margin-bottom: 24px; border-left: 5px solid var(--accent-primary);">
             <strong>🎮 Chcesz zobaczyć to w akcji?</strong><br>
-            Uruchomiliśmy dla Ciebie w pełni interaktywną wizualizację! Przekonaj się na żywo, jak wiadomości bez zdefiniowanych regionów zatykają całą sieć radiową niepotrzebnymi retransmisjami, i jak precyzyjnie poruszają się pakiety z ustawionymi zakresami regionalnymi (Scopes):
+            Zabacz interaktywną wizualizację! Przekonaj się, jak wiadomości bez zdefiniowanych regionów obciążają sieć niepotrzebnymi retransmisjami, i jak poruszają się pakiety z ustawionymi zakresami regionu (Scopes):
             <div style="margin-top: 12px;">
                 <a href="symulacja.html" class="btn-copy-link" style="text-decoration: none; display: inline-flex; margin-bottom: 0;">Uruchom Symulację Ruchu Pakietów 📡</a>
             </div>
         </div>
 
-        <p>
-            <strong>Dla optymalizacji i czystego powietrza w eterze!</strong>
-        </p>
-        <p>
-            W klasycznych sieciach bezprzewodowych wiadomości krążą bez żadnych ograniczeń, odbijając się od każdego napotkanego urządzenia. Gdy użytkowników przybywa, sieć szybko się zapycha, co prowadzi do gubienia wiadomości.
-        </p>
-        <p>Wprowadzenie przyjaznego podziału na regiony i zasięgi w MeshCore pozwala nam mądrze i lokalnie kierować ruchem:
-        <ul>
-            <li><strong>Lokalne sprawy zostają na miejscu:</strong> Jeśli nadajesz z Wrocławia w zasięgu lokalnym, Twoja wiadomość nie musi bez celu lecieć na drugi koniec województwa lubuskiego i zapychać tamtejszych urządzeń.</li>
-            <li><strong>Ty decydujesz o zasięgu:</strong> To osoba wysyłająca wiadomość decyduje w aplikacji, do jak dużego obszaru chce się zwrócić (np. tylko do swojego miasta, województwa czy całego kraju).</li>
-        </ul>
-        </p>
-        <p>
-            Wszystko to sprawia, że nasza wspólna sieć działa płynnie, urządzenia zużywają mniej baterii, a rozmowy zawsze docierają do celu.
-        </p>
-
-        <h2>Jak to działa? Prosta analogia</h2>
-        <p>
-            Wyobraź sobie, że wysyłasz list. Zasięg (Scope) to adres napisany na kopercie (np. "Wrocław" albo "Polska"). Nasze przekaźniki to przyjaźni listonosze, którzy patrzą na adres i przekazują list dalej tylko wtedy, gdy obsługują dany rejon.
-        </p>
         <ul>
             <li><strong>Dozwolone Regiony:</strong> Lista obszarów, które dany przekaźnik zadeklarował obsługiwać.</li>
-            <li><strong>Zasięg wiadomości (Scope):</strong> Etykieta dołączana do Twojej wiadomości w aplikacji klienckiej (np. na wybranym kanale).</li>
-            <li><strong>Zasada dopasowania:</strong> Przekaźnik prześle wiadomość dalej tylko wtedy, gdy jej zasięg pokrywa się z obszarami, które obsługuje.</li>
-            <li><strong>Wiadomości ogólne (Unscoped):</strong> Domyślnie każdy przekaźnik przekazuje również wiadomości bez żadnej etykiety regionalnej, dbając o to, by nikt nie został odcięty.</li>
+            <li><strong>Zakres regionu (Scope):</strong> Etykieta dołączana do Twojej wiadomości w aplikacji MeschCore w companionie (np. na wybranym kanale).</li>
+            <li><strong>Zasada dopasowania:</strong> Przekaźnik prześle wiadomość dalej tylko wtedy, gdy jej zakres (scope) pokrywa się z regionami, które obsługuje.</li>
+            <li><strong>Wiadomości ogólne (Unscoped):</strong> Domyślnie każdy przekaźnik przekazuje również wiadomości bez żadnej etykiety regionalnej, ale wiadomości te mają mniejszy zasięg.</li>
         </ul>
 
-        <h2>Hierarchia Terytorialna Zasięgów</h2>
+        <h2>Hierarchia Terytorialna Zakresów regionów</h2>
         <p>
-            Zasięgi w sieci MeshCore układają się jak warstwy — od najbliższej okolicy aż po cały kontynent:
+            Zakresy w sieci MeshCore układają się jak warstwy — od najbliższej okolicy aż po cały kontynent:
         </p>
 
         <div class="hierarchy-container">
             <!-- Level 1 -->
             <div class="hierarchy-node node-level-1">
                 <div class="node-title">Poziom 1: Kontynent <span class="node-badge">europe</span></div>
-                <div class="node-desc">Szeroka łączność ogólnoeuropejska. Używana bardzo rzadko, na przykład podczas dalekich wyjazdów lub zagranicznych testów.</div>
+                <div class="node-desc">Szeroka łączność ogólnoeuropejska. Używana rzadziej, do komunikacji międzypaństwowej, na przykład na pograniczu kraju.</div>
             </div>
 
             <!-- Level 2 -->
@@ -456,7 +457,7 @@
             <!-- Level 3 -->
             <div class="hierarchy-node node-level-3">
                 <div class="node-title">Poziom 3: Makroregion <span class="node-badge">zachod</span></div>
-                <div class="node-desc">Zintegrowany zasięg dla Polski Zachodniej (Dolny Śląsk, Lubuskie i Wielkopolska).</div>
+                <div class="node-desc">Zintegrowany zakres dla Polski Zachodniej (Dolnośląskie, Lubuskie i Wielkopolskie).</div>
             </div>
 
             <!-- Level 4 -->
@@ -467,25 +468,25 @@
 
             <!-- Level 5 -->
             <div class="hierarchy-node node-level-5">
-                <div class="node-title">Poziom 5: Miasta i Aglomeracje <span class="node-badge">wro</span> / <span class="node-badge">poz</span></div>
-                <div class="node-desc">Szybka, gęsta komunikacja lokalna (np. Wrocław - wro, Poznań - poz). Idealna do codziennych rozmów lokalnych bez obciążania przekaźników w regionach nadrzędnych.</div>
+                <div class="node-title">Poziom 5: Miasta, Aglomeracje i mikroregiony<span class="node-badge">wro</span> / <span class="node-badge">poz</span></div>
+                <div class="node-desc">Komunikacja lokalna (np. Wrocław - wro, Poznań - poz). Idealna do codziennych rozmów lokalnych bez obciążania przekaźników w regionach nadrzędnych.</div>
             </div>
         </div>
 
         <div class="alert-callout alert-callout-warn">
             <strong>🌍 Ważna porada:</strong><br>
-            Konfigurując przekaźnik, dodawaj tylko te regiony, w których urządzenie się znajduje. Pozwoli to zachować porządek w eterze i uratuje baterie urządzeń w innych województwach!
+            Konfigurując przekaźnik, dodawaj tylko te regiony, w których urządzenie się znajduje. Pozwoli to zachować porządek w eterze i zmniejszy niepotrzebny ruch!
         </div>
 
         <h2>Dodawanie regionów do konfiguracji przekaźnika</h2>
         <p>
-            Aby Twój przekaźnik prawidłowo przesyłał lokalne rozmowy, musisz wprowadzić odpowiednie kody regionów do jego pamięci.
+            Aby Twój przekaźnik prawidłowo przesyłał lokalne rozmowy, musisz wprowadzić odpowiednie regiony w jego konfiguracji.
         </p>
 
         <!-- Wideo instrukcja smartfona -->
         <div class="video-section" id="wideoprzewodnik">
             <h3>Instrukcja wideo (aplikacja mobilna)<a href="#wideoprzewodnik" class="video-anchor" title="Bezpośredni link do tej sekcji">#</a></h3>
-            <p>Ten prosty i przejrzysty filmik pokazuje, jak szybko i wygodnie ustawić regiony na telefonie:</p>
+            <p>Ten prosty i przejrzysty filmik pokazuje, jak ustawić regiony w repeaterze przez aplikację telefonu:</p>
 
             <button class="btn-copy-link" onclick="copyDirectLink()">
                 <span>Kopiuj bezpośredni link do wideo 🔗</span>
@@ -504,43 +505,18 @@
 
         <div class="alert-callout alert-callout-info">
             <strong>💡 Pełna zgodność:</strong><br>
-            Dodanie regionów do przekaźnika <strong>w żaden sposób nie blokuje ani nie utrudnia przesyłania standardowych wiadomości bez ustawionego zasięgu</strong>. Przekaźnik będzie działał tak jak dawniej, zyskując nową możliwość inteligentnego pomagania w rozmowach lokalnych.
+            Dodanie regionów do przekaźnika <strong> nie blokuje ani nie utrudnia przesyłania standardowych wiadomości bez ustawionego zasięgu</strong>. Przekaźnik będzie działał tak jak dawniej, zyskując nową możliwość uczestniczenia w rozmowach lokalnych.
         </div>
 
         <p>
             <strong>Domyślny region przekaźnika (region default):</strong><br>
-            To przydatne ustawienie określa, jakim zasięgiem mają być podpisywane sygnały wysyłane automatycznie przez sam przekaźnik (np. jego własne ogłoszenia statusu). Najlepiej ustawić tu region krajowy <code>pl</code> lub makroregionalny <code>zachod</code>.
+            To przydatne ustawienie określa, jakim zasięgiem mają być podpisywane pakiety wysyłane automatycznie przez sam przekaźnik (np. adverty). Najlepiej ustawić tu region krajowy <code>pl</code> lub makroregionalny <code>zachod</code>.
         </p>
 
         <h3>Lista przydatnych komend gotowych do skopiowania (CLI):</h3>
         <p>
-            Wybierz i skopiuj potrzebne komendy, by ustawić regiony w swoim przekaźniku:
+            Na stronie <a href="repeater.html" style="color: var(--accent-primary); font-weight: 700;">Przekaźnik - Repeater</a> znajdziesz gotowe komendy do wklejenia w terminalu przekaźnika. Wystarczy je skopiować i wkleić, aby dodać odpowiednie regiony.
         </p>
-
-        <div style="display: flex; flex-direction: column; gap: 8px; margin: 16px 0;">
-            <div style="font-weight: bold; margin-top: 8px; color: var(--text-main);">Podstawowe regiony (warto dodać wszystkie):</div>
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put europe</code></pre>
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put pl</code></pre>
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put zachod</code></pre>
-
-            <div style="font-weight: bold; margin-top: 8px; color: var(--text-main);">Regiony województw (wybierz właściwy dla siebie):</div>
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put pl-ds</code></pre>
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put pl-lb</code></pre>
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put wlkp</code></pre>
-
-            <div style="font-weight: bold; margin-top: 8px; color: var(--text-main);">Twoje miasto (np. Wrocław):</div>
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region put wro</code></pre>
-
-            <div style="font-weight: bold; margin-top: 12px; color: var(--text-main);">Ustawienie domyślnego regionu dla przekaźnika (np. pl):</div>
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region default pl</code></pre>
-
-            <div style="font-weight: bold; margin-top: 12px; color: var(--text-main);">Sprawdzenie zapisanych ustawień:</div>
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region</code></pre>
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region default</code></pre>
-
-            <div style="font-weight: bold; margin-top: 12px; color: var(--text-main);">Zapisanie zmian w pamięci urządzenia:</div>
-            <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region save</code></pre>
-        </div>
 
         <p>
             Chcesz zobaczyć, do jakich kanałów w aplikacji Companion przypisane są te zasięgi?
