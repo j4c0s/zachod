@@ -184,6 +184,28 @@
             color: var(--accent-warn);
         }
 
+        .screenshot-container {
+            margin: 24px 0;
+            text-align: center;
+        }
+
+        .screenshot-img {
+            max-width: 100%;
+            max-height: 550px;
+            width: auto;
+            height: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            display: inline-block;
+        }
+
+        .screenshot-caption {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
         footer {
             border-top: 1px solid var(--border);
             padding: 24px;
@@ -240,6 +262,11 @@
             <li>Zatwierdź zmiany klikając ikonkę ptaszka (Zapisz) w prawym górnym rogu. I to wszystko!</li>
         </ol>
 
+        <div class="screenshot-container">
+            <img src="companion_basic.jpg" alt="Ustawienia aplikacji Companion" class="screenshot-img">
+            <div class="screenshot-caption">Widok ekranu ustawień podstawowych w aplikacji Companion</div>
+        </div>
+
         <h2>4. Przyjazne nazywanie swojego urządzenia</h2>
         <p>
             W naszej sieci nie ma surowych, technicznych reguł, ale bardzo cenimy sobie wzajemną życzliwość i otwartość. Ponieważ kieszonkowe urządzenia zazwyczaj nie mają aktywnego odbiornika GPS w celu oszczędzania baterii, niezwykle ułatwimy sobie kontakt, nazywając urządzenie w sposób opisowy:
@@ -255,6 +282,26 @@
             <li><code>Kasia_i_Antek_Wroclaw_Krzyki</code></li>
             <li><code>Grupa_Jezyce_Poznan</code></li>
         </ul>
+
+        <h2>5. Lista kontaktów i wybrane kanały</h2>
+        <p>
+            W zakładce kontaktów znajdziesz listę dostępnych stacji oraz aktywnych kanałów rozmów (np. <code>#polska</code>, <code>#zachod</code> czy kanały regionalne).
+        </p>
+
+        <div class="screenshot-container">
+            <img src="companion_conacts.jpg" alt="Lista kontaktów i kanałów w aplikacji Companion" class="screenshot-img">
+            <div class="screenshot-caption">Widok listy kontaktów oraz wybranych kanałów</div>
+        </div>
+
+        <h2>6. Wysyłanie i odbieranie wiadomości</h2>
+        <p>
+            Okno rozmowy działa jak klasyczny komunikator tekstowy. Wiadomości przesyłane są drogą radiową przez pobliskie przekaźniki MeshCore.
+        </p>
+
+        <div class="screenshot-container">
+            <img src="companion_messages.jpg" alt="Ekran rozmowy i wiadomości w aplikacji Companion" class="screenshot-img">
+            <div class="screenshot-caption">Widok czatu i wymiany wiadomości radiowych</div>
+        </div>
     </div>
 
     <footer>
