@@ -230,7 +230,6 @@
         </p>
         <p>
             <a href="https://meshcore.io/flasher" target="_blank" rel="noopener noreferrer" class="btn-action">Instalator oprogramowania w przeglądarce →</a>
-            <a href="https://meshcore.io" target="_blank" rel="noopener noreferrer" class="btn-action">Lista polecanego sprzętu →</a>
         </p>
 
         <div class="alert-callout alert-callout-info">
@@ -243,42 +242,62 @@
             <li>Otwórz aplikację <strong>Companion</strong> i wybierz swoje urządzenie z listy (np. <code>MeshCore-XXXX</code>).</li>
         </ol>
 
-        <h2>3. Ustawienia radia i profilu</h2>
+        <h2>3. Ustawienia podstawowe i radiowe</h2>
         <p>
-            Kliknij ikonkę koła zębatego (Ustawienia) w prawym górnym rogu aplikacji. Jak widać na poniższym zrzucie ekranu, podstawowe opcje znajdują się bezpośrednio w głównym menu ustawień:
+            Kliknij ikonkę koła zębatego (Ustawienia) w prawym górnym rogu aplikacji. W tym miejscu możesz skonfigurować swoje dane publiczne oraz parametry radiowe i sieciowe:
         </p>
 
         <ul>
-            <li><strong>Nazwa węzła / użytkownika:</strong> Ustaw czytelny podpis (np. imię i miejscowość/dzielnicę, jak <code>Marek_Sulechow</code>).</li>
-            <li><strong>Przedrostek 3-bajtowy:</strong> Włącz tę opcję przełącznikiem, aby usprawnić dostarczanie wiadomości.</li>
-            <li><strong>Domyślny kod kraju / region:</strong> Wpisz <strong><code>pl</code></strong> (zalecany region domyślny dla Polski).</li>
+            <li><strong>Informacje publiczne:</strong> Ustaw swoją <em>Nazwę</em> (np. <code>Jaco Lubań</code>), i (jeżeli chcesz pojawiać się na mapie) współrzędne geograficzne oraz opcję <em>Udostępniaj pozycję w advertach</em>.</li>
+            <li><strong>Ustawienia radiowe:</strong> Wybierz odpowiedni preset (np. <code>EU/UK (Narrow)</code> dla Polski) lub dostosuj częstotliwość (np. <code>869.618 MHz</code>) oraz moc nadawania. Nie włączaj opcji <em>Tryb przekaźnika (repeat)</em> na urządzeniu mobilnym.</li>
+            <li><strong>Network Settings:</strong> Ustaw <em>Domyślny rozmiar hasha ścieżki</em> na <strong>3 bajty (maks. 21 hopów)</strong> oraz <em>Domyślny zakres regionu</em> wpisując <strong><code>pl</code></strong>.</li>
         </ul>
 
         <p>Zapisz konfigurację ikonką ptaszka w prawym górnym rogu.</p>
 
         <div class="screenshot-container">
-            <img src="companion_basic.jpg" alt="Ustawienia podstawowe aplikacji Companion" class="screenshot-img">
-            <div class="screenshot-caption">Ekran ustawień radia z włączonym przedrostkiem 3-bajtowym oraz regionem <code>pl</code></div>
+            <a href="companion_basic.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
+                <img src="companion_basic.jpg" alt="Ustawienia podstawowe i radiowe aplikacji Companion" class="screenshot-img">
+            </a>
+            <div class="screenshot-caption">Kliknij obraz, aby powiększyć: Ekran główny ustawień z danymi węzła, parametrami radia oraz regionem <code>pl</code></div>
         </div>
 
-        <h2>4. Contacts i kanały rozmów</h2>
+        <h2>4. Ustawienia kontaktów</h2>
         <p>
-            W zakładce z kontaktami znajdziesz listę odebranych urządzeń oraz kanały tematyczne i regionalne (np. <code>#polska</code>, <code>#zachod</code>).
+            W sekcji <strong>Ustawienia kontaktu</strong> decydujesz, w jaki sposób companion zapisuje odnalezione w sieci węzły:
         </p>
 
+        <ul>
+            <li><strong>Automatyczne dodawanie:</strong> Wybierz <em>Automatycznie dodawaj wybrane</em> i zaznacz jakiego typu urządzenia chcesz dodawać do kontaktów: użytkowników czatu, repeatery, room servery oraz sensory.</li>
+            <li><strong>Nadpisuj najstarsze:</strong> Włącz tę opcję, aby pełna lista kontaktów automatycznie zwalniała miejsce usuwając nieoznaczone jako ulubione, najstarsze pozycje.</li>
+            <li><strong>Maksymalna liczba hopów:</strong> Pozostaw pole puste lub ustaw limit (np. <code>6</code>), aby dodawać tylko bliższe urządzenia.</li>
+            <li><strong>Pokaż klucze publiczne:</strong> Zalecane włączenie opcji w celu łatwiejszej weryfikacji tożsamości użytkowników na liście kontaktów.</li>
+        </ul>
+
         <div class="screenshot-container">
-            <img src="companion_conacts.jpg" alt="Lista kontaktów i kanałów w aplikacji Companion" class="screenshot-img">
-            <div class="screenshot-caption">Widok listy kontaktów oraz dostępnych kanałów</div>
+            <a href="companion_conacts.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
+                <img src="companion_conacts.jpg" alt="Ustawienia kontaktów w aplikacji Companion" class="screenshot-img">
+            </a>
+            <div class="screenshot-caption">Kliknij obraz, aby powiększyć: Opcje automatycznego dodawania i zarządzania listą kontaktów</div>
         </div>
 
-        <h2>5. Rozmowa tekstowa</h2>
+        <h2>5. Ustawienia wiadomości i transmisji</h2>
         <p>
-            Wybierz kontakt lub kanał, aby przejść do tradycyjnego okna czatu. Wiadomości przesyłane są drogą radiową przez lokalne przekaźniki MeshCore.
+            W zakładce <strong>Ustawienia wiadomości</strong> skonfigurujesz zachowanie komunikatora podczas nadawania i odbierania komunikatów:
         </p>
 
+        <ul>
+            <li><strong>Automatyczne ponawianie i reset ścieżki:</strong> Zaznacz obie opcje, aby aplikacja sama próbowała ponownie wysłać niepotwierdzoną wiadomość prywatną lub zmieniła tryb na <em>flood</em>.</li>
+            <li><strong>Potwierdzenia wiadomości bezpośrednich (ACK):</strong> Domyślnie ustaw wartość <strong>2</strong> dla optymalnej niezawodności bez zbędnego obciążania sieci.</li>
+            <li><strong>Oznacz jako dostarczone szybciej:</strong> Włącz tę opcję, aby otrzymać informację o dostarczeniu od razu po pierwszym odebranym potwierdzeniu.</li>
+            <li><strong>Opcje dodatkowe:</strong> Warto włączyć <em>Pokazuj liczbę przeskoków</em>, <em>Pokaż rozmiary hashy ścieżek</em> oraz <em>Show Channel Messages Region Scopes</em>.</li>
+        </ul>
+
         <div class="screenshot-container">
-            <img src="companion_messages.jpg" alt="Ekran wiadomości w aplikacji Companion" class="screenshot-img">
-            <div class="screenshot-caption">Wymiana krótkich wiadomości radiowych w aplikacji</div>
+            <a href="companion_messages.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
+                <img src="companion_messages.jpg" alt="Ustawienia wiadomości w aplikacji Companion" class="screenshot-img">
+            </a>
+            <div class="screenshot-caption">Kliknij obraz, aby powiększyć: Szczegółowe opcje dostarczania wiadomości, ponawiania prób i potwierdzeń ACK</div>
         </div>
     </div>
 
