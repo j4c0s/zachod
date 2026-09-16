@@ -144,7 +144,7 @@
             text-decoration: none;
             padding: 12px 24px;
             border-radius: 12px;
-            margin: 8px 0;
+            margin: 6px 8px 6px 0;
             transition: all 0.2s ease;
             box-shadow: 0 4px 12px var(--accent-primary-glow);
         }
@@ -157,7 +157,7 @@
         .alert-callout {
             border-radius: 16px;
             padding: 20px;
-            margin: 28px 0;
+            margin: 24px 0;
             border: 1px solid transparent;
             font-size: 0.95rem;
             line-height: 1.6;
@@ -191,7 +191,7 @@
 
         .screenshot-img {
             max-width: 100%;
-            max-height: 550px;
+            max-height: 520px;
             width: auto;
             height: auto;
             border-radius: 12px;
@@ -222,85 +222,63 @@
         <a href="index.html" class="nav-back">← Powrót do strony głównej</a>
 
         <h1>Companion – Urządzenie i Aplikacja do Rozmów</h1>
-        <div class="subtitle">Jak połączyć swój telefon z darmowym radiem MeshCore, aby łatwo i bezpłatnie rozmawiać ze znajomymi i innymi użytkownikami sieci. Całość działa jak prosty komunikator tekstowy na krótkie, zwięzłe wiadomości (do 150 znaków).</div>
+        <div class="subtitle">Jak połączyć telefon z kieszonkowym radiem MeshCore i rozmawiać bez zasięgu sieci komórkowej czy internetu. Komunikator służy do wymiany zwięzłych wiadomości tekstowych (do 150 znaków).</div>
 
-        <h2>1. Wybór sprzętu i przygotowanie urządzenia</h2>
+        <h2>1. Sprzęt i oprogramowanie</h2>
         <p>
-            Aby stworzyć własny, kieszonkowy kompanion do bezpośredniej łączności w terenie, potrzebujesz małego urządzenia radiowego. Wszystkie nasze urządzenia w regionie zachodnim działają na bezpiecznym, przyjaznym dla środowiska pasie <strong>868 MHz</strong>. Kompletną listę polecanych, łatwo dostępnych urządzeń (takich jak Heltec V3 czy T-Beam) znajdziesz tutaj:
+            Wszystkie urządzenia w sieci działają na paśmie <strong>868 MHz</strong> (np. Heltec V3, T-Beam). Programowanie radia wykonasz w kilkanaście sekund bezpośrednio w przeglądarce:
         </p>
         <p>
-            <a href="https://meshcore.io" target="_blank" rel="noopener noreferrer" class="btn-action">Sprawdź listę polecanego sprzętu →</a>
-        </p>
-        <p>
-            Instalacja oprogramowania na urządzeniu jest niezwykle prosta i nie wymaga żadnej wiedzy hakerskiej. Wystarczy podłączyć je kabelkiem USB do komputera i kliknąć przycisk w oficjalnym instalatorze w przeglądarce internetowej:
-        </p>
-        <p>
-            <a href="https://meshcore.io/flasher" target="_blank" rel="noopener noreferrer" class="btn-action">Uruchom prosty instalator internetowy →</a>
+            <a href="https://meshcore.io/flasher" target="_blank" rel="noopener noreferrer" class="btn-action">Instalator oprogramowania w przeglądarce →</a>
+            <a href="https://meshcore.io" target="_blank" rel="noopener noreferrer" class="btn-action">Lista polecanego sprzętu →</a>
         </p>
 
         <div class="alert-callout alert-callout-info">
-            <strong>🔋 Dodatkowe oszczędzanie baterii:</strong> Jeśli chcesz, aby Twoje kieszonkowe urządzenie działało na baterii jeszcze dłużej podczas całodniowych wypraw w teren, polecamy wgranie zoptymalizowanej wersji oprogramowania z oszczędzaniem energii:
-            <a href="https://github.com/IoTThinks/EasySkyMesh/releases" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); font-weight: 700;">IoTThinks EasySkyMesh releases</a>.
+            <strong>🔋 Oszczędzanie energii:</strong> Dla maksymalnego czasu pracy na baterii polecamy firmware <a href="https://github.com/IoTThinks/EasySkyMesh/releases" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); font-weight: 700;">IoTThinks EasySkyMesh</a>.
         </div>
 
-        <h2>2. Łączenie z telefonem (Bluetooth)</h2>
+        <h2>2. Połączenie Bluetooth</h2>
         <ol>
-            <li>Upewnij się, że Bluetooth w Twoim telefonie jest włączony.</li>
-            <li>Włącz swoje małe kieszonkowe radio LoRa.</li>
-            <li>Otwórz na telefonie oficjalną, polską aplikację <strong>Companion</strong>.</li>
-            <li>Wybierz wyszukane urządzenie z listy (najczęściej pojawia się pod nazwą <code>MeshCore-XXXX</code>) i połącz się z nim jednym kliknięciem. Urządzenia są już sparowane i gotowe do drogi!</li>
+            <li>Włącz Bluetooth w telefonie oraz uruchom radio.</li>
+            <li>Otwórz aplikację <strong>Companion</strong> i wybierz swoje urządzenie z listy (np. <code>MeshCore-XXXX</code>).</li>
         </ol>
 
-        <h2>3. Przygotowanie do darmowych rozmów (Prefix 3-bajtowy)</h2>
+        <h2>3. Ustawienia radia i profilu</h2>
         <p>
-            Aplikacja Companion posiada opcję, która dba o to, by wiadomości wysyłane przez nasze urządzenia sprawnie docierały do celu bez zakłóceń. Warto ją włączyć:
-        </p>
-        <ol>
-            <li>W prawym górnym rogu aplikacji Companion kliknij ikonkę z kołem zębatym (Ustawienia).</li>
-            <li>Przewiń ekran na sam dół do zakładki <strong>Opcje Eksperymentalne (Experimental Options)</strong>.</li>
-            <li>Zaznacz opcję <strong>prefix 3-byte</strong>.</li>
-            <li>Zatwierdź zmiany klikając ikonkę ptaszka (Zapisz) w prawym górnym rogu. I to wszystko!</li>
-        </ol>
-
-        <div class="screenshot-container">
-            <img src="companion_basic.jpg" alt="Ustawienia aplikacji Companion" class="screenshot-img">
-            <div class="screenshot-caption">Widok ekranu ustawień podstawowych w aplikacji Companion</div>
-        </div>
-
-        <h2>4. Przyjazne nazywanie swojego urządzenia</h2>
-        <p>
-            W naszej sieci nie ma surowych, technicznych reguł, ale bardzo cenimy sobie wzajemną życzliwość i otwartość. Ponieważ kieszonkowe urządzenia zazwyczaj nie mają aktywnego odbiornika GPS w celu oszczędzania baterii, niezwykle ułatwimy sobie kontakt, nazywając urządzenie w sposób opisowy:
+            Kliknij ikonkę koła zębatego (Ustawienia) w prawym górnym rogu aplikacji. Jak widać na poniższym zrzucie ekranu, podstawowe opcje znajdują się bezpośrednio w głównym menu ustawień:
         </p>
 
-        <div class="alert-callout alert-callout-warn">
-            <strong>🌻 Dobra praktyka społecznościowa:</strong> Podpisz się swoim imieniem lub pseudonimem oraz podaj swoją miejscowość lub dzielnicę. Dzięki temu inni użytkownicy będą wiedzieć, z kim rozmawiają i skąd dociera sygnał!
-        </div>
-
-        <p>Przykłady bardzo ładnych, przyjaznych nazw:</p>
         <ul>
-            <li><code>Marek_Sulechow</code></li>
-            <li><code>Kasia_i_Antek_Wroclaw_Krzyki</code></li>
-            <li><code>Grupa_Jezyce_Poznan</code></li>
+            <li><strong>Nazwa węzła / użytkownika:</strong> Ustaw czytelny podpis (np. imię i miejscowość/dzielnicę, jak <code>Marek_Sulechow</code>).</li>
+            <li><strong>Przedrostek 3-bajtowy:</strong> Włącz tę opcję przełącznikiem, aby usprawnić dostarczanie wiadomości.</li>
+            <li><strong>Domyślny kod kraju / region:</strong> Wpisz <strong><code>pl</code></strong> (zalecany region domyślny dla Polski).</li>
         </ul>
 
-        <h2>5. Lista kontaktów i wybrane kanały</h2>
+        <p>Zapisz konfigurację ikonką ptaszka w prawym górnym rogu.</p>
+
+        <div class="screenshot-container">
+            <img src="companion_basic.jpg" alt="Ustawienia podstawowe aplikacji Companion" class="screenshot-img">
+            <div class="screenshot-caption">Ekran ustawień radia z włączonym przedrostkiem 3-bajtowym oraz regionem <code>pl</code></div>
+        </div>
+
+        <h2>4. Contacts i kanały rozmów</h2>
         <p>
-            W zakładce kontaktów znajdziesz listę dostępnych stacji oraz aktywnych kanałów rozmów (np. <code>#polska</code>, <code>#zachod</code> czy kanały regionalne).
+            W zakładce z kontaktami znajdziesz listę odebranych urządzeń oraz kanały tematyczne i regionalne (np. <code>#polska</code>, <code>#zachod</code>).
         </p>
 
         <div class="screenshot-container">
             <img src="companion_conacts.jpg" alt="Lista kontaktów i kanałów w aplikacji Companion" class="screenshot-img">
-            <div class="screenshot-caption">Widok listy kontaktów oraz wybranych kanałów</div>
+            <div class="screenshot-caption">Widok listy kontaktów oraz dostępnych kanałów</div>
         </div>
 
-        <h2>6. Wysyłanie i odbieranie wiadomości</h2>
+        <h2>5. Rozmowa tekstowa</h2>
         <p>
-            Okno rozmowy działa jak klasyczny komunikator tekstowy. Wiadomości przesyłane są drogą radiową przez pobliskie przekaźniki MeshCore.
+            Wybierz kontakt lub kanał, aby przejść do tradycyjnego okna czatu. Wiadomości przesyłane są drogą radiową przez lokalne przekaźniki MeshCore.
         </p>
 
         <div class="screenshot-container">
-            <img src="companion_messages.jpg" alt="Ekran rozmowy i wiadomości w aplikacji Companion" class="screenshot-img">
-            <div class="screenshot-caption">Widok czatu i wymiany wiadomości radiowych</div>
+            <img src="companion_messages.jpg" alt="Ekran wiadomości w aplikacji Companion" class="screenshot-img">
+            <div class="screenshot-caption">Wymiana krótkich wiadomości radiowych w aplikacji</div>
         </div>
     </div>
 
