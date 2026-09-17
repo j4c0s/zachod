@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Ustawianie Regionów i Scope w Companionie – MeshCore</title>
+    <style>
+        :root {
+            --bg-page: #fbfbf9;
+            --bg-card: #ffffff;
+            --text-main: #1c2d1e;
+            --text-muted: #536455;
+            --border: #e1e7e2;
+
+            --accent-primary: #2d7d46;
+            --accent-primary-hover: #1e592f;
+            --accent-primary-glow: rgba(45, 125, 70, 0.08);
+
+            --bg-warn: #fdf8f5;
+            --border-warn: #fbe6de;
+            --accent-warn: #e07a5f;
+
+            --bg-success: #f4faf6;
+            --border-success: #e1f2e6;
+            --accent-success: #2d7d46;
+
+            --shadow: 0 6px 16px rgba(45, 125, 70, 0.04), 0 2px 4px rgba(45, 125, 70, 0.02);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-page: #101911;
+                --bg-card: #162418;
+                --text-main: #f0f4f1;
+                --text-muted: #8ca38f;
+                --border: #233827;
+
+                --accent-primary: #52b774;
+                --accent-primary-hover: #76cf94;
+                --accent-primary-glow: rgba(82, 183, 116, 0.15);
+
+                --bg-warn: rgba(224, 122, 95, 0.08);
+                --border-warn: rgba(224, 122, 95, 0.2);
+                --accent-warn: #f39274;
+
+                --bg-success: rgba(82, 183, 116, 0.08);
+                --border-success: rgba(82, 183, 116, 0.2);
+                --accent-success: #52b774;
+
+                --shadow: 0 6px 16px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s ease;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 32px 24px;
+            width: 100%;
+        }
+
+        .nav-back {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .nav-back:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            margin: 0 0 12px 0;
+            color: var(--text-main);
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            line-height: 1.55;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin: 36px 0 18px 0;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+        }
+
+        ol, ul {
+            padding-left: 20px;
+            margin-bottom: 24px;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.55;
+        }
+
+        li strong {
+            color: var(--text-main);
+        }
+
+        code {
+            background-color: var(--accent-primary-glow);
+            color: var(--accent-primary);
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .alert-callout {
+            border-radius: 16px;
+            padding: 20px;
+            margin: 24px 0;
+            border: 1px solid transparent;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            box-shadow: var(--shadow);
+        }
+
+        .alert-callout-info {
+            background-color: var(--bg-success);
+            border-color: var(--border-success);
+            color: var(--text-muted);
+        }
+
+        .alert-callout-info strong {
+            color: var(--accent-success);
+        }
+
+        .alert-callout-warn {
+            background-color: var(--bg-warn);
+            border-color: var(--border-warn);
+            color: var(--text-muted);
+        }
+
+        .alert-callout-warn strong {
+            color: var(--accent-warn);
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin: 24px 0;
+        }
+
+        .screenshot-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .screenshot-img {
+            max-width: 100%;
+            max-height: 480px;
+            width: auto;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            display: inline-block;
+        }
+
+        .screenshot-caption {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+            line-height: 1.4;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 24px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="companion.html" class="nav-back">← Powrót do instrukcji Companion</a>
+
+        <h1>Ustawianie Regionów i Scope w Companionie</h1>
+        <div class="subtitle">Instrukcja krok po kroku, jak poprawnie skonfigurować zakresy regionalne (scopes) dla kanałów w aplikacji MeshCore Companion na telefonie.</div>
+
+        <div class="alert-callout alert-callout-info">
+            <strong>🗓️ Harmonogram wdrażania regionów:</strong> Do 31 sierpnia trwa faza przygotowawcza (konfiguracja przekaźników). Od września wprowadzamy aktywne korzystanie z zakresów regionalnych na kanałach użytkowników w aplikacji Companion.
+        </div>
+
+        <h2>1. Po co ustawiać Region Scope w Companionie?</h2>
+        <p>
+            Przypisanie zakresu (scope) do kanału sprawia, że wiadomości wysyłane na tym kanale będą propagowane w sieci tylko przez te przekaźniki (repeatery), które posiadają w swojej konfiguracji dany region. Zapobiega to niepotrzebnemu zapychaniu całej sieci lokalnymi dyskusjami i gwarantuje, że wiadomości trafiają tam, gdzie mają największe znaczenie:
+        </p>
+        <ul>
+            <li><code>pl</code> – zasięg ogólnopolski (np. kanał <code>#polska</code>, <code>#sos</code>).</li>
+            <li><code>pl/ds</code> lub <code>pl/lb</code> – zasięg wojewódzki (np. <code>#dolnoslaskie</code>, <code>#lubuskie</code>).</li>
+            <li><code>pl/ds/wro</code> – zasięg lokalny / miejski (np. <code>#wroclaw</code>, <code>#wroc-tech</code>).</li>
+        </ul>
+
+        <h2>2. Krok 1: Edycja ustawień kanału</h2>
+        <p>
+            Otwórz aplikację Companion, przejdź do zakładki z kanałami i kliknij ikonę edycji (ołówek lub zębatka) przy wybranym kanale lub dodaj nowy kanał.
+        </p>
+
+        <div class="screenshot-grid">
+            <div class="screenshot-card">
+                <a href="region1.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
+                    <img src="region1.jpg" alt="Ekran edycji kanału w aplikacji Companion" class="screenshot-img">
+                </a>
+                <div class="screenshot-caption">Krok 1: Ekran edycji kanału z polem klucza PSK oraz Region Scope</div>
+            </div>
+            <div class="screenshot-card">
+                <a href="region2.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
+                    <img src="region2.jpg" alt="Wpisywanie klucza PSK i zakreślone pole regionu" class="screenshot-img">
+                </a>
+                <div class="screenshot-caption">Krok 2: Wprowadzanie klucza PSK (domyślnie <code>1</code>) oraz zakresu regionalnego</div>
+            </div>
+        </div>
+
+        <h2>3. Krok 2: Przypisanie zakresu (Scope) do kanału</h2>
+        <p>
+            W polu <strong>Region scope</strong> wpisz kod odpowiadający poziomowi terytorialnemu danego kanału. Poniżej przedstawiono przykłady dla kanału krajowego, wojewódzkiego oraz lokalnego:
+        </p>
+
+        <div class="screenshot-grid">
+            <div class="screenshot-card">
+                <a href="region3.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
+                    <img src="region3.jpg" alt="Kanał #polska z regionem pl" class="screenshot-img">
+                </a>
+                <div class="screenshot-caption"><strong>Zakres ogólnopolski (<code>pl</code>):</strong> Kanał <code>#polska</code> z zakresem <code>pl</code></div>
+            </div>
+            <div class="screenshot-card">
+                <a href="region4.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
+                    <img src="region4.jpg" alt="Kanał #dolnoslaskie z regionem pl/ds" class="screenshot-img">
+                </a>
+                <div class="screenshot-caption"><strong>Zakres wojewódzki (<code>pl/ds</code>):</strong> Kanał <code>#dolnoslaskie</code> z zakresem <code>pl/ds</code></div>
+            </div>
+            <div class="screenshot-card">
+                <a href="region5.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
+                    <img src="region5.jpg" alt="Kanał #wroclaw z regionem pl/ds/wro" class="screenshot-img">
+                </a>
+                <div class="screenshot-caption"><strong>Zakres lokalny (<code>pl/ds/wro</code>):</strong> Kanał <code>#wroclaw</code> z zakresem <code>pl/ds/wro</code></div>
+            </div>
+        </div>
+
+        <p>
+            Zakresy tworzą hierarchię terytorialną. Jeżeli wpisujesz zakresy wielopoziomowe, używaj ukośnika <code>/</code>, np. <code>pl/ds</code> dla Dolnego Śląska lub <code>pl/ds/wro</code> dla Wrocławia.
+        </p>
+
+        <div class="screenshot-grid">
+            <div class="screenshot-card">
+                <a href="region11.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
+                    <img src="region11.jpg" alt="Wprowadzanie scope pl/ds w ustawieniach kanału" class="screenshot-img">
+                </a>
+                <div class="screenshot-caption">Podgląd formularza z wpisanym zakresem <code>pl/ds</code></div>
+            </div>
+            <div class="screenshot-card">
+                <a href="region12.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
+                    <img src="region12.jpg" alt="Wprowadzanie scope pl/ds/wro w ustawieniach kanału" class="screenshot-img">
+                </a>
+                <div class="screenshot-caption">Podgląd formularza z wpisanym zakresem miejskim <code>pl/ds/wro</code></div>
+            </div>
+        </div>
+
+        <h2>4. Krok 3: Weryfikacja nagłówka w widoku rozmowy</h2>
+        <p>
+            Po zapisaniu kanału, po wejściu w okno czatu, pod nazwą kanału na górnym pasku pojawi się podgląd aktywnego zakresu (np. <code>↳ Region: pl</code>). Daje to pewność, że wiadomości będą wysyłane z odpowiednim zakresem regionalnym.
+        </p>
+
+        <div class="screenshot-grid">
+            <div class="screenshot-card">
+                <a href="region6.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
+                    <img src="region6.jpg" alt="Widok nagłówka kanału #polska z widocznym Region: pl" class="screenshot-img">
+                </a>
+                <div class="screenshot-caption">Nagłówek czatu <code>#polska</code> z potwierdzonym <code>↳ Region: pl</code></div>
+            </div>
+            <div class="screenshot-card">
+                <a href="region7.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
+                    <img src="region7.jpg" alt="Widok nagłówka kanału #sos z widocznym Region: pl" class="screenshot-img">
+                </a>
+                <div class="screenshot-caption">Nagłówek czatu <code>#sos</code> z potwierdzonym <code>↳ Region: pl</code></div>
+            </div>
+        </div>
+
+        <h2>5. Krok 4: Ustawienie domyślnego regionu aplikacji</h2>
+        <p>
+            Aby Twoje urządzenie domyślnie tworzyło pakiety przypisane do Polski (jeżeli kanał nie ma własnego nadpisania), przejdź do **Ustawienia główne → Network Settings** i ustaw pole **Domyślny zakres regionu** na <code>pl</code>.
+        </p>
+
+        <div class="screenshot-grid">
+            <div class="screenshot-card">
+                <a href="region9.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
+                    <img src="region9.jpg" alt="Ustawienie Domyślny zakres regionu w aplikacji Companion" class="screenshot-img">
+                </a>
+                <div class="screenshot-caption">Ustawienia sieciowe: Domyślny zakres regionu ustawiony na <code>pl</code></div>
+            </div>
+        </div>
+
+        <h2>6. Krok 5: Znaczniki regionu przy wiadomościach w czacie</h2>
+        <p>
+            Włączając w ustawieniach opcję <em>Show Channel Messages Region Scopes</em>, pod każdą odebraną i wysłaną wiadomością obok informacji o rozmiarze path hasha (np. <code>3-byte</code>) pojawi się czytelny Znacznik Regionu (np. <code>• pl</code>).
+        </p>
+
+        <div class="screenshot-grid">
+            <div class="screenshot-card">
+                <a href="region8.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
+                    <img src="region8.jpg" alt="Stopka wiadomości ze znacznikiem 3-byte oraz regionu pl" class="screenshot-img">
+                </a>
+                <div class="screenshot-caption">Stopka wiadomości z zakreślonym znacznikiem regionu <code>• pl</code></div>
+            </div>
+            <div class="screenshot-card">
+                <a href="region10.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
+                    <img src="region10.jpg" alt="Powiększony fragment stopki wiadomości ze znacznikiem pl" class="screenshot-img">
+                </a>
+                <div class="screenshot-caption">Powiększenie stopki wiadomości: czytelny znacznik <code>• pl</code> przy komunikacie</div>
+            </div>
+        </div>
+
+        <div class="alert-callout alert-callout-warn">
+            <strong>💡 Wskazówka:</strong> Szczegółowy spis wszystkich dostępnych kodów obszarów i województw znajdziesz w przewodniku <a href="regiony.html" style="color: var(--accent-warn); font-weight: 700;">Regiony i Zasięgi</a>.
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 Społeczność MeshCore Zachód. Wygenerowano przez AI, zauważyłeś błąd? Napisz do Jaco Lubań.</p>
+    </footer>
+
+</body>
+</html>
