@@ -223,139 +223,113 @@
     <div class="container">
         <a href="companion.html" class="nav-back">← Powrót do instrukcji Companion</a>
 
-        <h1>Ustawianie Regionów i Scope w Companionie</h1>
-        <div class="subtitle">Instrukcja krok po kroku, jak poprawnie skonfigurować zakresy regionalne (scopes) dla kanałów w aplikacji MeshCore Companion na telefonie.</div>
+        <h1>Ustawianie Regionów w aplikacji Companion</h1>
+        <div class="subtitle">Instrukcja krok po kroku, jak zarządzać listą regionów oraz przypisywać je do kanałów w aplikacji MeshCore Companion.</div>
 
         <div class="alert-callout alert-callout-info">
             <strong>🗓️ Harmonogram wdrażania regionów:</strong> Do 31 sierpnia trwa faza przygotowawcza (konfiguracja przekaźników). Od września wprowadzamy aktywne korzystanie z zakresów regionalnych na kanałach użytkowników w aplikacji Companion.
         </div>
 
-        <h2>1. Po co ustawiać Region Scope w Companionie?</h2>
+        <h2>1. Po co ustawiać Region w Companionie?</h2>
         <p>
-            Przypisanie zakresu (scope) do kanału sprawia, że wiadomości wysyłane na tym kanale będą propagowane w sieci tylko przez te przekaźniki (repeatery), które posiadają w swojej konfiguracji dany region. Zapobiega to niepotrzebnemu zapychaniu całej sieci lokalnymi dyskusjami i gwarantuje, że wiadomości trafiają tam, gdzie mają największe znaczenie:
+            Przypisanie regionu do kanału sprawia, że wiadomości wysyłane na tym kanale będą propagowane w sieci tylko przez te przekaźniki (repeatery), które obsługują dany obszar. Zapobiega to niepotrzebnemu zapychaniu sieci lokalnymi dyskusjami i gwarantuje, że komunikaty trafiają do właściwych odbiorców:
         </p>
         <ul>
             <li><code>pl</code> – zasięg ogólnopolski (np. kanał <code>#polska</code>, <code>#sos</code>).</li>
-            <li><code>pl/ds</code> lub <code>pl/lb</code> – zasięg wojewódzki (np. <code>#dolnoslaskie</code>, <code>#lubuskie</code>).</li>
-            <li><code>pl/ds/wro</code> – zasięg lokalny / miejski (np. <code>#wroclaw</code>, <code>#wroc-tech</code>).</li>
+            <li><code>zachod</code> – zasięg makroregionu zachodniego (woj. dolnoslaskie, lubuskie i wielkopolskie).</li>
+            <li><code>pl-ds</code>, <code>pl-lb</code> lub <code>wlkp</code> – zasięg wojewódzki.</li>
+            <li><code>wro</code> / <code>luzyce</code> – zasięgi miejskie, lokalne i subregionalne.</li>
         </ul>
 
-        <h2>2. Krok 1: Edycja ustawień kanału</h2>
+        <h2>2. Krok 1: Otwarcie menu regionów kanału</h2>
         <p>
-            Otwórz aplikację Companion, przejdź do zakładki z kanałami i kliknij ikonę edycji (ołówek lub zębatka) przy wybranym kanale lub dodaj nowy kanał.
+            Wejdź w wybrany kanał (np. <code>#sos</code>), kliknij menu trzech kropek w prawym górnym rogu ekranu, a następnie wybierz opcję <strong>Ustaw zakres regionu</strong>.
         </p>
 
         <div class="screenshot-grid">
             <div class="screenshot-card">
                 <a href="region1.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
-                    <img src="region1.jpg" alt="Ekran edycji kanału w aplikacji Companion" class="screenshot-img">
+                    <img src="region1.jpg" alt="Widok czatu z zaznaczonym menu trzech kropek" class="screenshot-img">
                 </a>
-                <div class="screenshot-caption">Krok 1: Ekran edycji kanału z polem klucza PSK oraz Region Scope</div>
+                <div class="screenshot-caption">Krok 1: Otwórz menu opcji w prawym górnym rogu czatu</div>
             </div>
             <div class="screenshot-card">
                 <a href="region2.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
-                    <img src="region2.jpg" alt="Wpisywanie klucza PSK i zakreślone pole regionu" class="screenshot-img">
+                    <img src="region2.jpg" alt="Menu kontekstowe z opcją Ustaw zakres regionu" class="screenshot-img">
                 </a>
-                <div class="screenshot-caption">Krok 2: Wprowadzanie klucza PSK (domyślnie <code>1</code>) oraz zakresu regionalnego</div>
+                <div class="screenshot-caption">Krok 2: Wybierz z menu opcję <strong>Ustaw zakres regionu</strong></div>
             </div>
         </div>
 
-        <h2>3. Krok 2: Przypisanie zakresu (Scope) do kanału</h2>
+        <h2>3. Krok 2: Wyrywanie regionów z okolicznych repeaterów</h2>
         <p>
-            W polu <strong>Region scope</strong> wpisz kod odpowiadający poziomowi terytorialnemu danego kanału. Poniżej przedstawiono przykłady dla kanału krajowego, wojewódzkiego oraz lokalnego:
+            Aplikacja pozwala automatycznie pobrać listę regionów rozgłaszanych przez pobliskie węzły. W oknie <strong>Wybierz region</strong> kliknij menu trzech kropek, wybierz <strong>Wykryj regiony</strong>, a następnie naciśnij przycisk na dole ekranu. Odebrane regiony możesz łatwo dodać do swojej listy przyciskiem <strong>Dodaj</strong>.
         </p>
 
         <div class="screenshot-grid">
             <div class="screenshot-card">
                 <a href="region3.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
-                    <img src="region3.jpg" alt="Kanał #polska z regionem pl" class="screenshot-img">
+                    <img src="region3.jpg" alt="Ekran Wybierz region z zaznaczonym menu opcji" class="screenshot-img">
                 </a>
-                <div class="screenshot-caption"><strong>Zakres ogólnopolski (<code>pl</code>):</strong> Kanał <code>#polska</code> z zakresem <code>pl</code></div>
+                <div class="screenshot-caption">Kliknij menu opcji w ekranie wyboru regionu</div>
             </div>
             <div class="screenshot-card">
                 <a href="region4.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
-                    <img src="region4.jpg" alt="Kanał #dolnoslaskie z regionem pl/ds" class="screenshot-img">
+                    <img src="region4.jpg" alt="Menu rozwijane z opcją Wykryj regiony" class="screenshot-img">
                 </a>
-                <div class="screenshot-caption"><strong>Zakres wojewódzki (<code>pl/ds</code>):</strong> Kanał <code>#dolnoslaskie</code> z zakresem <code>pl/ds</code></div>
+                <div class="screenshot-caption">Wybierz opcję <strong>Wykryj regiony</strong></div>
             </div>
             <div class="screenshot-card">
                 <a href="region5.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
-                    <img src="region5.jpg" alt="Kanał #wroclaw z regionem pl/ds/wro" class="screenshot-img">
+                    <img src="region5.jpg" alt="Ekran Wykryj regiony z przyciskiem skanowania" class="screenshot-img">
                 </a>
-                <div class="screenshot-caption"><strong>Zakres lokalny (<code>pl/ds/wro</code>):</strong> Kanał <code>#wroclaw</code> z zakresem <code>pl/ds/wro</code></div>
+                <div class="screenshot-caption">Naciśnij przycisk <strong>Wykryj regiony</strong>, aby pobrać dane od repeaterów 0-hop</div>
             </div>
-        </div>
-
-        <p>
-            Zakresy tworzą hierarchię terytorialną. Jeżeli wpisujesz zakresy wielopoziomowe, używaj ukośnika <code>/</code>, np. <code>pl/ds</code> dla Dolnego Śląska lub <code>pl/ds/wro</code> dla Wrocławia.
-        </p>
-
-        <div class="screenshot-grid">
-            <div class="screenshot-card">
-                <a href="region11.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
-                    <img src="region11.jpg" alt="Wprowadzanie scope pl/ds w ustawieniach kanału" class="screenshot-img">
-                </a>
-                <div class="screenshot-caption">Podgląd formularza z wpisanym zakresem <code>pl/ds</code></div>
-            </div>
-            <div class="screenshot-card">
-                <a href="region12.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
-                    <img src="region12.jpg" alt="Wprowadzanie scope pl/ds/wro w ustawieniach kanału" class="screenshot-img">
-                </a>
-                <div class="screenshot-caption">Podgląd formularza z wpisanym zakresem miejskim <code>pl/ds/wro</code></div>
-            </div>
-        </div>
-
-        <h2>4. Krok 3: Weryfikacja nagłówka w widoku rozmowy</h2>
-        <p>
-            Po zapisaniu kanału, po wejściu w okno czatu, pod nazwą kanału na górnym pasku pojawi się podgląd aktywnego zakresu (np. <code>↳ Region: pl</code>). Daje to pewność, że wiadomości będą wysyłane z odpowiednim zakresem regionalnym.
-        </p>
-
-        <div class="screenshot-grid">
             <div class="screenshot-card">
                 <a href="region6.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
-                    <img src="region6.jpg" alt="Widok nagłówka kanału #polska z widocznym Region: pl" class="screenshot-img">
+                    <img src="region6.jpg" alt="Lista wykrytych regionów z przyciskiem Dodaj" class="screenshot-img">
                 </a>
-                <div class="screenshot-caption">Nagłówek czatu <code>#polska</code> z potwierdzonym <code>↳ Region: pl</code></div>
+                <div class="screenshot-caption">Kliknij <strong>Dodaj</strong> przy regionie, który chcesz zapisać na swojej liście</div>
             </div>
+        </div>
+
+        <h2>4. Krok 3: Ręczne dodawanie i przypisywanie regionu</h2>
+        <p>
+            Jeśli regionu nie ma na liście, możesz go dodać ręcznie ikoną plusa (<code>+</code>) w prawym górnym rogu. Wpisz nazwę (np. <code>pl</code>) i zatwierdź ikoną `✓`. Następnie zaznacz odpowiedni region na liście, aby przypisać go do bieżącego kanału.
+        </p>
+
+        <div class="screenshot-grid">
             <div class="screenshot-card">
                 <a href="region7.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
-                    <img src="region7.jpg" alt="Widok nagłówka kanału #sos z widocznym Region: pl" class="screenshot-img">
+                    <img src="region7.jpg" alt="Ikona plusa w ekranie Wybierz region" class="screenshot-img">
                 </a>
-                <div class="screenshot-caption">Nagłówek czatu <code>#sos</code> z potwierdzonym <code>↳ Region: pl</code></div>
+                <div class="screenshot-caption">Kliknij plus (<code>+</code>), aby ręcznie dodać nowy region</div>
             </div>
-        </div>
-
-        <h2>5. Krok 4: Ustawienie domyślnego regionu aplikacji</h2>
-        <p>
-            Aby Twoje urządzenie domyślnie tworzyło pakiety przypisane do Polski (jeżeli kanał nie ma własnego nadpisania), przejdź do **Ustawienia główne → Network Settings** i ustaw pole **Domyślny zakres regionu** na <code>pl</code>.
-        </p>
-
-        <div class="screenshot-grid">
-            <div class="screenshot-card">
-                <a href="region9.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
-                    <img src="region9.jpg" alt="Ustawienie Domyślny zakres regionu w aplikacji Companion" class="screenshot-img">
-                </a>
-                <div class="screenshot-caption">Ustawienia sieciowe: Domyślny zakres regionu ustawiony na <code>pl</code></div>
-            </div>
-        </div>
-
-        <h2>6. Krok 5: Znaczniki regionu przy wiadomościach w czacie</h2>
-        <p>
-            Włączając w ustawieniach opcję <em>Show Channel Messages Region Scopes</em>, pod każdą odebraną i wysłaną wiadomością obok informacji o rozmiarze path hasha (np. <code>3-byte</code>) pojawi się czytelny Znacznik Regionu (np. <code>• pl</code>).
-        </p>
-
-        <div class="screenshot-grid">
             <div class="screenshot-card">
                 <a href="region8.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
-                    <img src="region8.jpg" alt="Stopka wiadomości ze znacznikiem 3-byte oraz regionu pl" class="screenshot-img">
+                    <img src="region8.jpg" alt="Formularz Dodaj region z wpisaną nazwą pl" class="screenshot-img">
                 </a>
-                <div class="screenshot-caption">Stopka wiadomości z zakreślonym znacznikiem regionu <code>• pl</code></div>
+                <div class="screenshot-caption">Wpisz nazwę regionu (np. <code>pl</code>) i zapisz haczykiem</div>
             </div>
             <div class="screenshot-card">
-                <a href="region10.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
-                    <img src="region10.jpg" alt="Powiększony fragment stopki wiadomości ze znacznikiem pl" class="screenshot-img">
+                <a href="region9.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
+                    <img src="region9.jpg" alt="Zaznaczenie regionu pl na liście" class="screenshot-img">
                 </a>
-                <div class="screenshot-caption">Powiększenie stopki wiadomości: czytelny znacznik <code>• pl</code> przy komunikacie</div>
+                <div class="screenshot-caption">Zaznacz wybrany region (np. <code>pl</code>), aby przypisać go do kanału</div>
+            </div>
+        </div>
+
+        <h2>5. Krok 4: Weryfikacja aktywnego regionu</h2>
+        <p>
+            Po powrocie do okna czatu pod nazwą kanału (np. <code>#sos</code>) pojawi się nagłówek z potwierdzeniem aktywnego regionu (np. <code>↳ Region: pl</code>). Daje to pewność, że wiadomości na tym kanale będą nadawane z właściwym zakresem.
+        </p>
+
+        <div class="screenshot-grid">
+            <div class="screenshot-card">
+                <a href="region10.jpg" target="_blank" title="Kliknij, aby powiększyć zdjęcie">
+                    <img src="region10.jpg" alt="Podgląd nagłówka kanału z widocznym Region: pl" class="screenshot-img">
+                </a>
+                <div class="screenshot-caption">Potwierdzenie ustawionego regionu w nagłówku czatu: <code>↳ Region: pl</code></div>
             </div>
         </div>
 
