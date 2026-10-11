@@ -586,8 +586,8 @@
                 </div>
                 <div class="advert-box">
                     <h4>🌍 Ogłoszenie Globalne (Flood)</h4>
-                    <p>Jak często przekaźnik ma wysyłać swój status dalej w Polskę (wystarczy raz na 23 godziny):</p>
-                    <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set flood.advert.interval 23</code></pre>
+                    <p>Jak często przekaźnik wysyła swoje rozgłoszenie (advert). Uwaga: adverty zajmują sporo czasu antenowego, zaleca się ustawienie powyżej 48h.</p>
+                    <pre><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>hset flood.advert.interval 49</code></pre>
                 </div>
             </div>
 
@@ -638,6 +638,7 @@
                 <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region allowf [nazwa_regionu]</code></pre>
 
                 <div style="font-weight: bold; color: var(--text-main);"># Przypisanie przekaźnika do domyślnego regionu Twojej okolicy:</div>
+                <div style="font-size: 0.95rem; color: var(--text-muted); margin-top: 2px;">Rekomendacja: Zaleca się, by przekaźnik posiadał default region swojego województwa, lub w przypadku wysokich przekaźników lub tych na granicy województw, region "zachod".</div>
                 <pre style="margin: 0;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>region default [nazwa_regionu]</code></pre>
 
                 <div style="font-weight: bold; color: var(--text-main);"># Trwałe zapisanie ustawień w urządzeniu i ponowne uruchomienie:</div>
@@ -770,9 +771,9 @@
                     </div>
                     <div class="checklist-content">
                         <div class="checklist-title">3. Rozgłaszanie globalne</div>
-                        <div class="checklist-desc">Jak często przesyłać status dalej w Polskę (raz na 23 godziny).</div>
+                        <div class="checklist-desc">Jak często przekaźnik wysyła swoje rozgłoszenie (advert). Uwaga: adverty zajmują sporo czasu antenowego, zaleca się ustawienie powyżej 48h.</div>
                         <div class="checklist-commands">
-                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'advert-global')">kopiuj</button><code>set flood.advert.interval 23</code></pre>
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'advert-global')">kopiuj</button><code>hset flood.advert.interval 49</code></pre>
                         </div>
                     </div>
                 </div>
@@ -862,7 +863,7 @@
                     </div>
                     <div class="checklist-content">
                         <div class="checklist-title">9. Powiązanie domyślnego regionu przekaźnika</div>
-                        <div class="checklist-desc">Ustaw domyślny region dla własnych komunikatów przekaźnika (np. zachod lub pl).</div>
+                        <div class="checklist-desc">Ustaw domyślny region dla własnych komunikatów przekaźnika. Zaleca się, by przekaźnik posiadał default region swojego województwa, lub w przypadku wysokich przekaźników lub tych na granicy województw, region "zachod".</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'region-default')">kopiuj</button><code>region default zachod</code></pre>
                         </div>
