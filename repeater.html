@@ -659,6 +659,10 @@
                     <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set loop.detect minimal</code></pre>
                 </li>
                 <li style="margin-bottom: 20px;">
+                    <strong>Sprzętowe wykrywanie aktywności kanału (CAD):</strong> Włącza skan CAD przed transmisją – radio sprawdza, czy kanał jest zajęty, i wstrzymuje nadawanie, jeśli wykryje ruch, zapobiegając kolizjom pakietów.
+                    <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set cad on</code></pre>
+                </li>
+                <li style="margin-bottom: 20px;">
                     <strong>Lepsze potwierdzenia (Multiple ACKs):</strong> Poprawia odbieranie wiadomości przy bardzo słabym zasięgu.
                     <pre style="margin: 8px 0; padding: 10px 16px; max-width: max-content;"><button class="btn-copy" onclick="copyCode(this)">kopiuj</button><code>set multi.acks 1</code></pre>
                 </li>
@@ -930,7 +934,7 @@
                         <input type="checkbox" class="checklist-checkbox" id="chk-opt-loop" onclick="toggleItem('opt-loop')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">14 . Bezpieczeństwo sieci: Loop Detect</div>
+                        <div class="checklist-title">14. Bezpieczeństwo sieci: Loop Detect</div>
                         <div class="checklist-desc">Włącz wykrywanie pętli, by uchronić sieć przed burzami pakietów.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'opt-loop')">kopiuj</button><code>set loop.detect minimal</code></pre>
@@ -938,13 +942,27 @@
                     </div>
                 </div>
 
-                <!-- Krok 15: Multiple ACKs -->
+                <!-- Krok 15: CAD (Channel Activity Detection) -->
+                <div class="checklist-item" id="item-opt-cad">
+                    <div class="checklist-checkbox-wrapper">
+                        <input type="checkbox" class="checklist-checkbox" id="chk-opt-cad" onclick="toggleItem('opt-cad')">
+                    </div>
+                    <div class="checklist-content">
+                        <div class="checklist-title">15. Wykrywanie aktywności kanału: CAD</div>
+                        <div class="checklist-desc">Włącz sprzętowy skan CAD przed transmisją, by uniknąć zakłócania i kolizji pakietów w eterze.</div>
+                        <div class="checklist-commands">
+                            <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'opt-cad')">kopiuj</button><code>set cad on</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Krok 16: Multiple ACKs -->
                 <div class="checklist-item" id="item-opt-acks">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-opt-acks" onclick="toggleItem('opt-acks')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">15. Potierdzenia otrzymania wiadomości: Multiple ACKs</div>
+                        <div class="checklist-title">16. Potwierdzenia otrzymania wiadomości: Multiple ACKs</div>
                         <div class="checklist-desc">Włącz podwójne potwierdzenia dla lepszego zasięgu na granicach sieci.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'opt-acks')">kopiuj</button><code>set multi.acks 1</code></pre>
@@ -952,13 +970,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 16: Hasło gościa -->
+                <!-- Krok 17: Hasło gościa -->
                 <div class="checklist-item" id="item-opt-guest">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-opt-guest" onclick="toggleItem('opt-guest')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">16. Puste hasło gościa</div>
+                        <div class="checklist-title">17. Puste hasło gościa</div>
                         <div class="checklist-desc">Pozostaw puste hasło gościa dla publicznego podglądu statusu przekaźnika.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'opt-guest')">kopiuj</button><code>set guest.password </code></pre>
@@ -966,13 +984,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 17: txdelay -->
+                <!-- Krok 18: txdelay -->
                 <div class="checklist-item" id="item-txdelay-main">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-txdelay-main" onclick="toggleItem('txdelay-main')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">17. Opóźnienie nadawania (txdelay)</div>
+                        <div class="checklist-title">18. Opóźnienie nadawania (txdelay)</div>
                         <div class="checklist-desc">Wybierz profil wysokości swojego przekaźnika, by automatycznie dobrać komendę poniżej:</div>
 
                         <div class="profile-selector">
@@ -987,13 +1005,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 18: direct.txdelay -->
+                <!-- Krok 19: direct.txdelay -->
                 <div class="checklist-item" id="item-txdelay-direct">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-txdelay-direct" onclick="toggleItem('txdelay-direct')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">18. Opóźnienie bezpośrednie (direct.txdelay)</div>
+                        <div class="checklist-title">19. Opóźnienie bezpośrednie (direct.txdelay)</div>
                         <div class="checklist-desc">Ustawienie opóźnienia dla sygnałów wysyłanych bezpośrednio.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'txdelay-direct')">kopiuj</button><code id="code-dtxdelay">set direct.txdelay 1.0</code></pre>
@@ -1001,13 +1019,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 19: rxdelay -->
+                <!-- Krok 20: rxdelay -->
                 <div class="checklist-item" id="item-txdelay-rx">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-txdelay-rx" onclick="toggleItem('txdelay-rx')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">19. Bezpieczna przerwa (rxdelay)</div>
+                        <div class="checklist-title">20. Bezpieczna przerwa (rxdelay)</div>
                         <div class="checklist-desc">Zapobiega wcinaniu się przekaźnika w trwające jeszcze słuchanie sygnału.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'txdelay-rx')">kopiuj</button><code>set rxdelay 3</code></pre>
@@ -1015,13 +1033,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 20: path.hash.mode -->
+                <!-- Krok 21: path.hash.mode -->
                 <div class="checklist-item" id="item-others-hash">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-others-hash" onclick="toggleItem('others-hash')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">20. Układanie tras: Hash Mode</div>
+                        <div class="checklist-title">21. Układanie tras: Hash Mode</div>
                         <div class="checklist-desc">Ustaw zalecany i nowoczesny sposób podpisywania tras pakietów (tryb 2).</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'others-hash')">kopiuj</button><code>set path.hash.mode 2</code></pre>
@@ -1029,13 +1047,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 21: flood.max -->
+                <!-- Krok 22: flood.max -->
                 <div class="checklist-item" id="item-others-max">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-others-max" onclick="toggleItem('others-max')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">21. Przekazywanie pakietów flood</div>
+                        <div class="checklist-title">22. Przekazywanie pakietów flood</div>
                         <div class="checklist-desc">Ograniczenie maksymalnej drogi sygnałów w całej sieci.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'others-max')">kopiuj</button><code>set flood.max 12</code></pre>
@@ -1043,13 +1061,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 22: flood.max.unscoped -->
+                <!-- Krok 23: flood.max.unscoped -->
                 <div class="checklist-item" id="item-others-unscoped">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-others-unscoped" onclick="toggleItem('others-unscoped')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">22. Ograniczenie ruchu bez regionu</div>
+                        <div class="checklist-title">23. Ograniczenie ruchu bez regionu</div>
                         <div class="checklist-desc">Limitowanie przekazywania sygnałów, które nie mają wybranego regionu.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'others-unscoped')">kopiuj</button><code>set flood.max.unscoped 5</code></pre>
@@ -1057,13 +1075,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 23: flood.max.advert -->
+                <!-- Krok 24: flood.max.advert -->
                 <div class="checklist-item" id="item-others-advert">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-others-advert" onclick="toggleItem('others-advert')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">23. Ograniczenie ruchu advertów</div>
+                        <div class="checklist-title">24. Ograniczenie ruchu advertów</div>
                         <div class="checklist-desc">Limitowanie przekazywania advertów.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'others-advert')">kopiuj</button><code>set flood.max.advert 8</code></pre>
@@ -1071,13 +1089,13 @@
                     </div>
                 </div>
 
-                <!-- Krok 24: powersaving -->
+                <!-- Krok 25: powersaving -->
                 <div class="checklist-item" id="item-others-powersaving">
                     <div class="checklist-checkbox-wrapper">
                         <input type="checkbox" class="checklist-checkbox" id="chk-others-powersaving" onclick="toggleItem('others-powersaving')">
                     </div>
                     <div class="checklist-content">
-                        <div class="checklist-title">24. Oszczędzanie energii</div>
+                        <div class="checklist-title">25. Oszczędzanie energii</div>
                         <div class="checklist-desc">Włącz tryb oszczędzania energii, niezwykle ważny na zasilaniu bateryjnym i solarnym.</div>
                         <div class="checklist-commands">
                             <pre><button class="btn-copy" onclick="copyChecklistCode(this, 'others-powersaving')">kopiuj</button><code>powersaving on</code></pre>
